@@ -7,7 +7,7 @@
 ### **Prerequisites**
 ```bash
 # Install AWS CLI
-curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+curl "https://your-service.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
 unzip awscliv2.zip && sudo ./aws/install
 
 # Configure AWS credentials
@@ -61,7 +61,7 @@ terraform apply
 cp .env.example .env
 
 # Edit with your values:
-AWS_REGION=us-east-1
+AWS_REGION=your-aws-region
 COGNITO_USER_POOL_ID=us-region-1_YOUR_USER_POOL_ID
 COGNITO_CLIENT_ID=59kc5qi8el10a7o36na5qn6m3f
 CLOUDFRONT_DISTRIBUTION_ID=YOUR_CLOUDFRONT_DISTRIBUTION_ID
@@ -129,7 +129,7 @@ curl -X GET "your-opensearch-endpoint/_cluster/health"
 ./scripts/security-scan.sh
 
 # Check WAF rules
-aws wafv2 list-web-acls --scope CLOUDFRONT --region us-east-1
+aws wafv2 list-web-acls --scope CLOUDFRONT --region your-aws-region
 ```
 
 ---

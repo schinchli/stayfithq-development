@@ -9,7 +9,7 @@ const AWS = require('aws-sdk');
 
 // Configure AWS
 AWS.config.update({
-    region: 'us-east-1'
+    region: 'your-aws-region'
 });
 
 const dynamodb = new AWS.DynamoDB.DocumentClient();
@@ -23,7 +23,7 @@ async function testDynamoDBSettings() {
         userId: testUserId,
         timestamp: new Date().toISOString(),
         opensearch: {
-            endpoint: 'https://test-endpoint.us-east-1.es.amazonaws.com',
+            endpoint: 'https://test-endpoint.your-aws-region.es.amazonaws.com',
             index: 'test-health-data',
             username = "your_username",
             password = "your_secure_password"},
@@ -34,13 +34,13 @@ async function testDynamoDBSettings() {
             maxTokens: '1000'
         },
         bedrock: {
-            region: 'us-east-1',
+            region: 'your-aws-region',
             model: 'anthropic.claude-3-5-sonnet-20241022-v2:0',
             temperature: '0.1',
             maxTokens: '4000'
         },
         bedrockHealth: {
-            region: 'us-east-1',
+            region: 'your-aws-region',
             model: 'anthropic.claude-3-5-sonnet-20241022-v2:0',
             temperature: '0.1',
             maxTokens: '4096',
@@ -98,7 +98,7 @@ async function testDynamoDBSettings() {
         // Test 3: Update settings
         console.log('\n🔄 Test 3: Updating settings...');
         testSettings.timestamp = new Date().toISOString();
-        testSettings.opensearch.endpoint = 'https://updated-endpoint.us-east-1.es.amazonaws.com';
+        testSettings.opensearch.endpoint = 'https://updated-endpoint.your-aws-region.es.amazonaws.com';
         
         await dynamodb.put(putParams).promise();
         console.log('✅ Settings updated successfully');

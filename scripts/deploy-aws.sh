@@ -8,7 +8,7 @@ set -e
 # Configuration
 PROJECT_NAME="stayfit-health-companion"
 ENVIRONMENT=${1:-dev}
-AWS_REGION=${2:-us-east-1}
+AWS_REGION=${2:-your-aws-region}
 
 echo "🚀 StayFit Health Companion - Complete AWS Deployment"
 echo "<REDACTED_CREDENTIAL>============="

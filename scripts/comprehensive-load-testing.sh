@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Comprehensive Load Testing Suite for StayFit Health Companion
-# Target: https://d3r155fcnafufg.cloudfront.net/
+# Target: https://your-distribution.cloudfront.net/
 # Author: Shashank Chinchli
 # Date: July 1, 2025
 
@@ -15,7 +15,7 @@ BLUE='\033[0;34m'
 NC='\033[0m' # No Color
 
 # Configuration
-TARGET_URL="https://d3r155fcnafufg.cloudfront.net"
+TARGET_URL="https://your-distribution.cloudfront.net"
 RESULTS_DIR="load-test-results"
 TIMESTAMP=$(date +"%Y%m%d_%H%M%S")
 LOG_FILE="$RESULTS_DIR/load_test_$TIMESTAMP.log"

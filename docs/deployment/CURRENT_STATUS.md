@@ -57,7 +57,7 @@
 
 ### **S3 Bucket Status** 🪣
 - **Bucket:** stayfit-healthhq-web-prod
-- **Region:** us-east-1
+- **Region:** your-aws-region
 - **Status:** ✅ **ACTIVE**
 - **Files:** All HTML, CSS, JS files deployed
 - **Versioning:** ✅ Enabled

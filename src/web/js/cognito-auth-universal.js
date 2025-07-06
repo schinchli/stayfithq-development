@@ -294,7 +294,7 @@ const CognitoAuth = {
             AWS.config.credentials = new AWS.CognitoIdentityCredentials({
                 IdentityPoolId: this.config.identityPoolId,
                 Logins: {
-                    [`cognito-idp.us-east-1.amazonaws.com/${this.config.userPoolId}`]: tokens.idToken
+                    [`cognito-idp.your-aws-region.amazonaws.com/${this.config.userPoolId}`]: tokens.idToken
                 }
             });
             

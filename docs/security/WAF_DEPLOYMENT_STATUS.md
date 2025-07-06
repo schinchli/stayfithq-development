@@ -11,10 +11,10 @@
 ### ✅ WAF Web ACL Status
 - **Name**: StayFit-HealthCompanion-WAF
 - **ID**: 362e4e4e-940c-4626-b014-f61c6318f0fc
-- **ARN**: arn:aws:wafv2:us-east-1:YOUR_AWS_ACCOUNT_ID:global/webacl/StayFit-HealthCompanion-WAF/362e4e4e-940c-4626-b014-f61c6318f0fc
+- **ARN**: arn:aws:wafv2:your-aws-region:YOUR_AWS_ACCOUNT_ID:global/webacl/StayFit-HealthCompanion-WAF/362e4e4e-940c-4626-b014-f61c6318f0fc
 - **Status**: ✅ **DEPLOYED AND ACTIVE**
 - **Scope**: CloudFront (Global)
-- **Region**: us-east-1
+- **Region**: your-aws-region
 
 ### ✅ CloudFront Distribution Status
 - **Distribution ID**: YOUR_CLOUDFRONT_DISTRIBUTION_ID
@@ -59,8 +59,8 @@ The WAF and CloudFront distribution are both deployed in your account but need t
 6. **Click "Add AWS resources" → Select "CloudFront distribution YOUR_CLOUDFRONT_DISTRIBUTION_ID" → Click "Add"**
 
 ### Direct Access Links:
-- **WAF Console**: https://us-east-1.console.aws.amazon.com/wafv2/homev2/web-acls?region=us-east-1
-- **Your WAF**: https://us-east-1.console.aws.amazon.com/wafv2/homev2/web-acl/StayFit-HealthCompanion-WAF/362e4e4e-940c-4626-b014-f61c6318f0fc?region=us-east-1
+- **WAF Console**: https://your-aws-region.console.aws.amazon.com/wafv2/homev2/web-acls?region=your-aws-region
+- **Your WAF**: https://your-aws-region.console.aws.amazon.com/wafv2/homev2/web-acl/StayFit-HealthCompanion-WAF/362e4e4e-940c-4626-b014-f61c6318f0fc?region=your-aws-region
 
 ## 🛡️ Security Benefits After Association
 

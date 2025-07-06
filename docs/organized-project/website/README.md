@@ -78,7 +78,7 @@ js/
 ### **Production Deployment**
 ```bash
 # Upload to S3
-aws s3 sync . s3://stayfit-healthhq-web-prod/
+aws s3 sync . s3://your-bucket-name/
 
 # Invalidate CloudFront cache
 aws cloudfront create-invalidation --distribution-id YOUR_CLOUDFRONT_DISTRIBUTION_ID --paths "/*"

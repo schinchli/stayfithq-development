@@ -9,7 +9,7 @@
         "Items": [
             {
                 "Id": "healthhq-s3-origin-oac",
-                "DomainName": "healthhq-dashboard-hosting-public.s3.us-east-1.amazonaws.com",
+                "DomainName": "healthhq-dashboard-hosting-public.s3.your-aws-region.amazonaws.com",
                 "OriginPath": "",
                 "CustomHeaders": {
                     "Quantity": 0

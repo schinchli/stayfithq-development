@@ -25,7 +25,7 @@ app.use(helmet({
             fontSrc: ["'self'", "https://fonts.gstatic.com", "https://cdn.jsdelivr.net"],
             scriptSrc: ["'self'", "https://cdn.jsdelivr.net"],
             imgSrc: ["'self'", "data:", "https:"],
-            connectSrc: ["'self'", "https://api.healthhq.com", "https://search-YOUR-DOMAIN.us-region-1.es.amazonaws.com"]
+            connectSrc: ["'self'", "https://api.healthhq.com", "https://your-service.amazonaws.com"]
         }
     }
 }));
@@ -56,7 +56,7 @@ let isOpenSearchConnected = false;
 
 try {
     opensearchClient = new Client({
-        node: process.env.OPENSEARCH_ENDPOINT || 'https://search-YOUR-DOMAIN.us-region-1.es.amazonaws.com',
+        node: process.env.OPENSEARCH_ENDPOINT || 'https://your-service.amazonaws.com',
         auth: {
             username = "your_username".env.OPENSEARCH_USERNAME || 'admin',
             password = "your_secure_password"|| 'admin'

@@ -142,7 +142,7 @@ async function runTests() {
     console.log('\n⚙️  Cognito Configuration:');
     console.log('   • User Pool ID: us-region-1_YOUR_USER_POOL_ID');
     console.log('   • Client ID: 59kc5qi8el10a7o36na5qn6m3f');
-    console.log('   • Domain: stayfit-health-companion.auth.us-east-1.amazoncognito.com');
+    console.log('   • Domain: stayfit-health-companion.auth.your-aws-region.amazoncognito.com');
     console.log('   • Access Token Validity: 30 minutes');
     console.log('   • ID Token Validity: 30 minutes');
     console.log('   • Refresh Token Validity: 30 days');

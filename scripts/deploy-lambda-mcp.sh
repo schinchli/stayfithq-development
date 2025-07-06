@@ -185,11 +185,11 @@ aws lambda create-function \
     --timeout 30 \
     --memory-size 512 \
     --environment Variables="{NODE_ENV=production,MCP_SERVER_ENABLED=true,OPENSEARCH_ENABLED=true}" \
-    --region us-east-1 2>/dev/null || \
+    --region your-aws-region 2>/dev/null || \
 aws lambda update-function-code \
     --function-name healthhq-mcp-production \
     --zip-file fileb://healthhq-mcp-lambda.zip \
-    --region us-east-1
+    --region your-aws-region
 
 # Create API Gateway integration
 echo "🌐 Setting up API Gateway..."
@@ -224,7 +224,7 @@ aws apigateway put-integration \
     --http-method ANY \
     --type AWS_PROXY \
     --integration-http-method POST \
-    --uri arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:${AWS_ACCOUNT_ID:-YOUR_AWS_ACCOUNT_ID}:function:healthhq-mcp-production/invocations 2>/dev/null || echo "Integration exists"
+    --uri arn:aws:apigateway:your-aws-region:lambda:path/2015-03-31/functions/arn:aws:lambda:your-aws-region:${AWS_ACCOUNT_ID:-YOUR_AWS_ACCOUNT_ID}:function:healthhq-mcp-production/invocations 2>/dev/null || echo "Integration exists"
 
 # Add Lambda permission for API Gateway
 aws lambda add-permission \
@@ -232,7 +232,7 @@ aws lambda add-permission \
     --statement-id api-gateway-invoke \
     --action lambda:InvokeFunction \
     --principal apigateway.amazonaws.com \
-    --source-arn "arn:aws:execute-api:us-east-1:${AWS_ACCOUNT_ID:-YOUR_AWS_ACCOUNT_ID}:$API_ID/*/*" 2>/dev/null || echo "Permission exists"
+    --source-arn "arn:aws:execute-api:your-aws-region:${AWS_ACCOUNT_ID:-YOUR_AWS_ACCOUNT_ID}:$API_ID/*/*" 2>/dev/null || echo "Permission exists"
 
 # Deploy API
 aws apigateway create-deployment \
@@ -246,9 +246,9 @@ echo ""
 echo "🎉 MCP Lambda Deployment Complete!"
 echo ""
 echo "🔗 API Gateway Endpoints:"
-echo "   MCP Health: https://${API_ID}.execute-api.us-east-1.amazonaws.com/prod/api/mcp/health"
-echo "   Enhanced Health: https://${API_ID}.execute-api.us-east-1.amazonaws.com/prod/api/enhanced/health"
-echo "   FHIR Metadata: https://${API_ID}.execute-api.us-east-1.amazonaws.com/prod/fhir/R4/metadata"
+echo "   MCP Health: https://${API_ID}.execute-api.your-aws-region.amazonaws.com/prod/api/mcp/health"
+echo "   Enhanced Health: https://${API_ID}.execute-api.your-aws-region.amazonaws.com/prod/api/enhanced/health"
+echo "   FHIR Metadata: https://${API_ID}.execute-api.your-aws-region.amazonaws.com/prod/fhir/R4/metadata"
 echo ""
 echo "✅ MCP and OpenSearch Integration:"
 echo "   🔗 MCP Server: LAMBDA DEPLOYED"

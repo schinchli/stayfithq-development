@@ -311,7 +311,7 @@
         "NotStatement": {
           "Statement": {
             "IPSetReferenceStatement": {
-              "ARN": "arn:aws:wafv2:us-east-1:ACCOUNT_ID:global/ipset/HealthCompanion-AllowedIPs/IP_SET_ID"
+              "ARN": "arn:aws:wafv2:your-aws-region:ACCOUNT_ID:global/ipset/HealthCompanion-AllowedIPs/IP_SET_ID"
             }
           }
         }

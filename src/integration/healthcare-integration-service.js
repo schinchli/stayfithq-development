@@ -40,7 +40,7 @@ class HealthcareIntegrationService {
         this.config = {
             version: '1.0.0',
             environment: process.env.NODE_ENV || 'development',
-            region: process.env.AWS_REGION || 'us-east-1',
+            region: process.env.AWS_REGION || 'your-aws-region',
             compliance: {
                 hipaaEnabled: true,
                 auditingEnabled: true,

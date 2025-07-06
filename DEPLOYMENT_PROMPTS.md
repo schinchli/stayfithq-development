@@ -18,7 +18,7 @@ npm init -y
 ```bash
 # Configure AWS CLI
 aws configure
-aws s3 mb s3://stayfit-healthhq-web-prod --region us-east-1
+aws s3 mb s3://your-bucket-name --region your-aws-region
 aws cloudfront create-distribution --distribution-config file://cloudfront-config.json
 ```
 
@@ -61,7 +61,7 @@ aws cloudfront update-distribution --id YOUR_DISTRIBUTION_ID --distribution-conf
 ### **S3 Deployment**
 ```bash
 # Sync website files to S3
-aws s3 sync src/web/ s3://stayfit-healthhq-web-prod/ --delete --region us-east-1
+aws s3 sync src/web/ s3://your-bucket-name/ --delete --region your-aws-region
 
 # Set bucket policy for CloudFront access
 aws s3api put-bucket-policy --bucket stayfit-healthhq-web-prod --policy file://s3-bucket-policy.json
@@ -154,7 +154,7 @@ Resources:
 ```hcl
 # Terraform main configuration
 provider "aws" {
-  region = "us-east-1"
+  region = "your-aws-region"
 }
 
 resource "aws_s3_bucket" "web_bucket" {

@@ -13,17 +13,17 @@
 
 **1. WAF Console (Main)**:
 ```
-https://us-east-1.console.aws.amazon.com/wafv2/homev2/web-acls?region=us-east-1
+https://your-aws-region.console.aws.amazon.com/wafv2/homev2/web-acls?region=your-aws-region
 ```
 
 **2. Your Specific WAF**:
 ```
-https://us-east-1.console.aws.amazon.com/wafv2/homev2/web-acl/StayFit-HealthCompanion-WAF/362e4e4e-940c-4626-b014-f61c6318f0fc?region=us-east-1
+https://your-aws-region.console.aws.amazon.com/wafv2/homev2/web-acl/StayFit-HealthCompanion-WAF/362e4e4e-940c-4626-b014-f61c6318f0fc?region=your-aws-region
 ```
 
 **3. CloudFront Distribution**:
 ```
-https://console.aws.amazon.com/cloudfront/v3/home?region=us-east-1#/distributions/YOUR_CLOUDFRONT_DISTRIBUTION_ID
+https://console.aws.amazon.com/cloudfront/v3/home?region=your-aws-region#/distributions/YOUR_CLOUDFRONT_DISTRIBUTION_ID
 ```
 
 ## 📍 Where to Find Your WAF
@@ -114,7 +114,7 @@ StayFit-HealthCompanion-WAF
 - ✅ **WAF Access**: Confirmed (3 Web ACLs total)
 - ✅ **CloudFront Access**: Confirmed (6 distributions total)
 - ✅ **Permissions**: Full access to WAF and CloudFront services
-- ✅ **Region**: us-east-1 (correct for CloudFront WAF)
+- ✅ **Region**: your-aws-region (correct for CloudFront WAF)
 
 ## 🎯 For Manual Association
 
@@ -138,7 +138,7 @@ StayFit-HealthCompanion-WAF
 
 **Account Security**:
 - Always verify you're in the correct AWS account (YOUR_AWS_ACCOUNT_ID)
-- Ensure you're in us-east-1 region for CloudFront WAF
+- Ensure you're in your-aws-region region for CloudFront WAF
 - Use MFA if enabled on your account
 - Log out when finished
 
@@ -146,7 +146,7 @@ StayFit-HealthCompanion-WAF
 
 ### Can't Find WAF?
 - ✅ Verify account: YOUR_AWS_ACCOUNT_ID
-- ✅ Check region: us-east-1
+- ✅ Check region: your-aws-region
 - ✅ Look for exact name: "StayFit-HealthCompanion-WAF"
 
 ### No Access?
@@ -177,6 +177,6 @@ StayFit-HealthCompanion-WAF
 - **Account**: YOUR_AWS_ACCOUNT_ID
 - **Service**: WAF & Shield
 - **Name**: StayFit-HealthCompanion-WAF
-- **Direct Link**: [Click here to access your WAF](https://us-east-1.console.aws.amazon.com/wafv2/homev2/web-acl/StayFit-HealthCompanion-WAF/362e4e4e-940c-4626-b014-f61c6318f0fc?region=us-east-1)
+- **Direct Link**: [Click here to access your WAF](https://your-aws-region.console.aws.amazon.com/wafv2/homev2/web-acl/StayFit-HealthCompanion-WAF/362e4e4e-940c-4626-b014-f61c6318f0fc?region=your-aws-region)
 
 **Next Step**: Complete manual association to protect https://YOUR-DOMAIN.cloudfront.net/

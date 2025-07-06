@@ -9,7 +9,7 @@
         "Items": [
             {
                 "Id": "S3-stayfit-healthhq-web-prod",
-                "DomainName": "stayfit-healthhq-web-prod.s3.us-east-1.amazonaws.com",
+                "DomainName": "stayfit-healthhq-web-prod.s3.your-aws-region.amazonaws.com",
                 "OriginPath": "",
                 "CustomHeaders": {
                     "Quantity": 0

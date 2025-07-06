@@ -255,7 +255,7 @@ class OpenSearchMCPServer {
           date: '2024-06-15',
           type: 'annual_checkup'
         },
-        s3_location: 's3://health-docs/demo_user/annual_checkup_2024.pdf',
+        s3_location: 's3://your-bucket-name/demo_user/annual_checkup_2024.pdf',
         tags: ['checkup', 'annual', 'blood_pressure', 'cholesterol'],
         category: 'medical_record'
       };

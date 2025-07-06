@@ -12,7 +12,7 @@ echo "<REDACTED_CREDENTIAL>=========================="
 # Configuration
 WAF_NAME="StayFit-HealthCompanion-WAF-OWASP"
 CLOUDFRONT_DISTRIBUTION_ID="YOUR_CLOUDFRONT_DISTRIBUTION_ID"
-AWS_REGION="us-east-1"
+AWS_REGION="your-aws-region"
 PROJECT_NAME="StayFit-HealthCompanion"
 
 # Get AWS Account ID
@@ -27,7 +27,7 @@ IP_SET_ARN=$(aws wafv2 create-ip-set \
     --ip-address-version IPV4 \
     --addresses "0.0.0.0/0" \
     --description "Allowed IP addresses for StayFit Health Companion" \
-    --region us-east-1 \
+    --region your-aws-region \
     --query 'Summary.ARN' \
     --output text 2>/dev/null || echo "IP Set may already exist")
 
@@ -358,7 +358,7 @@ EOF
 echo "Creating Web ACL..."
 WEB_ACL_ARN=$(aws wafv2 create-web-acl \
     --cli-input-json file:///tmp/waf-config.json \
-    --region us-east-1 \
+    --region your-aws-region \
     --query 'Summary.ARN' \
     --output text)
 
@@ -370,7 +370,7 @@ echo "📋 Step 3: Associating Web ACL with CloudFront Distribution..."
 aws wafv2 associate-web-acl \
     --web-acl-arn "$WEB_ACL_ARN" \
     --resource-arn "arn:aws:cloudfront::${AWS_ACCOUNT_ID}:distribution/${CLOUDFRONT_DISTRIBUTION_ID}" \
-    --region us-east-1
+    --region your-aws-region
 
 echo "✅ Web ACL associated with CloudFront distribution"
 
@@ -393,7 +393,7 @@ cat > /tmp/waf-dashboard.json << EOF
         ],
         "view": "timeSeries",
         "stacked": false,
-        "region": "us-east-1",
+        "region": "your-aws-region",
         "title": "WAF Requests Overview",
         "period": 300
       }
@@ -414,7 +414,7 @@ cat > /tmp/waf-dashboard.json << EOF
         ],
         "view": "timeSeries",
         "stacked": false,
-        "region": "us-east-1",
+        "region": "your-aws-region",
         "title": "OWASP Top 5 Blocked Requests",
         "period": 300
       }
@@ -435,7 +435,7 @@ cat > /tmp/waf-dashboard.json << EOF
         ],
         "view": "timeSeries",
         "stacked": false,
-        "region": "us-east-1",
+        "region": "your-aws-region",
         "title": "OWASP Top 6-10 & Geo Blocking",
         "period": 300
       }
@@ -448,7 +448,7 @@ cat > /tmp/waf-dashboard.json << EOF
       "height": 6,
       "properties": {
         "query": "SOURCE '/aws/wafv2/webacl/${WAF_NAME}' | fields @timestamp, action, terminatingRuleId, httpRequest.clientIp, httpRequest.uri\n| filter action = \"BLOCK\"\n| sort @timestamp desc\n| limit 100",
-        "region": "us-east-1",
+        "region": "your-aws-region",
         "title": "Recent Blocked Requests",
         "view": "table"
       }
@@ -460,7 +460,7 @@ EOF
 aws cloudwatch put-dashboard \
     --dashboard-name "StayFit-HealthCompanion-WAF-Security" \
     --dashboard-body file:///tmp/waf-dashboard.json \
-    --region us-east-1
+    --region your-aws-region
 
 echo "✅ CloudWatch Dashboard created"
 
@@ -478,9 +478,9 @@ aws cloudwatch put-metric-alarm \
     --threshold 100 \
     --comparison-operator GreaterThanThreshold \
     --evaluation-periods 2 \
-    --alarm-actions "arn:aws:sns:us-east-1:${AWS_ACCOUNT_ID}:security-alerts" \
+    --alarm-actions "arn:aws:sns:your-aws-region:${AWS_ACCOUNT_ID}:security-alerts" \
     --dimensions Name=WebACL,Value="${WAF_NAME}" Name=Region,Value=CloudFront Name=Rule,Value=ALL \
-    --region us-east-1 2>/dev/null || echo "SNS topic may not exist - alarm created without notification"
+    --region your-aws-region 2>/dev/null || echo "SNS topic may not exist - alarm created without notification"
 
 echo "✅ Security alarms created"
 
@@ -490,7 +490,7 @@ echo "📋 Step 6: Enabling WAF Logging..."
 # Create log group for WAF
 aws logs create-log-group \
     --log-group-name "/aws/wafv2/webacl/${WAF_NAME}" \
-    --region us-east-1 2>/dev/null || echo "Log group may already exist"
+    --region your-aws-region 2>/dev/null || echo "Log group may already exist"
 
 # Enable logging (requires Kinesis Data Firehose - optional)
 echo "ℹ️ WAF logging can be enabled with Kinesis Data Firehose for detailed analysis"
@@ -524,7 +524,7 @@ echo "   ✅ Rate Limiting for Authentication"
 echo "   ✅ CloudWatch Monitoring & Alerting"
 echo "   ✅ Comprehensive Logging"
 echo ""
-echo "🔗 Access your application: https://d3r155fcnafufg.cloudfront.net/"
+echo "🔗 Access your application: https://your-distribution.cloudfront.net/"
 echo "📊 Monitor security: AWS Console > CloudWatch > Dashboards > StayFit-HealthCompanion-WAF-Security"
 echo ""
 echo "✅ StayFit Health Companion is now protected with enterprise-grade WAF security!"

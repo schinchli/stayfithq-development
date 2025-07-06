@@ -107,7 +107,7 @@ Payload: `id`               → 200 ALLOWED ❌
 - ❌ **Not Associated**: WAF not protecting CloudFront
 
 ### Manual Association Steps
-1. **Go to AWS Console**: https://us-east-1.console.aws.amazon.com/wafv2/homev2/web-acls?region=us-east-1
+1. **Go to AWS Console**: https://your-aws-region.console.aws.amazon.com/wafv2/homev2/web-acls?region=your-aws-region
 2. **Click**: "StayFit-HealthCompanion-WAF"
 3. **Click**: "Associated AWS resources" tab
 4. **Click**: "Add AWS resources"

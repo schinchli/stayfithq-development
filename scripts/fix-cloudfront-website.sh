@@ -8,7 +8,7 @@ set -e
 # Configuration
 BUCKET_NAME="stayfit-healthhq-web-prod"
 DISTRIBUTION_ID="YOUR_CLOUDFRONT_DISTRIBUTION_ID"
-AWS_REGION="us-east-1"
+AWS_REGION="your-aws-region"
 
 echo "🔧 Fixing CloudFront Static Website Hosting"
 echo "<REDACTED_CREDENTIAL>=="

@@ -10,7 +10,7 @@ echo "🔒 HIPAA-Compliant | 📋 FHIR R4 | 🔍 OpenSearch | 🔗 MCP Integrati
 
 # Environment setup
 export NODE_ENV=production
-export AWS_REGION=${AWS_REGION:-us-east-1}
+export AWS_REGION=${AWS_REGION:-your-aws-region}
 export MCP_SERVER_ENABLED=true
 export OPENSEARCH_ENABLED=true
 
@@ -30,8 +30,8 @@ MCP_TOOLS_ENABLED=true
 MCP_OPENSEARCH_INTEGRATION=true
 
 # OpenSearch Configuration
-OPENSEARCH_ENDPOINT=https://search-YOUR-DOMAIN.us-region-1.es.amazonaws.com
-OPENSEARCH_username = "your_username"OPENSEARCH_password = "your_secure_password"OPENSEARCH_REGION=us-east-1
+OPENSEARCH_ENDPOINT=https://your-service.amazonaws.com
+OPENSEARCH_username = "your_username"OPENSEARCH_password = "your_secure_password"OPENSEARCH_REGION=your-aws-region
 
 # Healthcare Integration
 HEALTHCARE_SEARCH_ENABLED=true
@@ -40,7 +40,7 @@ OPENEHR_SEARCH_ENABLED=true
 HIPAA_COMPLIANCE_ENABLED=true
 
 # AWS Configuration
-AWS_REGION=us-east-1
+AWS_REGION=your-aws-region
 AWS_ACCOUNT_ID=${AWS_ACCOUNT_ID}
 S3_BUCKET=healthhq-production-assets
 CLOUDFRONT_DISTRIBUTION_ID=${CLOUDFRONT_DISTRIBUTION_ID:-YOUR_CLOUDFRONT_DISTRIBUTION_ID}
@@ -57,12 +57,12 @@ echo "✅ Production environment configured"
 echo "☁️ Deploying to AWS S3 and CloudFront..."
 
 # Sync web assets
-aws s3 sync src/pages/ s3://stayfit-healthhq-web-prod/ --delete --cache-control "max-age=300"
-aws s3 sync src/assets/ s3://stayfit-healthhq-web-prod/assets/ --delete --cache-control "max-age=86400"
+aws s3 sync src/pages/ s3://your-bucket-name/ --delete --cache-control "max-age=300"
+aws s3 sync src/assets/ s3://your-bucket-name/assets/ --delete --cache-control "max-age=86400"
 
 # Upload production server files
-aws s3 cp quick-fix-mcp-server.js s3://stayfit-healthhq-web-prod/server/
-aws s3 sync src/ s3://stayfit-healthhq-web-prod/server/src/ --exclude "*.log"
+aws s3 cp quick-fix-mcp-server.js s3://your-bucket-name/server/
+aws s3 sync src/ s3://your-bucket-name/server/src/ --exclude "*.log"
 
 # Invalidate CloudFront cache
 aws cloudfront create-invalidation --distribution-id YOUR_CLOUDFRONT_DISTRIBUTION_ID --paths "/*"
@@ -96,7 +96,7 @@ cd ..
 aws lambda update-function-code \
     --function-name healthhq-mcp-server \
     --zip-file fileb://mcp-healthcare-lambda.zip \
-    --region us-east-1 || \
+    --region your-aws-region || \
 aws lambda create-function \
     --function-name healthhq-mcp-server \
     --runtime nodejs18.x \
@@ -106,7 +106,7 @@ aws lambda create-function \
     --timeout 30 \
     --memory-size 512 \
     --environment Variables="{NODE_ENV=production,MCP_SERVER_ENABLED=true}" \
-    --region us-east-1
+    --region your-aws-region
 
 echo "✅ MCP Server deployed to AWS Lambda"
 
@@ -125,13 +125,13 @@ aws opensearch create-domain \
             "Effect": "Allow",
             "Principal": {"AWS": "*"},
             "Action": "es:*",
-            "Resource": "arn:aws:es:us-east-1:'${AWS_ACCOUNT_ID}':domain/healthhq-production/*"
+            "Resource": "arn:aws:es:your-aws-region:'${AWS_ACCOUNT_ID}':domain/healthhq-production/*"
         }]
     }' \
     --encryption-at-rest-options Enabled=true \
     --node-to-node-encryption-options Enabled=true \
     --domain-endpoint-options EnforceHTTPS=true \
-    --region us-east-1 2>/dev/null || echo "OpenSearch domain may already exist"
+    --region your-aws-region 2>/dev/null || echo "OpenSearch domain may already exist"
 
 echo "✅ OpenSearch Service configured"
 
@@ -176,14 +176,14 @@ if [ "$API_ID" != "existing-api" ]; then
         --http-method GET \
         --type AWS_PROXY \
         --integration-http-method POST \
-        --uri arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:${AWS_ACCOUNT_ID}:function:healthhq-mcp-server/invocations
+        --uri arn:aws:apigateway:your-aws-region:lambda:path/2015-03-31/functions/arn:aws:lambda:your-aws-region:${AWS_ACCOUNT_ID}:function:healthhq-mcp-server/invocations
     
     # Deploy API
     aws apigateway create-deployment \
         --rest-api-id $API_ID \
         --stage-name prod
     
-    echo "✅ API Gateway configured: https://${API_ID}.execute-api.us-east-1.amazonaws.com/prod"
+    echo "✅ API Gateway configured: https://${API_ID}.execute-api.your-aws-region.amazonaws.com/prod"
 fi
 
 # Step 7: Create production health check
@@ -194,8 +194,8 @@ const axios = require('axios');
 
 async function checkProductionHealth() {
     const endpoints = [
-        'https://d3r155fcnafufg.cloudfront.net/api/enhanced/health',
-        'https://d3r155fcnafufg.cloudfront.net/fhir/R4/metadata'
+        'https://your-distribution.cloudfront.net/api/enhanced/health',
+        'https://your-distribution.cloudfront.net/fhir/R4/metadata'
     ];
     
     console.log('🔍 Checking production health...');
@@ -234,7 +234,7 @@ cat > cloudfront-mcp-config.json << EOF
             },
             {
                 "Id": "API-Gateway-MCP",
-                "DomainName": "${API_ID}.execute-api.us-east-1.amazonaws.com",
+                "DomainName": "${API_ID}.execute-api.your-aws-region.amazonaws.com",
                 "CustomOriginConfig": {
                     "HTTPPort": 443,
                     "HTTPSPort": 443,
@@ -297,11 +297,11 @@ echo ""
 echo "🎉 PRODUCTION DEPLOYMENT COMPLETE!"
 echo ""
 echo "🔗 Production URLs:"
-echo "   Main App: https://d3r155fcnafufg.cloudfront.net/"
-echo "   Enhanced Health: https://d3r155fcnafufg.cloudfront.net/api/enhanced/health"
-echo "   FHIR Metadata: https://d3r155fcnafufg.cloudfront.net/fhir/R4/metadata"
+echo "   Main App: https://your-distribution.cloudfront.net/"
+echo "   Enhanced Health: https://your-distribution.cloudfront.net/api/enhanced/health"
+echo "   FHIR Metadata: https://your-distribution.cloudfront.net/fhir/R4/metadata"
 if [ "$API_ID" != "existing-api" ]; then
-    echo "   MCP Health: https://${API_ID}.execute-api.us-east-1.amazonaws.com/prod/mcp/health"
+    echo "   MCP Health: https://${API_ID}.execute-api.your-aws-region.amazonaws.com/prod/mcp/health"
 fi
 echo ""
 echo "✅ Features Deployed:"

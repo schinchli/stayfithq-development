@@ -11,7 +11,7 @@ logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 
 # Initialize AWS clients
-bedrock_runtime = boto3.client('bedrock-runtime', region_name='us-east-1')
+bedrock_runtime = boto3.client('bedrock-runtime', region_name='your-aws-region')
 
 # Configuration
 CLAUDE_MODEL_ID = "anthropic.claude-3-5-sonnet-20240620-v1:0"

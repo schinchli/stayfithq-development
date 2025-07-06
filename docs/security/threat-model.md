@@ -329,7 +329,7 @@ def validate_ai_response(response_text):
       "Priority": 1,
       "Statement": {
         "RegexPatternSetReferenceStatement": {
-          "ARN": "arn:aws:wafv2:us-east-1:account:regional/regexpatternset/phi-patterns",
+          "ARN": "arn:aws:wafv2:your-aws-region:account:regional/regexpatternset/phi-patterns",
           "FieldToMatch": {
             "Body": {}
           }

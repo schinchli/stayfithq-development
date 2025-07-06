@@ -143,9 +143,9 @@ aws cloudfront get-distribution --id YOUR_CLOUDFRONT_DISTRIBUTION_ID
 
 # Attempt association (may require specific ARN format)
 aws wafv2 associate-web-acl \
-    --web-acl-arn "arn:aws:wafv2:us-east-1:YOUR_AWS_ACCOUNT_ID:global/webacl/StayFit-HealthCompanion-WAF/362e4e4e-940c-4626-b014-f61c6318f0fc" \
+    --web-acl-arn "arn:aws:wafv2:your-aws-region:YOUR_AWS_ACCOUNT_ID:global/webacl/StayFit-HealthCompanion-WAF/362e4e4e-940c-4626-b014-f61c6318f0fc" \
     --resource-arn "CORRECT_CLOUDFRONT_ARN" \
-    --region us-east-1
+    --region your-aws-region
 ```
 
 **Note**: Manual method is recommended for reliability.
@@ -153,7 +153,7 @@ aws wafv2 associate-web-acl \
 ## 🚨 Troubleshooting
 
 ### Common Issues:
-1. **WAF not visible**: Ensure you're in the correct AWS region (us-east-1)
+1. **WAF not visible**: Ensure you're in the correct AWS region (your-aws-region)
 2. **CloudFront not listed**: Check CloudFront distribution permissions
 3. **Association fails**: Verify WAF and CloudFront are in same account
 

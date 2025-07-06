@@ -21,7 +21,7 @@ const logger = winston.createLogger({
 
 class AWSConfigV3 {
   constructor() {
-    this.region = process.env.AWS_REGION || 'us-east-1';
+    this.region = process.env.AWS_REGION || 'your-aws-region';
     this.credentials = this.getCredentials();
     this.commonConfig = {
       region: this.region,

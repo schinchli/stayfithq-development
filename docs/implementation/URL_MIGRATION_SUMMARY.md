@@ -55,7 +55,7 @@ find . -type f \( -name "*.html" -o -name "*.js" -o -name "*.md" -o -name "*.jso
 - `load-test-results/load_test_20250701_062506.log` - Updated test target URL
 
 ### 3. **Deployment & Cache Management**
-- **S3 Sync**: Updated files deployed to `s3://stayfit-healthhq-web-prod/`
+- **S3 Sync**: Updated files deployed to `s3://your-bucket-name/`
 - **Old Distribution Cache**: Invalidated YOUR_CLOUDFRONT_DISTRIBUTION_ID (YOUR-DOMAIN.cloudfront.net)
 - **New Distribution Cache**: Invalidated YOUR_CLOUDFRONT_DISTRIBUTION_ID (YOUR-DOMAIN.cloudfront.net)
 
@@ -65,7 +65,7 @@ find . -type f \( -name "*.html" -o -name "*.js" -o -name "*.md" -o -name "*.jso
 - **Distribution ID**: YOUR_CLOUDFRONT_DISTRIBUTION_ID
 - **Domain Name**: YOUR-DOMAIN.cloudfront.net
 - **Status**: Deployed ✅
-- **Origin**: stayfit-healthhq-web-prod.s3.us-east-1.amazonaws.com
+- **Origin**: stayfit-healthhq-web-prod.s3.your-aws-region.amazonaws.com
 - **Cache Status**: Invalidated and refreshed
 
 ### Old Distribution Configuration

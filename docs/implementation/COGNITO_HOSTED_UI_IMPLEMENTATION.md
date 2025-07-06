@@ -36,7 +36,7 @@ Updated the User Pool Client with proper OAuth settings:
 ### **2. Cognito User Pool Domain**
 
 Created hosted UI domain:
-- **Domain**: `stayfit-health-companion.auth.us-east-1.amazoncognito.com`
+- **Domain**: `stayfit-health-companion.auth.your-aws-region.amazoncognito.com`
 - **Purpose**: Provides secure, AWS-managed authentication interface
 - **Benefits**: HIPAA compliant, enterprise-grade security
 

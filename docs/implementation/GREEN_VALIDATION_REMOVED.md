@@ -52,9 +52,9 @@ case 'opensearch-endpoint':
 ### 🔍 **Testing Steps**
 1. **Visit the URL above**
 2. **Go to OpenSearch tab**
-3. **Current valid URL:** `https://search-YOUR-DOMAIN.us-region-1.es.amazonaws.com`
+3. **Current valid URL:** `https://your-service.amazonaws.com`
 4. **Expected Result:** ⚪ **Normal border, no green highlight, no success message**
-5. **Change to invalid URL:** `https://abcdsearch-YOUR-DOMAIN.us-region-1.es.amazonaws.com`
+5. **Change to invalid URL:** `https://your-service.amazonaws.com`
 6. **Expected Result:** ❌ **Red border + error message**
 7. **Change back to valid URL**
 8. **Expected Result:** ⚪ **Normal border again (no green)**
@@ -65,19 +65,19 @@ case 'opensearch-endpoint':
 
 ### ❌ **Before (With Green Validation)**
 ```
-Valid URL: https://search-YOUR-DOMAIN.us-region-1.es.amazonaws.com
+Valid URL: https://your-service.amazonaws.com
 Result: 🟢 Green border + "Valid OpenSearch endpoint format"
 ```
 
 ### ✅ **After (No Green Validation)**
 ```
-Valid URL: https://search-YOUR-DOMAIN.us-region-1.es.amazonaws.com
+Valid URL: https://your-service.amazonaws.com
 Result: ⚪ Normal border, no special highlighting
 ```
 
 ### 🔴 **Invalid URLs (Unchanged)**
 ```
-Invalid URL: https://abcdsearch-YOUR-DOMAIN.us-region-1.es.amazonaws.com
+Invalid URL: https://your-service.amazonaws.com
 Result: 🔴 Red border + error message (same as before)
 ```
 

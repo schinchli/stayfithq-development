@@ -7,9 +7,9 @@ window.STAYFIT_CONFIG = {
         userPoolId: 'YOUR_USER_POOL_ID',           // e.g., 'us-region-1_YOUR_USER_POOL_ID'
         clientId: 'YOUR_CLIENT_ID',               // e.g., '<REDACTED_CREDENTIAL>abcdefghijklmnop'
         clientSecret: 'YOUR_CLIENT_SECRET',       // e.g., 'your-secret-key-here'
-        identityPoolId: 'YOUR_IDENTITY_POOL_ID',  // e.g., 'us-east-1:12<REDACTED_CREDENTIAL>-1234-1234-YOUR_AWS_ACCOUNT_ID'
-        cognitoDomain: 'YOUR_COGNITO_DOMAIN',     // e.g., 'your-app.auth.us-east-1.amazoncognito.com'
-        region: 'us-east-1'
+        identityPoolId: 'YOUR_IDENTITY_POOL_ID',  // e.g., 'your-aws-region:12<REDACTED_CREDENTIAL>-1234-1234-YOUR_AWS_ACCOUNT_ID'
+        cognitoDomain: 'YOUR_COGNITO_DOMAIN',     // e.g., 'your-app.auth.your-aws-region.amazoncognito.com'
+        region: 'your-aws-region'
     },
     
     // Application URLs

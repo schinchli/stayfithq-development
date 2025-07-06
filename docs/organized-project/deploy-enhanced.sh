@@ -10,7 +10,7 @@ echo "🔒 HIPAA-compliant with FHIR R4 and openEHR standards"
 
 # Environment variables
 export NODE_ENV=${NODE_ENV:-production}
-export AWS_REGION=${AWS_REGION:-us-east-1}
+export AWS_REGION=${AWS_REGION:-your-aws-region}
 
 # Install dependencies
 echo "📦 Installing enhanced dependencies..."
@@ -49,4 +49,4 @@ echo "   - Enhanced Security Framework"
 echo "   - Scalable Architecture"
 echo "   - Real-time Monitoring"
 
-echo "🔗 Access your application at: https://d3r155fcnafufg.cloudfront.net/"
+echo "🔗 Access your application at: https://your-distribution.cloudfront.net/"

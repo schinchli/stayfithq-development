@@ -11,7 +11,7 @@
 
 ### 🛡️ Advanced WAF Protection
 - **WAF Name**: StayFit-Enterprise-WAF-Security
-- **WAF ARN**: arn:aws:wafv2:us-east-1:YOUR_AWS_ACCOUNT_ID:global/webacl/StayFit-Enterprise-WAF-Security/35874ad7-a9c9-4683-898f-b10a648e08a2
+- **WAF ARN**: arn:aws:wafv2:your-aws-region:YOUR_AWS_ACCOUNT_ID:global/webacl/StayFit-Enterprise-WAF-Security/35874ad7-a9c9-4683-898f-b10a648e08a2
 - **Scope**: CloudFront (Global)
 - **Status**: ✅ **ACTIVE**
 
@@ -56,7 +56,7 @@
 
 ### SNS Security Alerts
 - **Topic**: StayFit-Enterprise-Security-Alerts
-- **ARN**: arn:aws:sns:us-east-1:YOUR_AWS_ACCOUNT_ID:StayFit-Enterprise-Security-Alerts
+- **ARN**: arn:aws:sns:your-aws-region:YOUR_AWS_ACCOUNT_ID:StayFit-Enterprise-Security-Alerts
 - **Triggers**: High threat activity detection
 - **Threshold**: 25+ blocked requests in 5 minutes
 
@@ -149,7 +149,7 @@ Security Score: 95/100
 - ⚠️ **CloudFront Association**: Manual step required
 
 ### Association Steps
-1. **Go to AWS Console**: https://us-east-1.console.aws.amazon.com/wafv2/homev2/web-acls?region=us-east-1
+1. **Go to AWS Console**: https://your-aws-region.console.aws.amazon.com/wafv2/homev2/web-acls?region=your-aws-region
 2. **Click**: "StayFit-Enterprise-WAF-Security"
 3. **Click**: "Associated AWS resources" tab
 4. **Click**: "Add AWS resources"

@@ -12,7 +12,7 @@ const path = require('path');
 class XRaySetup {
     constructor() {
         this.xray = new AWS.XRay({
-            region: process.env.AWS_REGION || 'us-east-1'
+            region: process.env.AWS_REGION || 'your-aws-region'
         });
         
         this.serviceName = 'stayfit-health-companion';

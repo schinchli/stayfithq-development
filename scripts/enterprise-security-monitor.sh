@@ -7,7 +7,7 @@ set -e
 
 WAF_NAME="StayFit-Enterprise-WAF-Security"
 CLOUDFRONT_DIST_ID="YOUR_CLOUDFRONT_DISTRIBUTION_ID"
-AWS_REGION="us-east-1"
+AWS_REGION="your-aws-region"
 
 echo "🏢 ENTERPRISE SECURITY MONITORING - STAYFIT HEALTH COMPANION"
 echo "<REDACTED_CREDENTIAL>==================="
@@ -243,7 +243,7 @@ case "${1:-status}" in
 esac
 
 echo ""
-echo "🔗 StayFit Health Companion: https://d3r155fcnafufg.cloudfront.net/"
+echo "🔗 StayFit Health Companion: https://your-distribution.cloudfront.net/"
 echo "📊 Enterprise Dashboard: AWS Console > CloudWatch > Dashboards > StayFit-Enterprise-Security-Dashboard"
 echo ""
 echo "✅ Enterprise security monitoring completed at $(date)"

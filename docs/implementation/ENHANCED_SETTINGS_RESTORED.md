@@ -16,7 +16,7 @@
 **Model Context Protocol with OpenSearch for health data indexing**
 
 #### 🔧 **Configuration Options:**
-- **Cluster Endpoint:** https://search-YOUR-DOMAIN.us-region-1.es.amazonaws.com
+- **Cluster Endpoint:** https://your-service.amazonaws.com
 - **Index Pattern:** health-data-*
 - **MCP Server Port:** 3001
 - **Connection Status:** Connected ✅

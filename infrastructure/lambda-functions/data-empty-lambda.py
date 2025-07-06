@@ -12,7 +12,7 @@ opensearch_client = boto3.client('opensearchserverless')
 s3_client = boto3.client('s3')
 
 # Configuration
-OPENSEARCH_ENDPOINT = "https://search-YOUR-DOMAIN.us-region-1.es.amazonaws.com"
+OPENSEARCH_ENDPOINT = "https://your-service.amazonaws.com"
 OPENSEARCH_INDEX = "health-data"
 S3_BUCKET = "stayfit-healthhq-uploads"
 

@@ -8,7 +8,7 @@ set -e
 # Configuration
 PROJECT_NAME="stayfit-health-companion"
 ENVIRONMENT=${1:-dev}
-AWS_REGION=${2:-us-east-1}
+AWS_REGION=${2:-your-aws-region}
 STACK_NAME="${PROJECT_NAME}-${ENVIRONMENT}-infrastructure"
 
 echo "🏥 StayFit Health Companion - AWS Infrastructure Deployment"
@@ -158,7 +158,7 @@ aws budgets create-budget \
             ]
         }
     ]' \
-    --region us-east-1 2>/dev/null || echo "⚠️  Billing alert setup skipped (may already exist)"
+    --region your-aws-region 2>/dev/null || echo "⚠️  Billing alert setup skipped (may already exist)"
 
 echo ""
 echo "🎉 AWS Infrastructure deployment completed!"

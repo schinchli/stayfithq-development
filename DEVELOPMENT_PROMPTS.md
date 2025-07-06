@@ -1435,7 +1435,7 @@ Successfully implemented comprehensive user authentication using Amazon Cognito 
 **Timestamp:** 2025-07-01T03:35:38.117Z
 
 **Development Prompt/Feature:**
-1. **Cognito User Pool**: `us-region-1_YOUR_USER_POOL_ID` - Name: StayFitHealthCompanion - Email-based authentication - Auto-verified email addresses - Auto-verified email addresses - Password policy: 8+ chars, uppercase, lowercase, numbers 2. **Cognito User Pool Client**: `59kc5qi8el10a7o36na5qn6m3f` - Name: StayFitWebApp - Client secret enabled for secure authentication - Supports USER_PASSWORD_AUTH flow 3. **Cognito Identity Pool**: `us-east-1:1f8c35e3-37b8-4e59-b694-b5f0bb49a02d` - Updated to support both authenticated and unauthenticated users - Integrated with User Pool for authenticated access - **Authenticated Role**: `StayFitAuthenticatedRole` - Full DynamoDB access for logged-in users - **Unauthenticated Role**: `StayFitUnauthenticatedRole` - Limited access for anonymous users
+1. **Cognito User Pool**: `us-region-1_YOUR_USER_POOL_ID` - Name: StayFitHealthCompanion - Email-based authentication - Auto-verified email addresses - Auto-verified email addresses - Password policy: 8+ chars, uppercase, lowercase, numbers 2. **Cognito User Pool Client**: `59kc5qi8el10a7o36na5qn6m3f` - Name: StayFitWebApp - Client secret enabled for secure authentication - Supports USER_PASSWORD_AUTH flow 3. **Cognito Identity Pool**: `your-aws-region:1f8c35e3-37b8-4e59-b694-b5f0bb49a02d` - Updated to support both authenticated and unauthenticated users - Integrated with User Pool for authenticated access - **Authenticated Role**: `StayFitAuthenticatedRole` - Full DynamoDB access for logged-in users - **Unauthenticated Role**: `StayFitUnauthenticatedRole` - Limited access for anonymous users
 
 ---
 
@@ -1633,7 +1633,7 @@ The Cognito authentication implementation provides a complete, secure, and user-
 **Timestamp:** 2025-07-01T03:35:38.117Z
 
 **Development Prompt/Feature:**
-- **Name**: StayFit-HealthCompanion-WAF - **ID**: 362e4e4e-940c-4626-b014-f61c6318f0fc - **ARN**: arn:aws:wafv2:us-east-1:YOUR_AWS_ACCOUNT_ID:global/webacl/StayFit-HealthCompanion-WAF/362e4e4e-940c-4626-b014-f61c6318f0fc - **Status**: ✅ **DEPLOYED AND ACTIVE** - **Scope**: CloudFront (Global) - **Region**: us-east-1
+- **Name**: StayFit-HealthCompanion-WAF - **ID**: 362e4e4e-940c-4626-b014-f61c6318f0fc - **ARN**: arn:aws:wafv2:your-aws-region:YOUR_AWS_ACCOUNT_ID:global/webacl/StayFit-HealthCompanion-WAF/362e4e4e-940c-4626-b014-f61c6318f0fc - **Status**: ✅ **DEPLOYED AND ACTIVE** - **Scope**: CloudFront (Global) - **Region**: your-aws-region
 
 ---
 
@@ -1687,7 +1687,7 @@ The Cognito authentication implementation provides a complete, secure, and user-
 **Timestamp:** 2025-07-01T03:35:38.117Z
 
 **Development Prompt/Feature:**
-- **WAF Console**: https://us-east-1.console.aws.amazon.com/wafv2/homev2/web-acls?region=us-east-1 - **Your WAF**: https://us-east-1.console.aws.amazon.com/wafv2/homev2/web-acl/StayFit-HealthCompanion-WAF/362e4e4e-940c-4626-b014-f61c6318f0fc?region=us-east-1
+- **WAF Console**: https://your-aws-region.console.aws.amazon.com/wafv2/homev2/web-acls?region=your-aws-region - **Your WAF**: https://your-aws-region.console.aws.amazon.com/wafv2/homev2/web-acl/StayFit-HealthCompanion-WAF/362e4e4e-940c-4626-b014-f61c6318f0fc?region=your-aws-region
 
 ---
 

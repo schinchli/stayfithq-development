@@ -219,8 +219,8 @@ Located in the page header, three new buttons:
 ```json
 {
   "opensearch": {
-    "endpoint": "https://search-YOUR-DOMAIN.us-region-1.es.amazonaws.com",
-    "region": "us-east-1",
+    "endpoint": "https://your-service.amazonaws.com",
+    "region": "your-aws-region",
     "index": "health-data",
     "batchSize": "100",
     "ssl": true

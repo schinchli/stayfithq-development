@@ -8,7 +8,7 @@ set -e
 echo "🚀 Deploying StayFit AI Backend Infrastructure..."
 
 # Configuration
-REGION="us-east-1"
+REGION="your-aws-region"
 LAMBDA_ROLE_NAME="StayFitHealthAssistantRole"
 API_GATEWAY_NAME="StayFitHealthAPI"
 OPENSEARCH_DOMAIN="health-analytics"
@@ -118,7 +118,7 @@ aws lambda create-function \
     --timeout 30 \
     --memory-size 256 \
     --environment Variables='{
-        "OPENSEARCH_ENDPOINT":"https://search-YOUR-DOMAIN.us-region-1.es.amazonaws.com"
+        "OPENSEARCH_ENDPOINT":"https://your-service.amazonaws.com"
     }' \
     --region $REGION || echo_warning "Function may already exist"
 

@@ -23,7 +23,7 @@ const logger = winston.createLogger({
 class BedrockHealthAnalyzer {
   constructor() {
     this.client = new BedrockRuntimeClient({
-      region: process.env.AWS_REGION || 'us-east-1'
+      region: process.env.AWS_REGION || 'your-aws-region'
     });
 
     this.models = {

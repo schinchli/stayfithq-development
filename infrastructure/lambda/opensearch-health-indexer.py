@@ -12,11 +12,11 @@ logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 
 # OpenSearch configuration
-OPENSEARCH_ENDPOINT = "https://search-YOUR-DOMAIN.us-region-1.es.amazonaws.com"
+OPENSEARCH_ENDPOINT = "https://your-service.amazonaws.com"
 HEALTH_INDEX = "health-data-index"
 
 # Initialize AWS clients
-bedrock_runtime = boto3.client('bedrock-runtime', region_name='us-east-1')
+bedrock_runtime = boto3.client('bedrock-runtime', region_name='your-aws-region')
 
 def lambda_handler(event, context):
     """

@@ -38,7 +38,7 @@
 #### Environment Variables (.env)
 ```bash
 # AWS Configuration
-AWS_REGION=us-east-1
+AWS_REGION=your-aws-region
 aws_access_key_id = YOUR_AWS_ACCESS_KEY
 aws_secret_access_key = YOUR_AWS_SECRET_KEY
 
@@ -46,7 +46,7 @@ aws_secret_access_key = YOUR_AWS_SECRET_KEY
 HEALTH_DOCUMENTS_BUCKET=stayfit-health-docs
 OPENSEARCH_ENDPOINT=https://your-opensearch-YOUR-DOMAIN.us-region-1.es.amazonaws.com
 OPENSEARCH_username = "your_username"OPENSEARCH_password = "your_secure_password"# Bedrock Configuration
-BEDROCK_REGION=us-east-1
+BEDROCK_REGION=your-aws-region
 ```
 
 ### Testing the Migration

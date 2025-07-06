@@ -47,7 +47,7 @@
     }
   },
   "aws": {
-    "region": "us-east-1",
+    "region": "your-aws-region",
     "services": {
       "textract": {
         "enabled": true,

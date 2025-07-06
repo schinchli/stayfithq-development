@@ -11,7 +11,7 @@ echo "<REDACTED_CREDENTIAL>=========================="
 # Configuration
 WAF_NAME="StayFit-HealthCompanion-WAF-OWASP"
 CLOUDFRONT_DISTRIBUTION_ID="YOUR_CLOUDFRONT_DISTRIBUTION_ID"
-AWS_REGION="us-east-1"
+AWS_REGION="your-aws-region"
 PROJECT_NAME="StayFit-HealthCompanion"
 
 # Get AWS Account ID
@@ -26,7 +26,7 @@ IP_SET_ARN=$(aws wafv2 create-ip-set \
     --ip-address-version IPV4 \
     --addresses "0.0.0.0/0" \
     --description "Allowed IP addresses for StayFit Health Companion" \
-    --region us-east-1 \
+    --region your-aws-region \
     --query 'Summary.ARN' \
     --output text 2>/dev/null || echo "IP Set may already exist")
 
@@ -312,7 +312,7 @@ EOF
 echo "Creating Web ACL..."
 WEB_ACL_ARN=$(aws wafv2 create-web-acl \
     --cli-input-json file:///tmp/waf-config.json \
-    --region us-east-1 \
+    --region your-aws-region \
     --query 'Summary.ARN' \
     --output text)
 
@@ -324,7 +324,7 @@ echo "📋 Step 3: Associating Web ACL with CloudFront Distribution..."
 aws wafv2 associate-web-acl \
     --web-acl-arn "$WEB_ACL_ARN" \
     --resource-arn "arn:aws:cloudfront::${AWS_ACCOUNT_ID}:distribution/${CLOUDFRONT_DISTRIBUTION_ID}" \
-    --region us-east-1
+    --region your-aws-region
 
 echo "✅ Web ACL associated with CloudFront distribution"
 
@@ -354,6 +354,6 @@ echo "🌍 Additional Security Features:"
 echo "   ✅ Geographic Blocking (High-risk countries)"
 echo "   ✅ Rate Limiting for Authentication"
 echo ""
-echo "🔗 Your protected application: https://d3r155fcnafufg.cloudfront.net/"
+echo "🔗 Your protected application: https://your-distribution.cloudfront.net/"
 echo ""
 echo "✅ StayFit Health Companion is now protected with enterprise-grade WAF security!"

@@ -11,7 +11,7 @@ echo "<REDACTED_CREDENTIAL>=========================="
 # Configuration
 PROJECT_NAME="StayFit-HealthCompanion"
 CLOUDFRONT_DIST_ID="YOUR_CLOUDFRONT_DISTRIBUTION_ID"
-AWS_REGION="us-east-1"
+AWS_REGION="your-aws-region"
 AWS_ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
 
 echo "AWS Account: $AWS_ACCOUNT_ID"
@@ -268,7 +268,7 @@ cat > /tmp/enterprise-dashboard.json << EOF
         ],
         "view": "timeSeries",
         "stacked": false,
-        "region": "us-east-1",
+        "region": "your-aws-region",
         "title": "Enterprise WAF - Request Overview",
         "period": 300,
         "stat": "Sum"
@@ -290,7 +290,7 @@ cat > /tmp/enterprise-dashboard.json << EOF
         ],
         "view": "timeSeries",
         "stacked": false,
-        "region": "us-east-1",
+        "region": "your-aws-region",
         "title": "Enterprise Security Rules - Blocked Requests",
         "period": 300,
         "stat": "Sum"
@@ -311,7 +311,7 @@ cat > /tmp/enterprise-dashboard.json << EOF
         ],
         "view": "timeSeries",
         "stacked": false,
-        "region": "us-east-1",
+        "region": "your-aws-region",
         "title": "CloudFront Performance Metrics",
         "period": 300
       }
@@ -324,7 +324,7 @@ cat > /tmp/enterprise-dashboard.json << EOF
       "height": 6,
       "properties": {
         "query": "SOURCE '/aws/wafv2/webacl/StayFit-Enterprise-WAF-Security' | fields @timestamp, action, terminatingRuleId, httpRequest.clientIp, httpRequest.uri\\n| filter action = \"BLOCK\"\\n| sort @timestamp desc\\n| limit 100",
-        "region": "us-east-1",
+        "region": "your-aws-region",
         "title": "Recent Security Blocks",
         "view": "table"
       }
@@ -376,7 +376,7 @@ echo "   ✅ Real-time Security Monitoring"
 echo "   ✅ Automated Security Alerting"
 echo "   ✅ Enterprise Security Dashboard"
 echo ""
-echo "🔗 Protected Application: https://d3r155fcnafufg.cloudfront.net/"
+echo "🔗 Protected Application: https://your-distribution.cloudfront.net/"
 echo ""
 echo "📊 Monitor Security:"
 echo "   - Dashboard: AWS Console > CloudWatch > Dashboards"

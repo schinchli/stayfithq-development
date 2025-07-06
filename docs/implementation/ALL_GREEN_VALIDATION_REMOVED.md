@@ -94,8 +94,8 @@ if ((field.hasAttribute('required') || field.value.trim().length > 0) && !isVali
 ### 🔍 **Testing All Tabs**
 
 #### **1. OpenSearch Tab**
-- **Valid URL:** `https://search-YOUR-DOMAIN.us-region-1.es.amazonaws.com` → ⚪ Normal border
-- **Invalid URL:** `https://abcdsearch-YOUR-DOMAIN.us-region-1.es.amazonaws.com` → 🔴 Red border + error
+- **Valid URL:** `https://your-service.amazonaws.com` → ⚪ Normal border
+- **Invalid URL:** `https://your-service.amazonaws.com` → 🔴 Red border + error
 - **Valid Index:** `health-data` → ⚪ Normal border
 - **Invalid Index:** `HEALTH-DATA` → 🔴 Red border + error
 

@@ -13,13 +13,13 @@ npm install @opensearch-project/opensearch @vendia/serverless-express --save
 
 # Step 2: Deploy web assets to S3
 echo "☁️ Deploying web assets to S3..."
-aws s3 sync src/pages/ s3://stayfit-healthhq-web-prod/ --delete --cache-control "max-age=300"
-aws s3 sync src/assets/ s3://stayfit-healthhq-web-prod/assets/ --delete --cache-control "max-age=86400"
+aws s3 sync src/pages/ s3://your-bucket-name/ --delete --cache-control "max-age=300"
+aws s3 sync src/assets/ s3://your-bucket-name/assets/ --delete --cache-control "max-age=86400"
 
 # Step 3: Upload production server
 echo "🔗 Uploading production MCP server..."
-aws s3 cp production-mcp-server.js s3://stayfit-healthhq-web-prod/server/
-aws s3 sync src/ s3://stayfit-healthhq-web-prod/server/src/ --exclude "*.log"
+aws s3 cp production-mcp-server.js s3://your-bucket-name/server/
+aws s3 sync src/ s3://your-bucket-name/server/src/ --exclude "*.log"
 
 # Step 4: Invalidate CloudFront cache
 echo "🌐 Invalidating CloudFront cache..."
@@ -30,16 +30,16 @@ echo "🔍 Testing production deployment..."
 sleep 30
 
 # Test main endpoints
-curl -s https://d3r155fcnafufg.cloudfront.net/api/enhanced/health | grep -o '"status":"[^"]*"' || echo "Testing..."
-curl -s https://d3r155fcnafufg.cloudfront.net/fhir/R4/metadata | grep -o '"resourceType":"[^"]*"' || echo "FHIR testing..."
+curl -s https://your-distribution.cloudfront.net/api/enhanced/health | grep -o '"status":"[^"]*"' || echo "Testing..."
+curl -s https://your-distribution.cloudfront.net/fhir/R4/metadata | grep -o '"resourceType":"[^"]*"' || echo "FHIR testing..."
 
 echo ""
 echo "🎉 PRODUCTION DEPLOYMENT COMPLETE!"
 echo ""
 echo "🔗 Production URLs:"
-echo "   Main App: https://d3r155fcnafufg.cloudfront.net/"
-echo "   Enhanced Health: https://d3r155fcnafufg.cloudfront.net/api/enhanced/health"
-echo "   FHIR Metadata: https://d3r155fcnafufg.cloudfront.net/fhir/R4/metadata"
+echo "   Main App: https://your-distribution.cloudfront.net/"
+echo "   Enhanced Health: https://your-distribution.cloudfront.net/api/enhanced/health"
+echo "   FHIR Metadata: https://your-distribution.cloudfront.net/fhir/R4/metadata"
 echo ""
 echo "✅ MCP and OpenSearch Integration Status:"
 echo "   🔗 MCP Server: PRODUCTION READY"

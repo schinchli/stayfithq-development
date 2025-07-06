@@ -97,7 +97,7 @@ ENCRYPTION_KEY=your-development-encryption-key
 HIPAA_ENCRYPTION_KEY=your-development-hipaa-key
 
 # AWS Configuration (for local testing)
-AWS_REGION=us-east-1
+AWS_REGION=your-aws-region
 aws_access_key_id = YOUR_AWS_ACCESS_KEY
 aws_secret_access_key = YOUR_AWS_SECRET_KEY
 ```
@@ -153,12 +153,12 @@ npm run build
 #### 2. Deploy to S3 and CloudFront
 ```bash
 # Sync static assets to S3
-aws s3 sync src/pages/ s3://stayfit-healthhq-web-prod/ --delete --cache-control "max-age=300"
-aws s3 sync src/assets/ s3://stayfit-healthhq-web-prod/assets/ --delete --cache-control "max-age=86400"
+aws s3 sync src/pages/ s3://your-bucket-name/ --delete --cache-control "max-age=300"
+aws s3 sync src/assets/ s3://your-bucket-name/assets/ --delete --cache-control "max-age=86400"
 
 # Upload server code
-aws s3 cp production-mcp-server.js s3://stayfit-healthhq-web-prod/server/
-aws s3 sync src/ s3://stayfit-healthhq-web-prod/server/src/ --exclude "*.log"
+aws s3 cp production-mcp-server.js s3://your-bucket-name/server/
+aws s3 sync src/ s3://your-bucket-name/server/src/ --exclude "*.log"
 
 # Invalidate CloudFront cache
 aws cloudfront create-invalidation --distribution-id YOUR_CLOUDFRONT_DISTRIBUTION_ID --paths "/*"
@@ -291,7 +291,7 @@ module.exports = {
 ### 2. OpenSearch Index Templates
 ```bash
 # Create patient index template
-curl -X PUT "https://your-opensearch-YOUR-DOMAIN.us-region-1.es.amazonaws.com/_index_template/healthcare-patients" \
+curl -X PUT "https://your-service.amazonaws.com/_index_template/healthcare-patients" \
 -H "Content-Type: application/json" \
 -d '{
   "index_patterns": ["healthcare-patients-*"],
@@ -387,7 +387,7 @@ aws kms create-alias \
         "rds:DescribeDBClusters",
         "rds:Connect"
       ],
-      "Resource": "arn:aws:rds:us-east-1:*:cluster:healthhq-aurora-cluster"
+      "Resource": "arn:aws:rds:your-aws-region:*:cluster:healthhq-aurora-cluster"
     },
     {
       "Effect": "Allow",
@@ -397,7 +397,7 @@ aws kms create-alias \
         "es:ESHttpPut",
         "es:ESHttpDelete"
       ],
-      "Resource": "arn:aws:es:us-east-1:*:domain/healthhq-production/*"
+      "Resource": "arn:aws:es:your-aws-region:*:domain/healthhq-production/*"
     }
   ]
 }
@@ -503,7 +503,7 @@ DEBUG_MODE=true
 NODE_ENV=staging
 PORT=3000
 MCP_SERVER_ENABLED=true
-OPENSEARCH_ENDPOINT=https://search-YOUR-DOMAIN.us-region-1.es.amazonaws.com
+OPENSEARCH_ENDPOINT=https://your-service.amazonaws.com
 HIPAA_COMPLIANCE_ENABLED=true
 DEBUG_MODE=false
 ```
@@ -514,7 +514,7 @@ DEBUG_MODE=false
 NODE_ENV=production
 PORT=3000
 MCP_SERVER_ENABLED=true
-OPENSEARCH_ENDPOINT=https://search-YOUR-DOMAIN.us-region-1.es.amazonaws.com
+OPENSEARCH_ENDPOINT=https://your-service.amazonaws.com
 HIPAA_COMPLIANCE_ENABLED=true
 DEBUG_MODE=false
 ENCRYPTION_ENABLED=true
@@ -582,7 +582,7 @@ curl -I https://YOUR-DOMAIN.cloudfront.net/
 curl http://localhost:3000/api/mcp/health
 
 # Verify OpenSearch connection
-curl -X GET "https://your-opensearch-YOUR-DOMAIN.us-region-1.es.amazonaws.com/_cluster/health"
+curl -X GET "https://your-service.amazonaws.com/_cluster/health"
 
 # Check MCP server logs
 tail -f logs/mcp-server.log
@@ -602,7 +602,7 @@ curl http://localhost:3000/fhir/R4/metadata
 #### 3. Database Connection Issues
 ```bash
 # Test database connection
-psql -h healthhq-aurora-cluster.cluster-xyz.us-east-1.rds.amazonaws.com \
+psql -h healthhq-aurora-cluster.cluster-xyz.your-aws-region.rds.amazonaws.com \
      -U healthhqadmin \
      -d healthhq
 
@@ -613,13 +613,13 @@ curl http://localhost:3000/api/health/database
 #### 4. OpenSearch Issues
 ```bash
 # Check OpenSearch cluster health
-curl -X GET "https://your-opensearch-YOUR-DOMAIN.us-region-1.es.amazonaws.com/_cluster/health"
+curl -X GET "https://your-service.amazonaws.com/_cluster/health"
 
 # List indices
-curl -X GET "https://your-opensearch-YOUR-DOMAIN.us-region-1.es.amazonaws.com/_cat/indices"
+curl -X GET "https://your-service.amazonaws.com/_cat/indices"
 
 # Check index mapping
-curl -X GET "https://your-opensearch-YOUR-DOMAIN.us-region-1.es.amazonaws.com/healthcare-patients/_mapping"
+curl -X GET "https://your-service.amazonaws.com/healthcare-patients/_mapping"
 ```
 
 ### Performance Optimization

@@ -1,14 +1,14 @@
 #!/bin/bash
 
 # AWS Lambda Deployment Script for StayFit Health Settings
-# Based on reference implementation from https://djdqaajrajlri.cloudfront.net/settings.html
+# Based on reference implementation from https://your-distribution.cloudfront.net/settings.html
 
 set -e
 
 echo "🚀 Deploying StayFit Health Settings Lambda Functions..."
 
 # Configuration
-REGION="us-east-1"
+REGION="your-aws-region"
 ROLE_NAME="StayFitHealthLambdaRole"
 BUCKET_NAME="stayfit-healthhq-lambda-deployments"
 
@@ -147,7 +147,7 @@ deploy_lambda() {
             --timeout 30 \
             --memory-size 256 \
             --environment Variables='{
-                "OPENSEARCH_ENDPOINT":"https://search-YOUR-DOMAIN.us-region-1.es.amazonaws.com",
+                "OPENSEARCH_ENDPOINT":"https://your-service.amazonaws.com",
                 "OPENSEARCH_INDEX":"health-data",
                 "S3_BUCKET":"stayfit-healthhq-uploads"
             }'
@@ -310,7 +310,7 @@ echo "   • Data Empty: ${API_ENDPOINT}/empty"
 echo "   • Perplexity AI: ${API_ENDPOINT}/perplexity"
 echo ""
 echo_info "🌐 Frontend URL:"
-echo "   • Settings Page: https://d3r155fcnafufg.cloudfront.net/settings-reference-replica.html"
+echo "   • Settings Page: https://your-distribution.cloudfront.net/settings-reference-replica.html"
 echo ""
 echo_warning "⚠️  Next Steps:"
 echo "   1. Update the API endpoints in your frontend code"

@@ -12,7 +12,7 @@
 ### Current WAF Configuration
 - **WAF Name**: Essentialspack
 - **WAF ID**: b1521861-a9d8-47a4-ad33-22ff339ea734
-- **WAF ARN**: arn:aws:wafv2:us-east-1:YOUR_AWS_ACCOUNT_ID:global/webacl/Essentialspack/b1521861-a9d8-47a4-ad33-22ff339ea734
+- **WAF ARN**: arn:aws:wafv2:your-aws-region:YOUR_AWS_ACCOUNT_ID:global/webacl/Essentialspack/b1521861-a9d8-47a4-ad33-22ff339ea734
 - **Association Status**: ✅ **CONNECTED** to CloudFront distribution YOUR_CLOUDFRONT_DISTRIBUTION_ID
 - **Protection Level**: Enterprise-grade security ACTIVE
 
@@ -105,7 +105,7 @@ Security Target: Enterprise-grade
 ### Check WAF Association Status
 ```bash
 # Verify WAF is associated with CloudFront
-aws wafv2 list-web-acls --scope CLOUDFRONT --region us-east-1
+aws wafv2 list-web-acls --scope CLOUDFRONT --region your-aws-region
 
 # Check CloudFront distribution configuration
 aws cloudfront get-distribution --id YOUR_CLOUDFRONT_DISTRIBUTION_ID

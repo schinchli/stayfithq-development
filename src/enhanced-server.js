@@ -62,7 +62,7 @@ class EnhancedHealthcareServer {
                     fontSrc: ["'self'", "https://fonts.gstatic.com", "https://cdn.jsdelivr.net"],
                     scriptSrc: ["'self'", "https://cdn.jsdelivr.net"],
                     imgSrc: ["'self'", "data:", "https:"],
-                    connectSrc: ["'self'", "https://api.healthhq.com", "https://bedrock-runtime.us-east-1.amazonaws.com"]
+                    connectSrc: ["'self'", "https://api.healthhq.com", "https://bedrock-runtime.your-aws-region.amazonaws.com"]
                 }
             },
             hsts: {

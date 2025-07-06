@@ -92,4 +92,4 @@ COST_ALERT_THRESHOLD = 50  # USD
 ## Contact Information
 - **AWS Support**: Via console
 - **Account ID**: YOUR_AWS_ACCOUNT_ID
-- **Region**: us-east-1
+- **Region**: your-aws-region

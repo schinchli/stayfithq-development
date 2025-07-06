@@ -5,7 +5,7 @@
  */
 
 // AWS Cognito Configuration
-AWS.config.update({ region: 'us-east-1' });
+AWS.config.update({ region: 'your-aws-region' });
 
 const CognitoAuth = {
     // Configuration
@@ -13,8 +13,8 @@ const CognitoAuth = {
         userPoolId: 'us-region-1_YOUR_USER_POOL_ID',
         clientId: '59kc5qi8el10a7o36na5qn6m3f',
         clientSecret: '<REDACTED_CREDENTIAL>72gga4tkfmm',
-        identityPoolId: 'us-east-1:1f8c35e3-37b8-4e59-b694-b5f0bb49a02d',
-        cognitoDomain: 'stayfit-health-companion.auth.us-east-1.amazoncognito.com',
+        identityPoolId: 'your-aws-region:1f8c35e3-37b8-4e59-b694-b5f0bb49a02d',
+        cognitoDomain: 'stayfit-health-companion.auth.your-aws-region.amazoncognito.com',
         redirectUri: 'https://YOUR-DOMAIN.cloudfront.net/index.html',
         loginUrl: 'https://YOUR-DOMAIN.cloudfront.net/login.html',
         publicPages: ['login.html', 'auth-test.html'] // Pages that don't require authentication
@@ -282,7 +282,7 @@ const CognitoAuth = {
             AWS.config.credentials = new AWS.CognitoIdentityCredentials({
                 IdentityPoolId: this.config.identityPoolId,
                 Logins: {
-                    [`cognito-idp.us-east-1.amazonaws.com/${this.config.userPoolId}`]: tokens.idToken
+                    [`cognito-idp.your-aws-region.amazonaws.com/${this.config.userPoolId}`]: tokens.idToken
                 }
             });
             

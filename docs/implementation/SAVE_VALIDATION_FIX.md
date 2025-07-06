@@ -4,7 +4,7 @@
 
 ### ❌ **Issue Identified**
 - Save functions were bypassing validation
-- Invalid URLs like `https://abcdsearch-YOUR-DOMAIN.us-region-1.es.amazonaws.com` showed "OpenSearch settings saved successfully!"
+- Invalid URLs like `https://your-service.amazonaws.com` showed "OpenSearch settings saved successfully!"
 - Visual validation worked, but save operations ignored validation results
 
 ### ✅ **Solution Implemented**
@@ -84,7 +84,7 @@ function saveMCPSettings() {
 ## 🎯 **Enhanced Validation Features**
 
 ### ❌ **Validation Failures Now Prevent Saving**
-1. **Invalid OpenSearch URL:** `https://abcdsearch-YOUR-DOMAIN.us-region-1.es.amazonaws.com`
+1. **Invalid OpenSearch URL:** `https://your-service.amazonaws.com`
    - **Result:** ❌ "Cannot save: AWS OpenSearch domains must start with 'search-'"
    - **Action:** Save operation blocked, user guided to fix
 
@@ -113,11 +113,11 @@ function saveMCPSettings() {
 ### 🔍 **How to Test**
 1. **Visit the URL above**
 2. **Go to OpenSearch tab**
-3. **Enter invalid URL:** `https://abcdsearch-YOUR-DOMAIN.us-region-1.es.amazonaws.com`
+3. **Enter invalid URL:** `https://your-service.amazonaws.com`
 4. **Click "Save Settings"**
 5. **Expected Result:** ❌ Toast error: "Cannot save: AWS OpenSearch domains must start with 'search-'"
 6. **No success message** should appear
-7. **Fix the URL** to: `https://search-YOUR-DOMAIN.us-region-1.es.amazonaws.com`
+7. **Fix the URL** to: `https://your-service.amazonaws.com`
 8. **Click "Save Settings"**
 9. **Expected Result:** ✅ "OpenSearch settings saved successfully!"
 
@@ -132,7 +132,7 @@ function saveMCPSettings() {
 
 ### ❌ **Before (Broken)**
 ```
-User enters: https://abcdsearch-YOUR-DOMAIN.us-region-1.es.amazonaws.com
+User enters: https://your-service.amazonaws.com
 Visual feedback: Red border, error message
 User clicks Save: ✅ "OpenSearch settings saved successfully!" 
 Result: Invalid config saved despite validation errors
@@ -140,7 +140,7 @@ Result: Invalid config saved despite validation errors
 
 ### ✅ **After (Fixed)**
 ```
-User enters: https://abcdsearch-YOUR-DOMAIN.us-region-1.es.amazonaws.com
+User enters: https://your-service.amazonaws.com
 Visual feedback: Red border, error message
 User clicks Save: ❌ "Cannot save: AWS OpenSearch domains must start with 'search-'"
 Result: Save operation blocked, user must fix validation errors
@@ -178,7 +178,7 @@ Result: Save operation blocked, user must fix validation errors
 - **Specific error messages** guide users to solutions
 - **Success confirmation** only when configuration is valid
 
-**The save validation is now completely fixed - invalid URLs like `https://abcdsearch-YOUR-DOMAIN.us-region-1.es.amazonaws.com` will no longer show "settings saved successfully" and will instead be properly rejected with clear error messages!** 🔒
+**The save validation is now completely fixed - invalid URLs like `https://your-service.amazonaws.com` will no longer show "settings saved successfully" and will instead be properly rejected with clear error messages!** 🔒
 
 ---
 

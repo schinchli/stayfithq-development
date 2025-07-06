@@ -24,7 +24,7 @@ const logger = winston.createLogger({
 class StrandsAgent {
   constructor() {
     this.bedrockClient = new BedrockRuntimeClient({
-      region: process.env.AWS_REGION || 'us-east-1'
+      region: process.env.AWS_REGION || 'your-aws-region'
     });
     
     this.perplexityApiKey = process.env.PERPLEXITY_API_KEY;

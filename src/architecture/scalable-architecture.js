@@ -10,7 +10,7 @@ const { v4: uuidv4 } = require('uuid');
 
 class ScalableArchitecture {
     constructor() {
-        this.region = process.env.AWS_REGION || 'us-east-1';
+        this.region = process.env.AWS_REGION || 'your-aws-region';
         this.environment = process.env.NODE_ENV || 'development';
         
         // Initialize AWS services

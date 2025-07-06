@@ -17,7 +17,7 @@ Successfully implemented comprehensive user authentication using Amazon Cognito 
    - Client secret enabled for secure authentication
    - Supports USER_PASSWORD_AUTH flow
 
-3. **Cognito Identity Pool**: `us-east-1:1f8c35e3-37b8-4e59-b694-b5f0bb49a02d`
+3. **Cognito Identity Pool**: `your-aws-region:1f8c35e3-37b8-4e59-b694-b5f0bb49a02d`
    - Updated to support both authenticated and unauthenticated users
    - Integrated with User Pool for authenticated access
 

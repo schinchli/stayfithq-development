@@ -218,9 +218,9 @@ This document contains specific technical prompts and implementation requests ex
 **Source:** `docs/implementation/SAVE_VALIDATION_FIX.md`
 **Action:** fix
 
-**Prompt:** 7. **Fix the URL** to: `https://search-YOUR-DOMAIN.us-region-1.es.amazonaws.com`
+**Prompt:** 7. **Fix the URL** to: `https://your-service.amazonaws.com`
 
-**Description:** the URL** to: `https://search-YOUR-DOMAIN.us-region-1.es.amazonaws.com`
+**Description:** the URL** to: `https://your-service.amazonaws.com`
 
 ---
 
@@ -460,7 +460,7 @@ This document contains specific technical prompts and implementation requests ex
 **Source:** `docs/implementation/SAVE_VALIDATION_FIX.md`
 **Action:** problem
 
-**Prompt:** **The save validation is now completely fixed - invalid URLs like `https://abcdsearch-YOUR-DOMAIN.us-region-1.es.amazonaws.com` will no longer show "settings saved successfully" and will instead be properly rejected with clear error messages!** 🔒
+**Prompt:** **The save validation is now completely fixed - invalid URLs like `https://your-service.amazonaws.com` will no longer show "settings saved successfully" and will instead be properly rejected with clear error messages!** 🔒
 
 ---
 

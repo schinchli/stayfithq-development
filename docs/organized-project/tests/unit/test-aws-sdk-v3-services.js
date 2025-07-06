@@ -354,7 +354,7 @@ class AWSSDKV3TestSuite {
       environment: {
         nodeVersion: process.version,
         platform: process.platform,
-        awsRegion: process.env.AWS_REGION || 'us-east-1'
+        awsRegion: process.env.AWS_REGION || 'your-aws-region'
       },
       tests: this.testResults.tests
     };

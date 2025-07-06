@@ -33,7 +33,7 @@ class CloudTrailLogger {
                 new CloudWatchLogs({
                     logGroupName: '/aws/stayfit/health-companion',
                     logStreamName: `health-companion-${new Date().toISOString().split('T')[0]}`,
-                    awsRegion: process.env.AWS_REGION || 'us-east-1',
+                    awsRegion: process.env.AWS_REGION || 'your-aws-region',
                     jsonMessage: true,
                     retentionInDays: 30
                 })
@@ -64,7 +64,7 @@ class CloudTrailLogger {
             eventTime: new Date().toISOString(),
             eventSource: 'stayfit-health-companion',
             eventName: 'APIAccess',
-            awsRegion: process.env.AWS_REGION || 'us-east-1',
+            awsRegion: process.env.AWS_REGION || 'your-aws-region',
             sourceIPAddress: req.ip || req.connection.remoteAddress,
             userAgent: req.get('User-Agent'),
             requestParameters: {
@@ -107,7 +107,7 @@ class CloudTrailLogger {
             eventTime: new Date().toISOString(),
             eventSource: 'stayfit-health-companion',
             eventName: 'HealthDataAccess',
-            awsRegion: process.env.AWS_REGION || 'us-east-1',
+            awsRegion: process.env.AWS_REGION || 'your-aws-region',
             sourceIPAddress: req.ip,
             userAgent: req.get('User-Agent'),
             requestParameters: {
@@ -147,7 +147,7 @@ class CloudTrailLogger {
             eventTime: new Date().toISOString(),
             eventSource: 'stayfit-health-companion',
             eventName: 'AIInteraction',
-            awsRegion: process.env.AWS_REGION || 'us-east-1',
+            awsRegion: process.env.AWS_REGION || 'your-aws-region',
             sourceIPAddress: req.ip,
             userAgent: req.get('User-Agent'),
             requestParameters: {
@@ -188,7 +188,7 @@ class CloudTrailLogger {
             eventTime: new Date().toISOString(),
             eventSource: 'stayfit-health-companion',
             eventName: 'SecurityEvent',
-            awsRegion: process.env.AWS_REGION || 'us-east-1',
+            awsRegion: process.env.AWS_REGION || 'your-aws-region',
             sourceIPAddress: req.ip,
             userAgent: req.get('User-Agent'),
             requestParameters: {
@@ -218,7 +218,7 @@ class CloudTrailLogger {
             eventTime: new Date().toISOString(),
             eventSource: 'stayfit-health-companion',
             eventName: 'ErrorEvent',
-            awsRegion: process.env.AWS_REGION || 'us-east-1',
+            awsRegion: process.env.AWS_REGION || 'your-aws-region',
             sourceIPAddress: req?.ip || 'internal',
             errorCode: error.code || 'UNKNOWN_ERROR',
             errorMessage: error.message,

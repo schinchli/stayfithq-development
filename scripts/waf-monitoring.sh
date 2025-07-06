@@ -6,7 +6,7 @@
 set -e
 
 WAF_NAME="StayFit-HealthCompanion-WAF-OWASP"
-AWS_REGION="us-east-1"
+AWS_REGION="your-aws-region"
 
 echo "🔍 AWS WAF Monitoring Dashboard for StayFit Health Companion"
 echo "<REDACTED_CREDENTIAL>===================="
@@ -222,7 +222,7 @@ case "${1:-status}" in
 esac
 
 echo ""
-echo "🔗 StayFit Health Companion: https://d3r155fcnafufg.cloudfront.net/"
+echo "🔗 StayFit Health Companion: https://your-distribution.cloudfront.net/"
 echo "📊 CloudWatch Dashboard: AWS Console > CloudWatch > Dashboards > StayFit-HealthCompanion-WAF-Security"
 echo ""
 echo "✅ WAF monitoring completed at $(date)"

@@ -34,7 +34,7 @@ Successfully implemented comprehensive Cognito User Pool authentication protecti
 // Configuration
 userPoolId: 'us-region-1_YOUR_USER_POOL_ID'
 clientId: '59kc5qi8el10a7o36na5qn6m3f'
-identityPoolId: 'us-east-1:1f8c35e3-37b8-4e59-b694-b5f0bb49a02d'
+identityPoolId: 'your-aws-region:1f8c35e3-37b8-4e59-b694-b5f0bb49a02d'
 publicPages: ['login.html', 'auth-test.html']
 ```
 

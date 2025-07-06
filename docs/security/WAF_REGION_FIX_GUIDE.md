@@ -3,13 +3,13 @@
 ## 🎯 Issue Identified: Region Mismatch
 
 **Problem**: You're seeing "webACL 0" in the AWS Console  
-**Root Cause**: AWS Console is not set to the correct region (us-east-1)  
+**Root Cause**: AWS Console is not set to the correct region (your-aws-region)  
 **Status**: ✅ **Your WAF IS deployed** - just need to view it in the right region
 
 ## ✅ Confirmation: Your WAF Exists
 
 **Verified via CLI**:
-- ✅ **3 WAF Web ACLs** exist in us-east-1
+- ✅ **3 WAF Web ACLs** exist in your-aws-region
 - ✅ **StayFit-HealthCompanion-WAF** is deployed and ready
 - ✅ **Account YOUR_AWS_ACCOUNT_ID** - Correct account
 - ✅ **Permissions** - Full access confirmed
@@ -19,14 +19,14 @@
 ### Method 1: Direct Link (Fastest)
 **Click this link to go directly to your WAF**:
 ```
-https://us-east-1.console.aws.amazon.com/wafv2/homev2/web-acls?region=us-east-1
+https://your-aws-region.console.aws.amazon.com/wafv2/homev2/web-acls?region=your-aws-region
 ```
 
 ### Method 2: Region Selector Fix
 1. **Look at top-right corner** of AWS Console
 2. **Find the region selector** (shows current region)
 3. **Click the region dropdown**
-4. **Select "US East (N. Virginia)"** or "us-east-1"
+4. **Select "US East (N. Virginia)"** or "your-aws-region"
 5. **Refresh the WAF console page**
 
 ### Method 3: Manual Navigation
@@ -48,15 +48,15 @@ Web ACLs (3)
 ## 🔍 Why This Happened
 
 **CloudFront WAF Requirements**:
-- CloudFront WAF Web ACLs **MUST** be in us-east-1 region
+- CloudFront WAF Web ACLs **MUST** be in your-aws-region region
 - If console is set to any other region, you'll see "webACL 0"
 - This is an AWS requirement, not a deployment issue
 
 **Common Regions That Cause This**:
-- us-west-2 (Oregon)
-- eu-west-1 (Ireland)  
-- ap-southeast-1 (Singapore)
-- Any region except us-east-1
+- your-aws-region (Oregon)
+- your-aws-region (Ireland)  
+- your-aws-region (Singapore)
+- Any region except your-aws-region
 
 ## ✅ After You See Your WAF
 
@@ -77,7 +77,7 @@ After the association:
 
 ## 📞 Still Having Issues?
 
-If you still see "webACL 0" after switching to us-east-1:
+If you still see "webACL 0" after switching to your-aws-region:
 
 1. **Clear browser cache** or try incognito mode
 2. **Verify account ID** shows YOUR_AWS_ACCOUNT_ID in console
@@ -88,4 +88,4 @@ If you still see "webACL 0" after switching to us-east-1:
 
 ## ✅ Summary
 
-**Your WAF is deployed and ready!** The "webACL 0" issue is just a region display problem. Use the direct link above or switch your AWS Console to us-east-1 region to see your WAF Web ACLs.
+**Your WAF is deployed and ready!** The "webACL 0" issue is just a region display problem. Use the direct link above or switch your AWS Console to your-aws-region region to see your WAF Web ACLs.

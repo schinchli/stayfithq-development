@@ -620,7 +620,7 @@ class AppleHealthImporter {
         // Initialize OpenSearch client configuration
         this.opensearchClient = {
             endpoint: process.env.OPENSEARCH_ENDPOINT || 'https://your-opensearch-domain.region.es.amazonaws.com',
-            region: process.env.AWS_REGION || 'us-east-1'
+            region: process.env.AWS_REGION || 'your-aws-region'
         };
     }
 

@@ -40,9 +40,9 @@ async function collectConfiguration() {
     config.cognito.userPoolId = await askQuestion('Enter your Cognito User Pool ID (e.g., us-region-1_YOUR_USER_POOL_ID): ');
     config.cognito.clientId = await askQuestion('Enter your Cognito Client ID: ');
     config.cognito.clientSecret = await askQuestion('Enter your Cognito Client Secret: ');
-    config.cognito.identityPoolId = await askQuestion('Enter your Cognito Identity Pool ID (e.g., us-east-1:12<REDACTED_CREDENTIAL>-1234-1234-YOUR_AWS_ACCOUNT_ID): ');
-    config.cognito.cognitoDomain = await askQuestion('Enter your Cognito Domain (e.g., your-app.auth.us-east-1.amazoncognito.com): ');
-    config.cognito.region = await askQuestion('Enter your AWS Region [us-east-1]: ') || 'us-east-1';
+    config.cognito.identityPoolId = await askQuestion('Enter your Cognito Identity Pool ID (e.g., your-aws-region:12<REDACTED_CREDENTIAL>-1234-1234-YOUR_AWS_ACCOUNT_ID): ');
+    config.cognito.cognitoDomain = await askQuestion('Enter your Cognito Domain (e.g., your-app.auth.your-aws-region.amazoncognito.com): ');
+    config.cognito.region = await askQuestion('Enter your AWS Region [your-aws-region]: ') || 'your-aws-region';
     
     console.log('\n🌐 Application URLs');
     console.log('-------------------');

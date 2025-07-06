@@ -195,7 +195,7 @@ class TestRunner {
           nodeVersion: process.version,
           platform: process.platform,
           architecture: process.arch,
-          awsRegion: process.env.AWS_REGION || 'us-east-1'
+          awsRegion: process.env.AWS_REGION || 'your-aws-region'
         }
       },
       summary: {

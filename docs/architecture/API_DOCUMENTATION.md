@@ -283,7 +283,7 @@ Get MCP integration health status.
     "status": "green",
     "cluster": "production-healthcare-cluster",
     "type": "AWS OpenSearch Service",
-    "endpoint": "https://search-YOUR-DOMAIN.us-region-1.es.amazonaws.com",
+    "endpoint": "https://your-service.amazonaws.com",
     "connected": true
   },
   "mcp": {

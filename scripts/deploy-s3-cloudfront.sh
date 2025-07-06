@@ -8,7 +8,7 @@ set -e
 # Configuration
 PROJECT_NAME="stayfit-health-companion"
 ENVIRONMENT=${1:-prod}
-AWS_REGION=${2:-us-east-1}
+AWS_REGION=${2:-your-aws-region}
 BUCKET_NAME="stayfit-healthhq-web-${ENVIRONMENT}"
 CLOUDFRONT_COMMENT="StayFit Health Companion - ${ENVIRONMENT}"
 
@@ -46,7 +46,7 @@ if aws s3api head-bucket --bucket "$BUCKET_NAME" 2>/dev/null; then
     echo "✅ S3 bucket $BUCKET_NAME already exists"
 else
     echo "Creating S3 bucket: $BUCKET_NAME"
-    if [ "$AWS_REGION" = "us-east-1" ]; then
+    if [ "$AWS_REGION" = "your-aws-region" ]; then
         aws s3api create-bucket --bucket "$BUCKET_NAME"
     else
         aws s3api create-bucket --bucket "$BUCKET_NAME" --region "$AWS_REGION" \
@@ -208,10 +208,10 @@ LAMBDA_ROLE_ARN=$(aws iam get-role --role-name "$LAMBDA_ROLE_NAME" --query 'Role
 echo "Waiting for IAM role to be ready..."
 sleep 10
 
-# Create Lambda function in us-east-1 (required for Lambda@Edge)
+# Create Lambda function in your-aws-region (required for Lambda@Edge)
 echo "Creating Lambda@Edge function..."
 aws lambda create-function \
-    --region us-east-1 \
+    --region your-aws-region \
     --function-name "$LAMBDA_FUNCTION_NAME" \
     --runtime nodejs18.x \
     --role "$LAMBDA_ROLE_ARN" \
@@ -224,11 +224,11 @@ aws lambda create-function \
 # Publish version for Lambda@Edge
 echo "Publishing Lambda function version..."
 LAMBDA_VERSION=$(aws lambda publish-version \
-    --region us-east-1 \
+    --region your-aws-region \
     --function-name "$LAMBDA_FUNCTION_NAME" \
     --query 'Version' --output text)
 
-LAMBDA_ARN="arn:aws:lambda:us-east-1:$(aws sts get-caller-identity --query Account --output text):function:${LAMBDA_FUNCTION_NAME}:${LAMBDA_VERSION}"
+LAMBDA_ARN="arn:aws:lambda:your-aws-region:$(aws sts get-caller-identity --query Account --output text):function:${LAMBDA_FUNCTION_NAME}:${LAMBDA_VERSION}"
 
 echo "✅ Lambda@Edge function created: $LAMBDA_ARN"
 

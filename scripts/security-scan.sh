@@ -5,7 +5,7 @@
 
 set -e
 
-TARGET_URL="https://d3r155fcnafufg.cloudfront.net"
+TARGET_URL="https://your-distribution.cloudfront.net"
 SCAN_RESULTS_DIR="security-scan-results"
 TIMESTAMP=$(date +%Y%m%d-%H%M%S)
 

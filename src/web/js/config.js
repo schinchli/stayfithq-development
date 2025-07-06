@@ -9,7 +9,7 @@ window.STAYFIT_CONFIG = {
         clientSecret: 'DEMO_MODE',
         identityPoolId: 'DEMO_MODE',
         cognitoDomain: 'DEMO_MODE',
-        region: 'us-east-1'
+        region: 'your-aws-region'
     },
     
     // Application URLs (Local development)

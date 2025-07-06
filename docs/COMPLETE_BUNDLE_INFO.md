@@ -12,7 +12,7 @@
 ## 🔗 **Presigned Download URL** (Valid for 1 hour)
 
 ```
-https://stayfit-healthhq-web-prod.s3.amazonaws.com/downloads/stayfit-health-companion-complete-bundle-20<REDACTED_CREDENTIAL>.zip?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA_DEMO_ACCESS_KEY%2F20250701%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20250701T045749Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-<REDACTED_CREDENTIAL>e7329f4e150fe2ef7073cfad4414e27dc0
+https://your-service.amazonaws.com/downloads/stayfit-health-companion-complete-bundle-20<REDACTED_CREDENTIAL>.zip?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA_DEMO_ACCESS_KEY%2F20250701%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20250701T045749Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-<REDACTED_CREDENTIAL>e7329f4e150fe2ef7073cfad4414e27dc0
 ```
 
 **⚠️ Important**: This URL expires in 1 hour. Download immediately.

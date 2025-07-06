@@ -94,7 +94,7 @@
 ### Infrastructure
 ```bash
 # Deploy complete AWS infrastructure
-./deploy-aws.sh dev us-east-1
+./deploy-aws.sh dev your-aws-region
 ```
 
 ### Services Deployed

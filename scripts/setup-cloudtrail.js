@@ -12,19 +12,19 @@ const path = require('path');
 class CloudTrailSetup {
     constructor() {
         this.cloudtrail = new AWS.CloudTrail({
-            region: process.env.AWS_REGION || 'us-east-1'
+            region: process.env.AWS_REGION || 'your-aws-region'
         });
         
         this.s3 = new AWS.S3({
-            region: process.env.AWS_REGION || 'us-east-1'
+            region: process.env.AWS_REGION || 'your-aws-region'
         });
         
         this.cloudwatchLogs = new AWS.CloudWatchLogs({
-            region: process.env.AWS_REGION || 'us-east-1'
+            region: process.env.AWS_REGION || 'your-aws-region'
         });
         
         this.accountId = process.env.AWS_ACCOUNT_ID;
-        this.region = process.env.AWS_REGION || 'us-east-1';
+        this.region = process.env.AWS_REGION || 'your-aws-region';
         this.trailName = 'stayfit-health-companion-trail';
         this.bucketName = `stayfit-cloudtrail-logs-${this.accountId}-${this.region}`;
     }
@@ -45,7 +45,7 @@ class CloudTrailSetup {
                 const bucketParams = {
                     Bucket: this.bucketName,
                     CreateBucketConfiguration: {
-                        LocationConstraint: this.region !== 'us-east-1' ? this.region : undefined
+                        LocationConstraint: this.region !== 'your-aws-region' ? this.region : undefined
                     }
                 };
 
