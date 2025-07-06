@@ -1,0 +1,640 @@
+/* Unified Bootstrap Theme - Complete Responsive Design */
+
+/* CSS Custom Properties */
+:root {
+    --primary-color: #0d6efd;
+    --success-color: #198754;
+    --info-color: #0dcaf0;
+    --warning-color: #ffc107;
+    --danger-color: #dc3545;
+    --dark-color: #212529;
+    --light-color: #f8f9fa;
+    --apple-blue: #007AFF;
+    --apple-green: #34C759;
+    --apple-red: #FF3B30;
+    --apple-orange: #FF9500;
+    --sidebar-width: 280px;
+}
+
+/* Base Styles */
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f8f9fa;
+    line-height: 1.6;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Container System */
+.container-fluid {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    max-width: 100%;
+}
+
+/* Main Content Layout */
+.main-content {
+    flex: 1;
+    margin-left: var(--sidebar-width);
+    padding: 2rem 0;
+    transition: margin-left 0.3s ease;
+    min-height: calc(100vh - 120px);
+}
+
+/* Card System */
+.card {
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    margin-bottom: 1.5rem;
+    background: #ffffff;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+}
+
+.card-header {
+    background: #ffffff;
+    border-bottom: 1px solid #e9ecef;
+    border-radius: 12px 12px 0 0 !important;
+    padding: 1rem 1.25rem;
+    font-weight: 600;
+}
+
+.card-body {
+    padding: 1.25rem;
+}
+
+.card-footer {
+    background-color: #f8f9fa;
+    border-top: 1px solid #e9ecef;
+    padding: 1rem 1.25rem;
+    border-radius: 0 0 12px 12px;
+}
+
+/* Health Stats Cards */
+.card .card-body.text-center h3 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    line-height: 1.2;
+}
+
+.card .card-body.text-center div {
+    font-size: 0.875rem;
+    color: #6c757d;
+    font-weight: 500;
+    margin: 0;
+}
+
+/* Quick Action Cards */
+.card .card-body.text-center .display-4 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.card .card-body.text-center h5 {
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: #212529;
+}
+
+.card .card-body.text-center p {
+    color: #6c757d;
+    margin-bottom: 1.5rem;
+    line-height: 1.5;
+}
+
+/* Activity Items */
+.d-flex.align-items-center.p-3.bg-light.rounded {
+    background: #f8f9fa !important;
+    border-radius: 8px !important;
+    padding: 1rem !important;
+    transition: all 0.3s ease;
+}
+
+.d-flex.align-items-center.p-3.bg-light.rounded:hover {
+    background: #e9ecef !important;
+    transform: translateX(4px);
+}
+
+.d-flex.align-items-center.p-3.bg-light.rounded i {
+    font-size: 1.5rem;
+    margin-right: 1rem;
+    width: 24px;
+    text-align: center;
+}
+
+.d-flex.align-items-center.p-3.bg-light.rounded .fw-bold {
+    font-weight: 600;
+    color: #212529;
+    margin-bottom: 0.25rem;
+}
+
+.d-flex.align-items-center.p-3.bg-light.rounded small {
+    color: #6c757d;
+    font-size: 0.8rem;
+}
+
+/* Button System */
+.btn {
+    border-radius: 8px;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn:hover {
+    transform: translateY(-1px);
+    text-decoration: none;
+}
+
+.btn i {
+    margin-right: 0.5rem;
+}
+
+.btn-primary {
+    background-color: var(--apple-blue);
+    border-color: var(--apple-blue);
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+}
+
+/* Form Controls */
+.form-control,
+.form-select {
+    border-radius: 6px;
+    border: 1px solid #dee2e6;
+    transition: all 0.3s ease;
+    padding: 0.5rem 0.75rem;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+}
+
+/* Progress Bars */
+.progress {
+    height: 8px;
+    border-radius: 4px;
+    background-color: #e9ecef;
+    margin-bottom: 0.5rem;
+}
+
+.progress-bar {
+    border-radius: 4px;
+}
+
+.progress-bar.bg-primary {
+    background-color: var(--apple-blue) !important;
+}
+
+.progress-bar.bg-success {
+    background-color: var(--apple-green) !important;
+}
+
+.progress-bar.bg-danger {
+    background-color: var(--apple-red) !important;
+}
+
+.progress-bar.bg-warning {
+    background-color: var(--apple-orange) !important;
+}
+
+.progress-bar.bg-info {
+    background-color: var(--info-color) !important;
+}
+
+/* Text Color Utilities */
+.text-primary {
+    color: var(--apple-blue) !important;
+}
+
+.text-success {
+    color: var(--apple-green) !important;
+}
+
+.text-danger {
+    color: var(--apple-red) !important;
+}
+
+.text-warning {
+    color: var(--apple-orange) !important;
+}
+
+.text-info {
+    color: var(--info-color) !important;
+}
+
+.text-muted {
+    color: #6c757d !important;
+}
+
+/* Badges */
+.badge {
+    font-weight: 500;
+    padding: 0.5em 0.75em;
+    border-radius: 4px;
+}
+
+/* Alert System */
+.alert {
+    border: none;
+    border-radius: 8px;
+    border-left: 4px solid;
+    margin-bottom: 1rem;
+}
+
+.alert-primary {
+    border-left-color: var(--primary-color);
+    background-color: rgba(13, 110, 253, 0.1);
+}
+
+.alert-success {
+    border-left-color: var(--success-color);
+    background-color: rgba(25, 135, 84, 0.1);
+}
+
+.alert-info {
+    border-left-color: var(--info-color);
+    background-color: rgba(13, 202, 240, 0.1);
+}
+
+.alert-warning {
+    border-left-color: var(--warning-color);
+    background-color: rgba(255, 193, 7, 0.1);
+}
+
+/* List Groups */
+.list-group-item {
+    border: none;
+    border-bottom: 1px solid #e9ecef;
+    padding: 1rem;
+    transition: all 0.3s ease;
+}
+
+.list-group-item:last-child {
+    border-bottom: none;
+}
+
+.list-group-item:hover {
+    background-color: #f8f9fa;
+}
+
+/* Chart Container */
+.chart-container {
+    position: relative;
+    height: 300px;
+    margin: 20px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+}
+
+/* Input Groups */
+.input-group .form-control {
+    border-right: none;
+}
+
+.input-group .btn {
+    border-left: none;
+}
+
+/* Spacing Utilities */
+.mb-4 {
+    margin-bottom: 2rem !important;
+}
+
+.mb-3 {
+    margin-bottom: 1.5rem !important;
+}
+
+.mb-2 {
+    margin-bottom: 1rem !important;
+}
+
+/* Grid System Enhancements */
+.row {
+    margin-left: -0.75rem;
+    margin-right: -0.75rem;
+}
+
+.row > * {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+}
+
+.g-3 > * {
+    padding: 0.75rem;
+}
+
+/* Equal Height Cards */
+.h-100 {
+    height: 100% !important;
+}
+
+.row > [class*="col-"] > .card {
+    height: calc(100% - 1.5rem);
+}
+
+/* Loading States */
+.loading-spinner {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(0, 123, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: var(--apple-blue);
+    animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Responsive Breakpoints */
+
+/* Large screens (1200px and up) */
+@media (min-width: 1200px) {
+    .container-fluid {
+        max-width: 1140px;
+        margin: 0 auto;
+    }
+}
+
+/* Medium screens (992px to 1199px) */
+@media (min-width: 992px) and (max-width: 1199.98px) {
+    .card .card-body.text-center h3 {
+        font-size: 1.75rem;
+    }
+    
+    .card .card-body.text-center .display-4 {
+        font-size: 2.5rem;
+    }
+}
+
+/* Small screens (768px to 991px) */
+@media (min-width: 768px) and (max-width: 991.98px) {
+    .main-content {
+        margin-left: var(--sidebar-width);
+        padding: 1.5rem 0;
+    }
+    
+    .card .card-body.text-center h3 {
+        font-size: 1.5rem;
+    }
+    
+    .card .card-body.text-center .display-4 {
+        font-size: 2.25rem;
+    }
+}
+
+/* Mobile screens (less than 768px) */
+@media (max-width: 767.98px) {
+    .main-content {
+        margin-left: 0;
+        padding: 1rem 0;
+    }
+    
+    .container-fluid {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+    
+    .card {
+        margin-bottom: 1rem;
+    }
+    
+    .card-body {
+        padding: 1rem;
+    }
+    
+    .card-header {
+        padding: 0.75rem 1rem;
+    }
+    
+    .card-footer {
+        padding: 0.75rem 1rem;
+    }
+    
+    .card .card-body.text-center h3 {
+        font-size: 1.5rem;
+    }
+    
+    .card .card-body.text-center .display-4 {
+        font-size: 2rem;
+    }
+    
+    .btn {
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+    
+    .btn:last-child {
+        margin-bottom: 0;
+    }
+    
+    .d-grid .btn {
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+    
+    .form-control,
+    .form-select {
+        font-size: 16px; /* Prevents zoom on iOS */
+    }
+    
+    .input-group-lg .form-control {
+        font-size: 16px;
+    }
+    
+    .d-flex.align-items-center.p-3.bg-light.rounded {
+        padding: 0.75rem !important;
+    }
+    
+    .d-flex.align-items-center.p-3.bg-light.rounded i {
+        font-size: 1.25rem;
+        margin-right: 0.75rem;
+    }
+}
+
+/* Extra small screens (less than 576px) */
+@media (max-width: 575.98px) {
+    .container-fluid {
+        padding-left: 0.75rem;
+        padding-right: 0.75rem;
+    }
+    
+    .card .card-body.text-center h3 {
+        font-size: 1.25rem;
+    }
+    
+    .card .card-body.text-center .display-4 {
+        font-size: 1.75rem;
+    }
+    
+    .card-body {
+        padding: 0.75rem;
+    }
+    
+    .row {
+        margin-left: -0.5rem;
+        margin-right: -0.5rem;
+    }
+    
+    .row > * {
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+    }
+}
+
+/* Sidebar responsive behavior */
+@media (max-width: 991.98px) {
+    .main-content {
+        margin-left: 0;
+    }
+}
+
+/* Accessibility */
+.btn:focus,
+.form-control:focus,
+.form-select:focus,
+.card:focus {
+    outline: 2px solid var(--apple-blue);
+    outline-offset: 2px;
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+    .card {
+        border: 2px solid #000;
+    }
+    
+    .btn {
+        border: 2px solid currentColor;
+    }
+    
+    .d-flex.align-items-center.p-3.bg-light.rounded {
+        border: 1px solid #666 !important;
+    }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+    
+    .card:hover,
+    .btn:hover,
+    .d-flex.align-items-center.p-3.bg-light.rounded:hover {
+        transform: none;
+    }
+}
+
+/* Print Styles */
+@media print {
+    .sidebar,
+    .mobile-menu-toggle,
+    .btn,
+    footer {
+        display: none !important;
+    }
+    
+    .main-content {
+        margin-left: 0 !important;
+        padding: 0 !important;
+    }
+    
+    .card {
+        box-shadow: none;
+        border: 1px solid #000;
+        break-inside: avoid;
+    }
+    
+    body {
+        background: white;
+        color: black;
+    }
+}
+
+/* Form Check Enhancements */
+.form-check-input:checked {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+/* Link Styling */
+a {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+a:hover {
+    color: #0b5ed7;
+    text-decoration: underline;
+}
+
+/* Navigation Link Styling */
+.nav-link {
+    color: #6c757d;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.nav-link:hover {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.nav-link.active {
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+/* Icon Sizing */
+.bi {
+    font-size: 1em;
+    vertical-align: -0.125em;
+}
+
+/* Utility Classes */
+.d-grid .btn + .btn {
+    margin-top: 0.5rem;
+}
+
+small {
+    font-size: 0.875rem;
+    color: #6c757d;
+}
+
+strong {
+    font-weight: 600;
+}

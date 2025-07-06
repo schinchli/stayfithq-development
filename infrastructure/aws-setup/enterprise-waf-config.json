@@ -1,0 +1,295 @@
+{
+  "Name": "StayFit-Enterprise-WAF-Security",
+  "Scope": "CLOUDFRONT",
+  "DefaultAction": {
+    "Allow": {}
+  },
+  "Description": "Enterprise-grade WAF with comprehensive OWASP Top 10 and healthcare-specific security rules",
+  "VisibilityConfig": {
+    "SampledRequestsEnabled": true,
+    "CloudWatchMetricsEnabled": true,
+    "MetricName": "StayFitEnterpriseWAF"
+  },
+  "Rules": [
+    {
+      "Name": "Enterprise-OWASP-Core-Rules",
+      "Priority": 1,
+      "Statement": {
+        "ManagedRuleGroupStatement": {
+          "VendorName": "AWS",
+          "Name": "AWSManagedRulesCommonRuleSet",
+          "ExcludedRules": []
+        }
+      },
+      "Action": {
+        "Block": {}
+      },
+      "VisibilityConfig": {
+        "SampledRequestsEnabled": true,
+        "CloudWatchMetricsEnabled": true,
+        "MetricName": "EnterpriseOWASPCore"
+      }
+    },
+    {
+      "Name": "Enterprise-Known-Bad-Inputs",
+      "Priority": 2,
+      "Statement": {
+        "ManagedRuleGroupStatement": {
+          "VendorName": "AWS",
+          "Name": "AWSManagedRulesKnownBadInputsRuleSet",
+          "ExcludedRules": []
+        }
+      },
+      "Action": {
+        "Block": {}
+      },
+      "VisibilityConfig": {
+        "SampledRequestsEnabled": true,
+        "CloudWatchMetricsEnabled": true,
+        "MetricName": "EnterpriseKnownBadInputs"
+      }
+    },
+    {
+      "Name": "Enterprise-SQL-Injection-Protection",
+      "Priority": 3,
+      "Statement": {
+        "ManagedRuleGroupStatement": {
+          "VendorName": "AWS",
+          "Name": "AWSManagedRulesSQLiRuleSet",
+          "ExcludedRules": []
+        }
+      },
+      "Action": {
+        "Block": {}
+      },
+      "VisibilityConfig": {
+        "SampledRequestsEnabled": true,
+        "CloudWatchMetricsEnabled": true,
+        "MetricName": "EnterpriseSQLiProtection"
+      }
+    },
+    {
+      "Name": "Enterprise-Linux-Security",
+      "Priority": 4,
+      "Statement": {
+        "ManagedRuleGroupStatement": {
+          "VendorName": "AWS",
+          "Name": "AWSManagedRulesLinuxRuleSet",
+          "ExcludedRules": []
+        }
+      },
+      "Action": {
+        "Block": {}
+      },
+      "VisibilityConfig": {
+        "SampledRequestsEnabled": true,
+        "CloudWatchMetricsEnabled": true,
+        "MetricName": "EnterpriseLinuxSecurity"
+      }
+    },
+    {
+      "Name": "Enterprise-Authentication-Rate-Limit",
+      "Priority": 5,
+      "Statement": {
+        "RateBasedStatement": {
+          "Limit": 100,
+          "AggregateKeyType": "IP",
+          "ScopeDownStatement": {
+            "OrStatement": {
+              "Statements": [
+                {
+                  "ByteMatchStatement": {
+                    "SearchString": "login",
+                    "FieldToMatch": {
+                      "UriPath": {}
+                    },
+                    "TextTransformations": [
+                      {
+                        "Priority": 0,
+                        "Type": "LOWERCASE"
+                      }
+                    ],
+                    "PositionalConstraint": "CONTAINS"
+                  }
+                },
+                {
+                  "ByteMatchStatement": {
+                    "SearchString": "signin",
+                    "FieldToMatch": {
+                      "UriPath": {}
+                    },
+                    "TextTransformations": [
+                      {
+                        "Priority": 0,
+                        "Type": "LOWERCASE"
+                      }
+                    ],
+                    "PositionalConstraint": "CONTAINS"
+                  }
+                }
+              ]
+            }
+          }
+        }
+      },
+      "Action": {
+        "Block": {}
+      },
+      "VisibilityConfig": {
+        "SampledRequestsEnabled": true,
+        "CloudWatchMetricsEnabled": true,
+        "MetricName": "EnterpriseAuthRateLimit"
+      }
+    },
+    {
+      "Name": "Enterprise-General-Rate-Limit",
+      "Priority": 6,
+      "Statement": {
+        "RateBasedStatement": {
+          "Limit": 2000,
+          "AggregateKeyType": "IP"
+        }
+      },
+      "Action": {
+        "Block": {}
+      },
+      "VisibilityConfig": {
+        "SampledRequestsEnabled": true,
+        "CloudWatchMetricsEnabled": true,
+        "MetricName": "EnterpriseGeneralRateLimit"
+      }
+    },
+    {
+      "Name": "Enterprise-Geographic-Blocking",
+      "Priority": 7,
+      "Statement": {
+        "GeoMatchStatement": {
+          "CountryCodes": ["CN", "RU", "KP", "IR", "SY", "CU", "SD"]
+        }
+      },
+      "Action": {
+        "Block": {}
+      },
+      "VisibilityConfig": {
+        "SampledRequestsEnabled": true,
+        "CloudWatchMetricsEnabled": true,
+        "MetricName": "EnterpriseGeoBlocking"
+      }
+    },
+    {
+      "Name": "Enterprise-Healthcare-Data-Protection",
+      "Priority": 8,
+      "Statement": {
+        "OrStatement": {
+          "Statements": [
+            {
+              "ByteMatchStatement": {
+                "SearchString": "ssn",
+                "FieldToMatch": {
+                  "Body": {}
+                },
+                "TextTransformations": [
+                  {
+                    "Priority": 0,
+                    "Type": "LOWERCASE"
+                  }
+                ],
+                "PositionalConstraint": "CONTAINS"
+              }
+            },
+            {
+              "ByteMatchStatement": {
+                "SearchString": "medical",
+                "FieldToMatch": {
+                  "UriPath": {}
+                },
+                "TextTransformations": [
+                  {
+                    "Priority": 0,
+                    "Type": "LOWERCASE"
+                  }
+                ],
+                "PositionalConstraint": "CONTAINS"
+              }
+            }
+          ]
+        }
+      },
+      "Action": {
+        "Count": {}
+      },
+      "VisibilityConfig": {
+        "SampledRequestsEnabled": true,
+        "CloudWatchMetricsEnabled": true,
+        "MetricName": "EnterpriseHealthcareProtection"
+      }
+    },
+    {
+      "Name": "Enterprise-Bot-Control",
+      "Priority": 9,
+      "Statement": {
+        "ManagedRuleGroupStatement": {
+          "VendorName": "AWS",
+          "Name": "AWSManagedRulesBotControlRuleSet",
+          "ManagedRuleGroupConfigs": [
+            {
+              "LoginPath": "/login",
+              "PayloadType": "JSON",
+              "UsernameField": "email",
+              "PasswordField": "password"
+            }
+          ]
+        }
+      },
+      "Action": {
+        "Count": {}
+      },
+      "VisibilityConfig": {
+        "SampledRequestsEnabled": true,
+        "CloudWatchMetricsEnabled": true,
+        "MetricName": "EnterpriseBotControl"
+      }
+    },
+    {
+      "Name": "Enterprise-IP-Reputation",
+      "Priority": 10,
+      "Statement": {
+        "ManagedRuleGroupStatement": {
+          "VendorName": "AWS",
+          "Name": "AWSManagedRulesAmazonIpReputationList",
+          "ExcludedRules": []
+        }
+      },
+      "Action": {
+        "Block": {}
+      },
+      "VisibilityConfig": {
+        "SampledRequestsEnabled": true,
+        "CloudWatchMetricsEnabled": true,
+        "MetricName": "EnterpriseIPReputation"
+      }
+    }
+  ],
+  "Tags": [
+    {
+      "Key": "Project",
+      "Value": "StayFit-HealthCompanion"
+    },
+    {
+      "Key": "Environment",
+      "Value": "Production"
+    },
+    {
+      "Key": "Security",
+      "Value": "Enterprise-Grade"
+    },
+    {
+      "Key": "Compliance",
+      "Value": "HIPAA-Healthcare"
+    },
+    {
+      "Key": "Protection-Level",
+      "Value": "Maximum"
+    }
+  ]
+}

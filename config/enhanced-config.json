@@ -1,0 +1,70 @@
+{
+  "application": {
+    "name": "HealthHQ Enhanced Platform",
+    "version": "2.0.0",
+    "environment": "production"
+  },
+  "compliance": {
+    "hipaa": {
+      "enabled": true,
+      "auditRetentionDays": 2555,
+      "encryptionRequired": true,
+      "accessLoggingEnabled": true
+    },
+    "standards": {
+      "fhir": {
+        "version": "4.0.1",
+        "baseUrl": "/fhir/R4",
+        "enabled": true
+      },
+      "openehr": {
+        "version": "1.1.0",
+        "baseUrl": "/openehr/v1",
+        "enabled": true
+      }
+    }
+  },
+  "security": {
+    "authentication": {
+      "jwtExpirationHours": 1,
+      "mfaRequired": true,
+      "maxLoginAttempts": 5,
+      "lockoutDurationMinutes": 15
+    },
+    "encryption": {
+      "algorithm": "aes-256-gcm",
+      "keyRotationDays": 90
+    },
+    "rateLimit": {
+      "windowMinutes": 15,
+      "maxRequests": 1000
+    }
+  },
+  "architecture": {
+    "microservices": {
+      "patientService": { "port": 3001, "scaling": { "min": 2, "max": 10 } },
+      "fhirService": { "port": 3002, "scaling": { "min": 2, "max": 15 } },
+      "openehrService": { "port": 3003, "scaling": { "min": 2, "max": 15 } },
+      "aiService": { "port": 3004, "scaling": { "min": 1, "max": 20 } },
+      "authService": { "port": 3005, "scaling": { "min": 3, "max": 12 } }
+    },
+    "database": {
+      "primary": {
+        "engine": "postgresql",
+        "multiAZ": true,
+        "encrypted": true,
+        "backupRetentionDays": 35
+      },
+      "cache": {
+        "engine": "redis",
+        "encrypted": true,
+        "multiAZ": true
+      }
+    }
+  },
+  "monitoring": {
+    "xray": { "enabled": true },
+    "cloudwatch": { "enabled": true },
+    "customMetrics": { "enabled": true }
+  }
+}

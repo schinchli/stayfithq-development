@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StayFit Health Companion - Digital Health Dashboard</title>
+    
+    <!-- Bootstrap 5.3 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-<REDACTED_CREDENTIAL>R1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.css">
+    
+    <!-- Google Fonts - Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Unified Template CSS Files -->
+    <link rel="stylesheet" href="css/bootstrap-theme-unified.css">
+    
+    <!-- Global Theme Management -->
+    <script src="js/global-theme.js"></script>
+    <link rel="stylesheet" href="css/navigation-unified.css">
+    <link rel="stylesheet" href="css/layout-unified.css">
+    <link rel="stylesheet" href="css/uniform_page_header.css">
+    <link rel="stylesheet" href="css/footer-unified.css">
+    <link rel="stylesheet" href="../assets/css/footer-standard.css">
+    <link rel="stylesheet" href="../assets/css/accessibility.css">
+    <link rel="stylesheet" href="css/unified-layout-override.css">
+</head>
+<body>
+    <!-- Mobile Menu Toggle -->
+    <button class="mobile-menu-toggle" id="mobileMenuToggle">
+        <i class="bi bi-list"></i>
+    </button>
+
+    <!-- Sidebar Overlay -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Sidebar Navigation -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h4 class="mb-0">
+                <i class="bi bi-heart-pulse me-2 text-primary"></i>
+                StayFit
+            </h4>
+        </div>
+        <nav class="nav flex-column">
+            <a class="nav-link active" href="index.html">
+                <i class="bi bi-house"></i>
+                <span>Dashboard</span>
+            </a>
+            <a class="nav-link" href="health-reports.html">
+                <i class="bi bi-file-medical"></i>
+                <span>Health Reports</span>
+            </a>
+            <a class="nav-link" href="digital-analysis.html">
+                <i class="bi bi-cpu"></i>
+                <span>Digital Analysis</span>
+            </a>
+            <a class="nav-link" href="search.html">
+                <i class="bi bi-search"></i>
+                <span>Search</span>
+            </a>
+            <a class="nav-link" href="settings.html">
+                <i class="bi bi-gear"></i>
+                <span>Settings</span>
+            </a>
+        </nav>
+    </div>
+
+<!-- Main Content Area -->
+<div class="main-content" id="main-content" role="main" tabindex="-1">
+    <div class="container-fluid">
+        <!-- Page Header -->
+        <div class="page-header">
+            <h1><i class="bi bi-speedometer2" aria-hidden="true"></i>Health Dashboard</h1>
+            <div class="header-divider"></div>
+            <p>Your comprehensive digital health overview with real-time MCP data</p>
+        </div>
+
+        <!-- Introduction to StayFit Banner -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title"><i class="bi bi-heart-pulse"></i> Introduction to StayFit - Your Health Companion!</h5>
+                        <p class="mb-3">
+                            <strong>StayFit Health Companion now unifies physical activity data from Apple Health with your clinical records.</strong> 
+                            A lightweight iOS collector transforms HealthKit metrics (steps, heart-rate, sleep, workouts) into FHIR R4 Observation 
+                            resources and streams them—via secure HTTPS—into a dedicated "apple-health-records" index in OpenSearch.
+                        </p>
+                        <p class="mb-3">
+                            Once ingested, the platform's existing analytics and AI engines treat these records like any other medical data, 
+                            so users and clinicians see one continuous timeline that spans Apple Watch, iPhone, labs, medications, and diagnoses 
+                            in the same dashboard.
+                        </p>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h6><i class="bi bi-check-circle text-success"></i> Standards-based</h6>
+                                <p class="small">HealthKit data is converted to FHIR using open-source tooling backed by Apple's Health Records API</p>
+                                
+                                <h6><i class="bi bi-lightning text-warning"></i> Real-time ingestion</h6>
+                                <p class="small">A serverless Lambda pipeline posts new Observations to OpenSearch in &lt;5 seconds, enabling live trend charts</p>
+                            </div>
+                            <div class="col-md-6">
+                                <h6><i class="bi bi-eye text-info"></i> Single view</h6>
+                                <p class="small">OpenSearch federates Apple Health and provider EHR indexes, letting AI Search answer questions that combine fitness and clinical context (e.g., "Did my resting heart-rate improve after my new hypertension medication?")</p>
+                                
+                                <h6><i class="bi bi-shield-check text-success"></i> Security & compliance</h6>
+                                <p class="small">Data stays encrypted end-to-end; no PHI touches Apple servers, and all Apple Health ingest events are logged for HIPAA audits</p>
+                            </div>
+                        </div>
+                        
+                        <div class="alert alert-info mt-3 mb-0">
+                            <i class="bi bi-info-circle"></i>
+                            <strong>360° Health View:</strong> With Apple Health sync activated, StayFit Health Companion truly delivers a 360° view of both digital health records and everyday activity data—together, in one place.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Health Stats Overview -->
+        <div class="row g-3 mb-4">
+            <div class="col-12 col-md-6 col-lg-3">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <h3 class="text-primary">72 BPM</h3>
+                        <p class="mb-0">Heart Rate</p>
+                        <small class="text-muted">Normal Range</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-3">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <h3 class="text-success">8,247</h3>
+                        <p class="mb-0">Daily Steps</p>
+                        <small class="text-muted">Goal: 10,000</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-3">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <h3 class="text-info">7.5h</h3>
+                        <p class="mb-0">Sleep</p>
+                        <small class="text-muted">Good Quality</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-3">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <h3 class="text-warning">1,847</h3>
+                        <p class="mb-0">Calories</p>
+                        <small class="text-muted">Burned Today</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Actions and Recent Activity -->
+        <div class="row g-3 mb-4">
+            <div class="col-12 col-lg-8">
+                <div class="card">
+                    <div class="card-header">
+                        <i class="bi bi-activity me-2"></i>Recent Activity
+                    </div>
+                    <div class="card-body">
+                        <div class="d-flex align-items-center p-3 bg-light rounded mb-3">
+                            <i class="bi bi-heart-pulse text-danger me-3" style="font-size: 1.5rem;"></i>
+                            <div>
+                                <div class="fw-bold">Morning Workout Completed</div>
+                                <small class="text-muted">45 minutes • Cardio & Strength</small>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center p-3 bg-light rounded mb-3">
+                            <i class="bi bi-droplet text-info me-3" style="font-size: 1.5rem;"></i>
+                            <div>
+                                <div class="fw-bold">Hydration Goal Reached</div>
+                                <small class="text-muted">8 glasses • 2.1L water intake</small>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center p-3 bg-light rounded mb-3">
+                            <i class="bi bi-moon text-primary me-3" style="font-size: 1.5rem;"></i>
+                            <div>
+                                <div class="fw-bold">Sleep Quality Improved</div>
+                                <small class="text-muted">7.5 hours • Deep sleep: 2.1h</small>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center p-3 bg-light rounded">
+                            <i class="bi bi-apple text-success me-3" style="font-size: 1.5rem;"></i>
+                            <div>
+                                <div class="fw-bold">Nutrition Logged</div>
+                                <small class="text-muted">Breakfast, Lunch • 1,247 calories</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-lg-4">
+                <div class="card">
+                    <div class="card-header">
+                        <i class="bi bi-target me-2"></i>Today's Goals
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between mb-2">
+                                <span>Steps</span>
+                                <span>8,247 / 10,000</span>
+                            </div>
+                            <div class="progress">
+                                <div class="progress-bar bg-primary" role="progressbar" style="width: 82%" aria-valuenow="82" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between mb-2">
+                                <span>Water</span>
+                                <span>8 / 8 glasses</span>
+                            </div>
+                            <div class="progress">
+                                <div class="progress-bar bg-info" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between mb-2">
+                                <span>Exercise</span>
+                                <span>45 / 60 min</span>
+                            </div>
+                            <div class="progress">
+                                <div class="progress-bar bg-success" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                        <div class="mb-0">
+                            <div class="d-flex justify-content-between mb-2">
+                                <span>Sleep</span>
+                                <span>7.5 / 8 hours</span>
+                            </div>
+                            <div class="progress">
+                                <div class="progress-bar bg-warning" role="progressbar" style="width: 94%" aria-valuenow="94" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="row g-3">
+            <div class="col-12 col-md-6 col-lg-3">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <div class="display-4 text-primary mb-3">
+                            <i class="bi bi-plus-circle"></i>
+                        </div>
+                        <h5>Log Activity</h5>
+                        <p class="text-muted">Record your workout</p>
+                        <a href="health-reports.html" class="btn btn-primary">
+                            <i class="bi bi-plus me-1"></i>Add Entry
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-3">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <div class="display-4 text-success mb-3">
+                            <i class="bi bi-graph-up"></i>
+                        </div>
+                        <h5>View Reports</h5>
+                        <p class="text-muted">Check your progress</p>
+                        <a href="health-reports.html" class="btn btn-success">
+                            <i class="bi bi-bar-chart me-1"></i>View Reports
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-3">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <div class="display-4 text-info mb-3">
+                            <i class="bi bi-search"></i>
+                        </div>
+                        <h5>AI Search</h5>
+                        <p class="text-muted">Get health insights</p>
+                        <a href="https://YOUR-DOMAIN.cloudfront.net/search.html" class="btn btn-info">
+                            <i class="bi bi-robot me-1"></i>Ask AI
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-3">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <div class="display-4 text-warning mb-3">
+                            <i class="bi bi-gear"></i>
+                        </div>
+                        <h5>Settings</h5>
+                        <p class="text-muted">Customize your app</p>
+                        <a href="settings.html" class="btn btn-warning">
+                            <i class="bi bi-gear me-1"></i>Configure
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Standardized HealthHQ Footer -->
+    <!-- Standardized HealthHQ Footer -->
+        <!-- Standardized HealthHQ Footer -->
+        <!-- Standardized HealthHQ Footer -->
+        <!-- Standardized HealthHQ Footer -->
+        <!-- Standardized HealthHQ Footer -->
+        <!-- Standardized HealthHQ Footer -->
+        <!-- Standardized HealthHQ Footer -->
+    <footer class="healthhq-footer">
+        <div class="healthhq-footer-content">
+            <!-- Main Footer Text -->
+            <p class="healthhq-footer-main">
+                Built with <span class="heart-emoji">❤️</span> for Healthcare Excellence by 
+                <span class="healthhq-footer-author">
+                    <a href="https://in.linkedin.com/in/shashankk" target="_blank" rel="noopener noreferrer">
+                        Shashank Chinchli, Solutions Architect, AWS
+                    </a>
+                </span>
+            </p>
+            
+            <!-- Feature Tags -->
+            <p class="healthhq-footer-features">
+                <span>HIPAA-Compliant</span>
+                <span class="feature-separator">•</span>
+                <span>FHIR R4</span>
+                <span class="feature-separator">•</span>
+                <span>openEHR</span>
+                <span class="feature-separator">•</span>
+                <span>MCP Connected</span>
+                <span class="feature-separator">•</span>
+                <span>OpenSearch Ready</span>
+                <span class="feature-separator">•</span>
+                <span>Enterprise Security</span>
+            </p>
+        </div>
+    </footer>
+
+<!-- Bootstrap 5.3 JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-<REDACTED_CREDENTIAL>uBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+<!-- Accessibility JavaScript -->
+<script src="../assets/js/accessibility.js"></script>
+
+<!-- Mobile Menu Toggle Script -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Mobile menu functionality
+    const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+    const sidebar = document.getElementById('sidebar');
+    const sidebarOverlay = document.getElementById('sidebarOverlay');
+    
+    if (mobileMenuToggle && sidebar && sidebarOverlay) {
+        mobileMenuToggle.addEventListener('click', function() {
+            sidebar.classList.toggle('show');
+            sidebarOverlay.classList.toggle('show');
+        });
+        
+        sidebarOverlay.addEventListener('click', function() {
+            sidebar.classList.remove('show');
+            sidebarOverlay.classList.remove('show');
+        });
+    }
+});
+    const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+    const sidebar = document.getElementById('sidebar');
+    const sidebarOverlay = document.getElementById('sidebarOverlay');
+
+    // Toggle mobile menu
+    mobileMenuToggle.addEventListener('click', function() {
+        sidebar.classList.toggle('show');
+        sidebarOverlay.classList.toggle('show');
+    });
+
+    // Close sidebar when overlay is clicked
+    sidebarOverlay.addEventListener('click', function() {
+        sidebar.classList.remove('show');
+        sidebarOverlay.classList.remove('show');
+    });
+
+    // Close sidebar on window resize if screen becomes large
+    window.addEventListener('resize', function() {
+        if (window.innerWidth > 991) {
+            sidebar.classList.remove('show');
+            sidebarOverlay.classList.remove('show');
+        }
+    });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,664 @@
+{
+  "timestamp": "2025-06-29T02:40:48.030Z",
+  "cloudfront_url": "https://YOUR-DOMAIN.cloudfront.net",
+  "summary": {
+    "total": 93,
+    "passed": 91,
+    "failed": 2,
+    "success_rate": "97.8%"
+  },
+  "pages_tested": 7,
+  "detailed_results": [
+    {
+      "test": "Authentication Test",
+      "passed": false,
+      "message": "Expected 401 without auth, got 200",
+      "details": null,
+      "timestamp": "2025-06-29T02:39:15.449Z"
+    },
+    {
+      "test": "Authentication Test - Valid Credentials",
+      "passed": true,
+      "message": "Authentication successful with valid credentials",
+      "details": null,
+      "timestamp": "2025-06-29T02:39:15.742Z"
+    },
+    {
+      "test": "Page Load - Dashboard (Home)",
+      "passed": true,
+      "message": "Page loaded successfully (200)",
+      "details": null,
+      "timestamp": "2025-06-29T02:39:16.033Z"
+    },
+    {
+      "test": "Page Structure - Dashboard (Home)",
+      "passed": true,
+      "message": "All required page elements found",
+      "details": null,
+      "timestamp": "2025-06-29T02:39:16.068Z"
+    },
+    {
+      "test": "Navigation - Dashboard (Home)",
+      "passed": true,
+      "message": "All 7 navigation items found",
+      "details": null,
+      "timestamp": "2025-06-29T02:39:16.068Z"
+    },
+    {
+      "test": "Navigation - Dashboard (Home) - Active State",
+      "passed": true,
+      "message": "Active navigation state found",
+      "details": null,
+      "timestamp": "2025-06-29T02:39:16.068Z"
+    },
+    {
+      "test": "Page Header - Dashboard (Home)",
+      "passed": true,
+      "message": "Header contains: title, divider, description",
+      "details": null,
+      "timestamp": "2025-06-29T02:39:16.068Z"
+    },
+    {
+      "test": "Footer - Dashboard (Home)",
+      "passed": true,
+      "message": "Footer contains expected content",
+      "details": null,
+      "timestamp": "2025-06-29T02:39:16.069Z"
+    },
+    {
+      "test": "Responsive Design - Dashboard (Home)",
+      "passed": true,
+      "message": "Responsive viewport meta tag found",
+      "details": null,
+      "timestamp": "2025-06-29T02:39:16.069Z"
+    },
+    {
+      "test": "Responsive Design - Dashboard (Home) - Bootstrap",
+      "passed": true,
+      "message": "Bootstrap CSS found",
+      "details": null,
+      "timestamp": "2025-06-29T02:39:16.069Z"
+    },
+    {
+      "test": "Clickable Elements - Dashboard (Home)",
+      "passed": true,
+      "message": "Found 16 clickable elements (5 buttons, 11 links)",
+      "details": null,
+      "timestamp": "2025-06-29T02:39:16.069Z"
+    },
+    {
+      "test": "Clickable Elements - Dashboard (Home) - Styling",
+      "passed": true,
+      "message": "4 properly styled buttons",
+      "details": null,
+      "timestamp": "2025-06-29T02:39:16.069Z"
+    },
+    {
+      "test": "CSS & Assets - Dashboard (Home) - CSS",
+      "passed": true,
+      "message": "8 CSS files linked",
+      "details": null,
+      "timestamp": "2025-06-29T02:39:16.070Z"
+    },
+    {
+      "test": "CSS & Assets - Dashboard (Home) - JS",
+      "passed": true,
+      "message": "1 JavaScript files linked",
+      "details": null,
+      "timestamp": "2025-06-29T02:39:16.070Z"
+    },
+    {
+      "test": "CSS & Assets - Dashboard (Home) - Unified CSS",
+      "passed": true,
+      "message": "Unified CSS files found",
+      "details": null,
+      "timestamp": "2025-06-29T02:39:16.070Z"
+    },
+    {
+      "test": "Page Load - Health Reports",
+      "passed": true,
+      "message": "Page loaded successfully (200)",
+      "details": null,
+      "timestamp": "2025-06-29T02:39:17.373Z"
+    },
+    {
+      "test": "Page Structure - Health Reports",
+      "passed": true,
+      "message": "All required page elements found",
+      "details": null,
+      "timestamp": "2025-06-29T02:39:17.394Z"
+    },
+    {
+      "test": "Navigation - Health Reports",
+      "passed": true,
+      "message": "All 7 navigation items found",
+      "details": null,
+      "timestamp": "2025-06-29T02:39:17.394Z"
+    },
+    {
+      "test": "Navigation - Health Reports - Active State",
+      "passed": true,
+      "message": "Active navigation state found",
+      "details": null,
+      "timestamp": "2025-06-29T02:39:17.394Z"
+    },
+    {
+      "test": "Page Header - Health Reports",
+      "passed": true,
+      "message": "Header contains: title, divider, description",
+      "details": null,
+      "timestamp": "2025-06-29T02:39:17.394Z"
+    },
+    {
+      "test": "Footer - Health Reports",
+      "passed": true,
+      "message": "Footer contains expected content",
+      "details": null,
+      "timestamp": "2025-06-29T02:39:17.394Z"
+    },
+    {
+      "test": "Responsive Design - Health Reports",
+      "passed": true,
+      "message": "Responsive viewport meta tag found",
+      "details": null,
+      "timestamp": "2025-06-29T02:39:17.395Z"
+    },
+    {
+      "test": "Responsive Design - Health Reports - Bootstrap",
+      "passed": true,
+      "message": "Bootstrap CSS found",
+      "details": null,
+      "timestamp": "2025-06-29T02:39:17.395Z"
+    },
+    {
+      "test": "Clickable Elements - Health Reports",
+      "passed": true,
+      "message": "Found 14 clickable elements (7 buttons, 7 links)",
+      "details": null,
+      "timestamp": "2025-06-29T02:39:17.395Z"
+    },
+    {
+      "test": "Clickable Elements - Health Reports - Styling",
+      "passed": true,
+      "message": "6 properly styled buttons",
+      "details": null,
+      "timestamp": "2025-06-29T02:39:17.395Z"
+    },
+    {
+      "test": "CSS & Assets - Health Reports - CSS",
+      "passed": true,
+      "message": "8 CSS files linked",
+      "details": null,
+      "timestamp": "2025-06-29T02:39:17.395Z"
+    },
+    {
+      "test": "CSS & Assets - Health Reports - JS",
+      "passed": true,
+      "message": "1 JavaScript files linked",
+      "details": null,
+      "timestamp": "2025-06-29T02:39:17.395Z"
+    },
+    {
+      "test": "CSS & Assets - Health Reports - Unified CSS",
+      "passed": true,
+      "message": "Unified CSS files found",
+      "details": null,
+      "timestamp": "2025-06-29T02:39:17.396Z"
+    },
+    {
+      "test": "Page Load - Analysis",
+      "passed": true,
+      "message": "Page loaded successfully (200)",
+      "details": null,
+      "timestamp": "2025-06-29T02:39:18.693Z"
+    },
+    {
+      "test": "Page Structure - Analysis",
+      "passed": true,
+      "message": "All required page elements found",
+      "details": null,
+      "timestamp": "2025-06-29T02:39:18.712Z"
+    },
+    {
+      "test": "Navigation - Analysis",
+      "passed": true,
+      "message": "All 7 navigation items found",
+      "details": null,
+      "timestamp": "2025-06-29T02:39:18.712Z"
+    },
+    {
+      "test": "Navigation - Analysis - Active State",
+      "passed": true,
+      "message": "Active navigation state found",
+      "details": null,
+      "timestamp": "2025-06-29T02:39:18.712Z"
+    },
+    {
+      "test": "Page Header - Analysis",
+      "passed": true,
+      "message": "Header contains: title, divider, description",
+      "details": null,
+      "timestamp": "2025-06-29T02:39:18.712Z"
+    },
+    {
+      "test": "Footer - Analysis",
+      "passed": true,
+      "message": "Footer contains expected content",
+      "details": null,
+      "timestamp": "2025-06-29T02:39:18.712Z"
+    },
+    {
+      "test": "Responsive Design - Analysis",
+      "passed": true,
+      "message": "Responsive viewport meta tag found",
+      "details": null,
+      "timestamp": "2025-06-29T02:39:18.713Z"
+    },
+    {
+      "test": "Responsive Design - Analysis - Bootstrap",
+      "passed": true,
+      "message": "Bootstrap CSS found",
+      "details": null,
+      "timestamp": "2025-06-29T02:39:18.713Z"
+    },
+    {
+      "test": "Clickable Elements - Analysis",
+      "passed": true,
+      "message": "Found 13 clickable elements (6 buttons, 7 links)",
+      "details": null,
+      "timestamp": "2025-06-29T02:39:18.713Z"
+    },
+    {
+      "test": "Clickable Elements - Analysis - Styling",
+      "passed": true,
+      "message": "5 properly styled buttons",
+      "details": null,
+      "timestamp": "2025-06-29T02:39:18.713Z"
+    },
+    {
+      "test": "CSS & Assets - Analysis - CSS",
+      "passed": true,
+      "message": "8 CSS files linked",
+      "details": null,
+      "timestamp": "2025-06-29T02:39:18.713Z"
+    },
+    {
+      "test": "CSS & Assets - Analysis - JS",
+      "passed": true,
+      "message": "1 JavaScript files linked",
+      "details": null,
+      "timestamp": "2025-06-29T02:39:18.713Z"
+    },
+    {
+      "test": "CSS & Assets - Analysis - Unified CSS",
+      "passed": true,
+      "message": "Unified CSS files found",
+      "details": null,
+      "timestamp": "2025-06-29T02:39:18.714Z"
+    },
+    {
+      "test": "Page Load - Digital Analysis",
+      "passed": true,
+      "message": "Page loaded successfully (200)",
+      "details": null,
+      "timestamp": "2025-06-29T02:39:20.003Z"
+    },
+    {
+      "test": "Page Structure - Digital Analysis",
+      "passed": true,
+      "message": "All required page elements found",
+      "details": null,
+      "timestamp": "2025-06-29T02:39:20.025Z"
+    },
+    {
+      "test": "Navigation - Digital Analysis",
+      "passed": true,
+      "message": "All 7 navigation items found",
+      "details": null,
+      "timestamp": "2025-06-29T02:39:20.025Z"
+    },
+    {
+      "test": "Navigation - Digital Analysis - Active State",
+      "passed": true,
+      "message": "Active navigation state found",
+      "details": null,
+      "timestamp": "2025-06-29T02:39:20.025Z"
+    },
+    {
+      "test": "Page Header - Digital Analysis",
+      "passed": true,
+      "message": "Header contains: title, divider, description",
+      "details": null,
+      "timestamp": "2025-06-29T02:39:20.025Z"
+    },
+    {
+      "test": "Footer - Digital Analysis",
+      "passed": true,
+      "message": "Footer contains expected content",
+      "details": null,
+      "timestamp": "2025-06-29T02:39:20.025Z"
+    },
+    {
+      "test": "Responsive Design - Digital Analysis",
+      "passed": true,
+      "message": "Responsive viewport meta tag found",
+      "details": null,
+      "timestamp": "2025-06-29T02:39:20.025Z"
+    },
+    {
+      "test": "Responsive Design - Digital Analysis - Bootstrap",
+      "passed": true,
+      "message": "Bootstrap CSS found",
+      "details": null,
+      "timestamp": "2025-06-29T02:39:20.026Z"
+    },
+    {
+      "test": "Clickable Elements - Digital Analysis",
+      "passed": true,
+      "message": "Found 15 clickable elements (8 buttons, 7 links)",
+      "details": null,
+      "timestamp": "2025-06-29T02:39:20.026Z"
+    },
+    {
+      "test": "Clickable Elements - Digital Analysis - Styling",
+      "passed": true,
+      "message": "7 properly styled buttons",
+      "details": null,
+      "timestamp": "2025-06-29T02:39:20.026Z"
+    },
+    {
+      "test": "CSS & Assets - Digital Analysis - CSS",
+      "passed": true,
+      "message": "8 CSS files linked",
+      "details": null,
+      "timestamp": "2025-06-29T02:39:20.026Z"
+    },
+    {
+      "test": "CSS & Assets - Digital Analysis - JS",
+      "passed": true,
+      "message": "1 JavaScript files linked",
+      "details": null,
+      "timestamp": "2025-06-29T02:39:20.026Z"
+    },
+    {
+      "test": "CSS & Assets - Digital Analysis - Unified CSS",
+      "passed": true,
+      "message": "Unified CSS files found",
+      "details": null,
+      "timestamp": "2025-06-29T02:39:20.027Z"
+    },
+    {
+      "test": "Page Load - Search & AI Assistant",
+      "passed": true,
+      "message": "Page loaded successfully (200)",
+      "details": null,
+      "timestamp": "2025-06-29T02:39:21.404Z"
+    },
+    {
+      "test": "Page Structure - Search & AI Assistant",
+      "passed": true,
+      "message": "All required page elements found",
+      "details": null,
+      "timestamp": "2025-06-29T02:39:21.433Z"
+    },
+    {
+      "test": "Navigation - Search & AI Assistant",
+      "passed": true,
+      "message": "All 7 navigation items found",
+      "details": null,
+      "timestamp": "2025-06-29T02:39:21.433Z"
+    },
+    {
+      "test": "Navigation - Search & AI Assistant - Active State",
+      "passed": true,
+      "message": "Active navigation state found",
+      "details": null,
+      "timestamp": "2025-06-29T02:39:21.434Z"
+    },
+    {
+      "test": "Page Header - Search & AI Assistant",
+      "passed": true,
+      "message": "Header contains: title, divider, description",
+      "details": null,
+      "timestamp": "2025-06-29T02:39:21.434Z"
+    },
+    {
+      "test": "Footer - Search & AI Assistant",
+      "passed": true,
+      "message": "Footer contains expected content",
+      "details": null,
+      "timestamp": "2025-06-29T02:39:21.434Z"
+    },
+    {
+      "test": "Responsive Design - Search & AI Assistant",
+      "passed": true,
+      "message": "Responsive viewport meta tag found",
+      "details": null,
+      "timestamp": "2025-06-29T02:39:21.434Z"
+    },
+    {
+      "test": "Responsive Design - Search & AI Assistant - Bootstrap",
+      "passed": true,
+      "message": "Bootstrap CSS found",
+      "details": null,
+      "timestamp": "2025-06-29T02:39:21.434Z"
+    },
+    {
+      "test": "Clickable Elements - Search & AI Assistant",
+      "passed": true,
+      "message": "Found 25 clickable elements (18 buttons, 7 links)",
+      "details": null,
+      "timestamp": "2025-06-29T02:39:21.435Z"
+    },
+    {
+      "test": "Clickable Elements - Search & AI Assistant - Styling",
+      "passed": true,
+      "message": "17 properly styled buttons",
+      "details": null,
+      "timestamp": "2025-06-29T02:39:21.435Z"
+    },
+    {
+      "test": "CSS & Assets - Search & AI Assistant - CSS",
+      "passed": true,
+      "message": "8 CSS files linked",
+      "details": null,
+      "timestamp": "2025-06-29T02:39:21.435Z"
+    },
+    {
+      "test": "CSS & Assets - Search & AI Assistant - JS",
+      "passed": true,
+      "message": "2 JavaScript files linked",
+      "details": null,
+      "timestamp": "2025-06-29T02:39:21.435Z"
+    },
+    {
+      "test": "CSS & Assets - Search & AI Assistant - Unified CSS",
+      "passed": true,
+      "message": "Unified CSS files found",
+      "details": null,
+      "timestamp": "2025-06-29T02:39:21.435Z"
+    },
+    {
+      "test": "Page Load - Advanced Dashboard",
+      "passed": true,
+      "message": "Page loaded successfully (200)",
+      "details": null,
+      "timestamp": "2025-06-29T02:39:22.730Z"
+    },
+    {
+      "test": "Page Structure - Advanced Dashboard",
+      "passed": true,
+      "message": "All required page elements found",
+      "details": null,
+      "timestamp": "2025-06-29T02:39:22.751Z"
+    },
+    {
+      "test": "Navigation - Advanced Dashboard",
+      "passed": true,
+      "message": "All 7 navigation items found",
+      "details": null,
+      "timestamp": "2025-06-29T02:39:22.751Z"
+    },
+    {
+      "test": "Navigation - Advanced Dashboard - Active State",
+      "passed": true,
+      "message": "Active navigation state found",
+      "details": null,
+      "timestamp": "2025-06-29T02:39:22.751Z"
+    },
+    {
+      "test": "Page Header - Advanced Dashboard",
+      "passed": true,
+      "message": "Header contains: title, divider, description",
+      "details": null,
+      "timestamp": "2025-06-29T02:39:22.752Z"
+    },
+    {
+      "test": "Footer - Advanced Dashboard",
+      "passed": true,
+      "message": "Footer contains expected content",
+      "details": null,
+      "timestamp": "2025-06-29T02:39:22.752Z"
+    },
+    {
+      "test": "Responsive Design - Advanced Dashboard",
+      "passed": true,
+      "message": "Responsive viewport meta tag found",
+      "details": null,
+      "timestamp": "2025-06-29T02:39:22.752Z"
+    },
+    {
+      "test": "Responsive Design - Advanced Dashboard - Bootstrap",
+      "passed": true,
+      "message": "Bootstrap CSS found",
+      "details": null,
+      "timestamp": "2025-06-29T02:39:22.752Z"
+    },
+    {
+      "test": "Clickable Elements - Advanced Dashboard",
+      "passed": true,
+      "message": "Found 12 clickable elements (5 buttons, 7 links)",
+      "details": null,
+      "timestamp": "2025-06-29T02:39:22.752Z"
+    },
+    {
+      "test": "Clickable Elements - Advanced Dashboard - Styling",
+      "passed": true,
+      "message": "4 properly styled buttons",
+      "details": null,
+      "timestamp": "2025-06-29T02:39:22.752Z"
+    },
+    {
+      "test": "CSS & Assets - Advanced Dashboard - CSS",
+      "passed": true,
+      "message": "8 CSS files linked",
+      "details": null,
+      "timestamp": "2025-06-29T02:39:22.752Z"
+    },
+    {
+      "test": "CSS & Assets - Advanced Dashboard - JS",
+      "passed": true,
+      "message": "1 JavaScript files linked",
+      "details": null,
+      "timestamp": "2025-06-29T02:39:22.752Z"
+    },
+    {
+      "test": "CSS & Assets - Advanced Dashboard - Unified CSS",
+      "passed": true,
+      "message": "Unified CSS files found",
+      "details": null,
+      "timestamp": "2025-06-29T02:39:22.753Z"
+    },
+    {
+      "test": "Page Load - Settings",
+      "passed": true,
+      "message": "Page loaded successfully (200)",
+      "details": null,
+      "timestamp": "2025-06-29T02:40:47.007Z"
+    },
+    {
+      "test": "Page Structure - Settings",
+      "passed": true,
+      "message": "All required page elements found",
+      "details": null,
+      "timestamp": "2025-06-29T02:40:47.025Z"
+    },
+    {
+      "test": "Navigation - Settings",
+      "passed": false,
+      "message": "Missing navigation items: Digital Analysis, Advanced Dashboard",
+      "details": null,
+      "timestamp": "2025-06-29T02:40:47.026Z"
+    },
+    {
+      "test": "Navigation - Settings - Active State",
+      "passed": true,
+      "message": "Active navigation state found",
+      "details": null,
+      "timestamp": "2025-06-29T02:40:47.026Z"
+    },
+    {
+      "test": "Page Header - Settings",
+      "passed": true,
+      "message": "Header contains: title, divider, description",
+      "details": null,
+      "timestamp": "2025-06-29T02:40:47.026Z"
+    },
+    {
+      "test": "Footer - Settings",
+      "passed": true,
+      "message": "Footer contains expected content",
+      "details": null,
+      "timestamp": "2025-06-29T02:40:47.026Z"
+    },
+    {
+      "test": "Responsive Design - Settings",
+      "passed": true,
+      "message": "Responsive viewport meta tag found",
+      "details": null,
+      "timestamp": "2025-06-29T02:40:47.026Z"
+    },
+    {
+      "test": "Responsive Design - Settings - Bootstrap",
+      "passed": true,
+      "message": "Bootstrap CSS found",
+      "details": null,
+      "timestamp": "2025-06-29T02:40:47.026Z"
+    },
+    {
+      "test": "Clickable Elements - Settings",
+      "passed": true,
+      "message": "Found 13 clickable elements (8 buttons, 5 links)",
+      "details": null,
+      "timestamp": "2025-06-29T02:40:47.026Z"
+    },
+    {
+      "test": "Clickable Elements - Settings - Styling",
+      "passed": true,
+      "message": "7 properly styled buttons",
+      "details": null,
+      "timestamp": "2025-06-29T02:40:47.026Z"
+    },
+    {
+      "test": "CSS & Assets - Settings - CSS",
+      "passed": true,
+      "message": "8 CSS files linked",
+      "details": null,
+      "timestamp": "2025-06-29T02:40:47.026Z"
+    },
+    {
+      "test": "CSS & Assets - Settings - JS",
+      "passed": true,
+      "message": "1 JavaScript files linked",
+      "details": null,
+      "timestamp": "2025-06-29T02:40:47.026Z"
+    },
+    {
+      "test": "CSS & Assets - Settings - Unified CSS",
+      "passed": true,
+      "message": "Unified CSS files found",
+      "details": null,
+      "timestamp": "2025-06-29T02:40:47.026Z"
+    }
+  ]
+}

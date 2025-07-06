@@ -1,0 +1,1067 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StayFit Health Companion - Health Reports</title>
+    
+    <!-- Bootstrap 5.3 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.css">
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- Plotly.js for Advanced Charts -->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    
+    <!-- Unified Template CSS Files -->
+    <link rel="stylesheet" href="css/bootstrap-theme-unified.css">
+    <link rel="stylesheet" href="css/navigation-unified.css">
+    <link rel="stylesheet" href="css/layout-unified.css">
+    <link rel="stylesheet" href="css/uniform_page_header.css">
+    <link rel="stylesheet" href="css/footer-unified.css">
+    <link rel="stylesheet" href="css/unified-layout-override.css">
+    
+    <style>
+        :root {
+            /* Apple-inspired colors */
+            --apple-blue: #007AFF;
+            --apple-green: #34C759;
+            --apple-red: #FF3B30;
+            --apple-orange: #FF9500;
+            --apple-purple: #AF52DE;
+        }
+        
+        /* Health widgets styling - Apple inspired */
+        .health-widget {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+        }
+        
+        .widget-header {
+            background-color: #f8f9fa;
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid #e9ecef;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .widget-header div {
+            display: flex;
+            align-items: center;
+            font-weight: 600;
+            color: #343a40;
+        }
+        
+        .widget-header i {
+            margin-right: 0.5rem;
+            color: var(--apple-blue);
+        }
+        
+        .widget-body {
+            padding: 1.5rem;
+        }
+        
+        /* Metric boxes styling */
+        .metric-row {
+            display: flex;
+            flex-wrap: wrap;
+            margin: -0.5rem;
+        }
+        
+        .metric-box {
+            flex: 1 0 calc(25% - 1rem);
+            margin: 0.5rem;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 1rem;
+            text-align: center;
+            min-width: 120px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 80px;
+        }
+        
+        .metric-box h3 {
+            margin: 0;
+            padding: 0;
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--apple-blue);
+            line-height: 1.2;
+        }
+        
+        .metric-box p {
+            margin: 0;
+            margin-top: 0.5rem;
+            color: #6c757d;
+            font-size: 0.875rem;
+            line-height: 1.3;
+        }
+        
+        .metric-box.positive h3 {
+            color: var(--apple-green);
+        }
+        
+        .metric-box.negative h3 {
+            color: var(--apple-red);
+        }
+        
+        .metric-box.warning h3 {
+            color: var(--apple-orange);
+        }
+        
+        /* Unified Chart Styling - Apple inspired */
+        .chart-container {
+            position: relative;
+            height: 300px;
+            width: 100%;
+        }
+        
+        .chart-card {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+            transition: transform 0.2s ease;
+        }
+        
+        .chart-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .chart-card .card-header {
+            background-color: #f8f9fa;
+            border-bottom: 1px solid #e9ecef;
+            padding: 1rem 1.5rem;
+            font-weight: 600;
+            color: #343a40;
+        }
+        
+        .chart-card .card-header i {
+            color: var(--apple-blue);
+            margin-right: 0.5rem;
+        }
+        
+        .chart-card .card-body {
+            padding: 1.5rem;
+        }
+        
+        /* Health Metrics - Apple style */
+        .health-metric {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 1rem;
+            text-align: center;
+            margin-bottom: 1rem;
+            border: none;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        
+        .metric-good { 
+            background-color: rgba(52, 199, 89, 0.1);
+            border: 1px solid rgba(52, 199, 89, 0.2);
+        }
+        
+        .metric-good h3, .metric-good .h3 {
+            color: var(--apple-green);
+        }
+        
+        .metric-warning { 
+            background-color: rgba(255, 149, 0, 0.1);
+            border: 1px solid rgba(255, 149, 0, 0.2);
+        }
+        
+        .metric-warning h3, .metric-warning .h3 {
+            color: var(--apple-orange);
+        }
+        
+        .metric-danger { 
+            background-color: rgba(255, 59, 48, 0.1);
+            border: 1px solid rgba(255, 59, 48, 0.2);
+        }
+        
+        .metric-danger h3, .metric-danger .h3 {
+            color: var(--apple-red);
+        }
+        
+        /* Table styling - Apple inspired */
+        .table-container {
+            margin-top: 2rem;
+        }
+        
+        .table-container .card {
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            border: none;
+            overflow: hidden;
+        }
+        
+        .table-container .card-header {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-bottom: 1px solid #dee2e6;
+            padding: 1.5rem;
+            border-radius: 12px 12px 0 0;
+        }
+        
+        .table-container .card-header h5 {
+            color: #343a40;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .table-container .card-header i {
+            color: var(--apple-blue);
+        }
+        
+        .metric-table-vertical {
+            font-size: 0.9rem;
+            margin-bottom: 0;
+        }
+        
+        .metric-table-vertical thead th {
+            background: linear-gradient(135deg, #f1f3f4 0%, #e8eaed 100%);
+            font-weight: 600;
+            border: none;
+            color: #343a40;
+            padding: 1rem 0.75rem;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        
+        .metric-table-vertical tbody td {
+            vertical-align: middle;
+            padding: 0.875rem 0.75rem;
+            border-top: 1px solid #f0f0f0;
+            transition: background-color 0.2s ease;
+        }
+        
+        .metric-table-vertical tbody tr:hover {
+            background-color: rgba(0, 122, 255, 0.04);
+            transform: translateX(2px);
+            transition: all 0.2s ease;
+        }
+        
+        /* Section headers in table */
+        .metric-table-vertical .table-light td {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            font-weight: 600;
+            color: #495057;
+            border-top: 2px solid #dee2e6;
+            padding: 1rem 0.75rem;
+        }
+        
+        .metric-table-vertical .table-light h6 {
+            color: #343a40;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin: 0;
+        }
+        
+        /* Parameter names styling */
+        .metric-table-vertical .fw-bold {
+            color: #343a40;
+            font-weight: 600;
+        }
+        
+        /* Unit column styling */
+        .metric-table-vertical .text-muted {
+            color: #6c757d !important;
+            font-size: 0.8rem;
+            font-style: italic;
+        }
+        
+        /* Value columns styling */
+        .metric-table-vertical td:nth-child(3),
+        .metric-table-vertical td:nth-child(4),
+        .metric-table-vertical td:nth-child(5) {
+            font-weight: 500;
+            color: #495057;
+            font-family: 'SF Mono', Monaco, 'Cascadia Code', monospace;
+        }
+        
+        /* Trend column styling */
+        .metric-table-vertical td:nth-child(6) {
+            font-weight: 600;
+        }
+        
+        /* Status badges enhanced */
+        .badge {
+            font-size: 0.7rem;
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .badge.bg-success {
+            background: linear-gradient(135deg, var(--apple-green) 0%, #28a745 100%) !important;
+            border: none;
+            box-shadow: 0 2px 4px rgba(52, 199, 89, 0.3);
+        }
+        
+        .badge.bg-warning {
+            background: linear-gradient(135deg, var(--apple-orange) 0%, #fd7e14 100%) !important;
+            border: none;
+            box-shadow: 0 2px 4px rgba(255, 149, 0, 0.3);
+            color: white;
+        }
+        
+        .badge.bg-danger {
+            background: linear-gradient(135deg, var(--apple-red) 0%, #dc3545 100%) !important;
+            border: none;
+            box-shadow: 0 2px 4px rgba(255, 59, 48, 0.3);
+        }
+        
+        .badge.bg-info {
+            background: linear-gradient(135deg, var(--apple-blue) 0%, #0dcaf0 100%) !important;
+            border: none;
+            box-shadow: 0 2px 4px rgba(0, 122, 255, 0.3);
+        }
+        
+        /* Responsive table enhancements */
+        .table-responsive {
+            border-radius: 0 0 12px 12px;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
+        }
+        
+        /* Alternating row colors */
+        .metric-table-vertical tbody tr:nth-child(even):not(.table-light) {
+            background-color: rgba(248, 249, 250, 0.5);
+        }
+        
+        /* Trend indicators */
+        .metric-table-vertical td:nth-child(6):contains("↑") {
+            color: var(--apple-green);
+        }
+        
+        .metric-table-vertical td:nth-child(6):contains("↓") {
+            color: var(--apple-red);
+        }
+        
+        /* Mobile responsiveness */
+        @media (max-width: 768px) {
+            .table-container .card-header {
+                padding: 1rem;
+            }
+            
+            .metric-table-vertical {
+                font-size: 0.8rem;
+            }
+            
+            .metric-table-vertical thead th,
+            .metric-table-vertical tbody td {
+                padding: 0.5rem 0.4rem;
+            }
+        }
+        
+        /* Trend arrow colors */
+        .trend-up {
+            color: var(--apple-green) !important;
+            font-weight: 600;
+        }
+        
+        .trend-down {
+            color: var(--apple-red) !important;
+            font-weight: 600;
+        }
+        
+        .trend-stable {
+            color: var(--apple-blue) !important;
+            font-weight: 600;
+        }
+        
+        /* Advanced Charts - Apple style */
+        .advanced-chart-container {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border: none;
+        }
+        
+        .advanced-chart-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #343a40;
+            text-align: center;
+        }
+        
+        .advanced-chart {
+            height: 300px;
+            width: 100%;
+        }
+        
+        /* Footer Styling - Enhanced visibility */
+        footer {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-top: 2px solid #dee2e6;
+            padding: 30px 0;
+            margin-top: 60px;
+            text-align: center;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+            position: relative;
+            z-index: 10;
+            width: 100%;
+        }
+        
+        footer p {
+            margin: 0;
+            color: #495057;
+            font-size: 1rem;
+            font-weight: 500;
+            line-height: 1.5;
+        }
+        
+        footer a {
+            color: var(--apple-blue);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.2s ease;
+        }
+        
+        footer a:hover {
+            color: #0056b3;
+            text-decoration: underline;
+        }
+        
+        footer .bi-heart-fill {
+            color: var(--apple-red);
+            font-size: 1.1rem;
+            animation: heartbeat 2s ease-in-out infinite;
+        }
+        
+        /* Heart animation */
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        /* Ensure footer is always at bottom */
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        
+        .main-content {
+            flex: 1;
+        }
+        
+        /* Mobile footer adjustments */
+        @media (max-width: 768px) {
+            footer {
+                padding: 20px 15px;
+                margin-top: 40px;
+            }
+            
+            footer p {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Mobile Menu Toggle -->
+    <button class="mobile-menu-toggle" id="mobileMenuToggle">
+        <i class="bi bi-list"></i>
+    </button>
+
+    <!-- Sidebar Navigation -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h4 class="mb-0">
+                <i class="bi bi-heart-pulse me-2 text-primary"></i>
+                StayFit
+            </h4>
+        </div>
+        <nav class="nav flex-column">
+            <a class="nav-link" href="index.html">
+                <i class="bi bi-house"></i>
+                <span>Dashboard</span>
+            </a>
+            <a class="nav-link active" href="health-reports.html">
+                <i class="bi bi-file-medical"></i>
+                <span>Health Reports</span>
+            </a>
+            <a class="nav-link" href="digital-analysis.html">
+                <i class="bi bi-cpu"></i>
+                <span>Digital Analysis</span>
+            </a>
+            <a class="nav-link" href="search.html">
+                <i class="bi bi-search"></i>
+                <span>AI Search</span>
+            </a>            <a class="nav-link" href="https://YOUR-DOMAIN.cloudfront.net/import.html">
+                <i class="bi bi-cloud-upload"></i>
+                <span>Health Data Import</span>
+            </a>
+
+            <a class="nav-link" href="settings.html">
+                <i class="bi bi-gear"></i>
+                <span>Settings</span>
+            </a>
+            <a class="nav-link" href="wiki.html">
+                <i class="bi bi-book"></i>
+                <span>Wiki</span>
+            </a>
+        </nav>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="main-content">
+        <div class="container-fluid">
+            <!-- Page Header -->
+            <div class="page-header">
+                <h2><i class="bi bi-file-medical"></i>Health Reports & Analytics</h2>
+                <div class="header-divider"></div>
+                <p>Comprehensive health data visualization and trend analysis</p>
+            </div>
+
+            <!-- Health Metrics Overview - Apple Style -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="health-widget">
+                        <div class="widget-header">
+                            <div>
+                                <i class="bi bi-heart-pulse"></i>Health Metrics Overview
+                            </div>
+                            <div class="badge bg-light text-dark">Current</div>
+                        </div>
+                        <div class="widget-body">
+                            <div class="metric-row">
+                                <div class="metric-box positive">
+                                    <h3>72</h3>
+                                    <p>Heart Rate<br><small>BPM</small></p>
+                                </div>
+                                <div class="metric-box positive">
+                                    <h3>120/80</h3>
+                                    <p>Blood Pressure<br><small>mmHg</small></p>
+                                </div>
+                                <div class="metric-box warning">
+                                    <h3>24.2</h3>
+                                    <p>BMI<br><small>kg/m²</small></p>
+                                </div>
+                                <div class="metric-box positive">
+                                    <h3>98.6°F</h3>
+                                    <p>Temperature<br><small>Normal</small></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts Row 1 -->
+            <div class="row g-3 mb-4">
+                <!-- Heart Rate Trends -->
+                <div class="col-12 col-lg-6">
+                    <div class="card chart-card">
+                        <div class="card-header">
+                            <i class="bi bi-heart-pulse me-2"></i>Heart Rate Trends (30 Days)
+                        </div>
+                        <div class="card-body">
+                            <div class="chart-container">
+                                <canvas id="heartRateTrendsChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Blood Pressure History -->
+                <div class="col-12 col-lg-6">
+                    <div class="card chart-card">
+                        <div class="card-header">
+                            <i class="bi bi-droplet me-2"></i>Blood Pressure History
+                        </div>
+                        <div class="card-body">
+                            <div class="chart-container">
+                                <canvas id="bloodPressureChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts Row 2 -->
+            <div class="row g-3 mb-4">
+                <!-- Weight & BMI Tracking -->
+                <div class="col-12 col-lg-6">
+                    <div class="card chart-card">
+                        <div class="card-header">
+                            <i class="bi bi-speedometer me-2"></i>Weight & BMI Tracking
+                        </div>
+                        <div class="card-body">
+                            <div class="chart-container">
+                                <canvas id="weightBMIChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sleep Quality Analysis -->
+                <div class="col-12 col-lg-6">
+                    <div class="card chart-card">
+                        <div class="card-header">
+                            <i class="bi bi-moon me-2"></i>Sleep Quality Analysis
+                        </div>
+                        <div class="card-body">
+                            <div class="chart-container">
+                                <canvas id="sleepQualityChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Advanced Charts Grid - 2x2 Layout -->
+            <div class="row mb-4">
+                <!-- First Row: Hemogram and Liver Function -->
+                <div class="col-12 col-lg-6 mb-3">
+                    <div class="advanced-chart-container">
+                        <div class="advanced-chart-title">🩸 Hemogram Analysis</div>
+                        <div id="hemogramChart" class="advanced-chart"></div>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-6 mb-3">
+                    <div class="advanced-chart-container">
+                        <div class="advanced-chart-title">🫀 Liver Function Tests</div>
+                        <div id="liverChart" class="advanced-chart"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row mb-4">
+                <!-- Second Row: Lipid Profile and Blood Pressure -->
+                <div class="col-12 col-lg-6 mb-3">
+                    <div class="advanced-chart-container">
+                        <div class="advanced-chart-title">💓 Lipid Profile Analysis</div>
+                        <div id="lipidChart" class="advanced-chart"></div>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-6 mb-3">
+                    <div class="advanced-chart-container">
+                        <div class="advanced-chart-title">🩸 Blood Pressure Analysis</div>
+                        <div id="bpAdvancedChart" class="advanced-chart"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Comprehensive Health Metrics Table -->
+            <div class="table-container">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0"><i class="bi bi-table me-2"></i>Comprehensive Health Metrics</h5>
+                        <small class="text-muted">3-year health progression with status indicators</small>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-hover metric-table-vertical mb-0">
+                                <thead class="table-light sticky-top">
+                                    <tr>
+                                        <th>Health Parameter</th>
+                                        <th>Unit</th>
+                                        <th>2023</th>
+                                        <th>2024</th>
+                                        <th>Current</th>
+                                        <th>Trend</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Hemogram Section -->
+                                    <tr class="table-light">
+                                        <td colspan="7" class="fw-bold text-center">
+                                            <h6 class="mb-0">🩸 HEMOGRAM ANALYSIS</h6>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="fw-bold">Haemoglobin</td>
+                                        <td class="text-muted">g/dL</td>
+                                        <td>14.7</td>
+                                        <td>15.2</td>
+                                        <td>15.7</td>
+                                        <td>↑ 6.8%</td>
+                                        <td><span class="badge bg-success">Improved</span></td>
+                                    </tr>
+                                    <tr class="table-light">
+                                        <td class="fw-bold">Total WBC Count</td>
+                                        <td class="text-muted">K/μL</td>
+                                        <td>7.2</td>
+                                        <td>7.0</td>
+                                        <td>6.8</td>
+                                        <td>↓ 5.6%</td>
+                                        <td><span class="badge bg-success">Improved</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="fw-bold">RBC Count</td>
+                                        <td class="text-muted">M/μL</td>
+                                        <td>4.8</td>
+                                        <td>5.0</td>
+                                        <td>5.2</td>
+                                        <td>↑ 8.3%</td>
+                                        <td><span class="badge bg-success">Improved</span></td>
+                                    </tr>
+                                    <tr class="table-light">
+                                        <td class="fw-bold">Platelet Count</td>
+                                        <td class="text-muted">K/μL</td>
+                                        <td>245</td>
+                                        <td>250</td>
+                                        <td>248</td>
+                                        <td>→ 1.2%</td>
+                                        <td><span class="badge bg-primary">Stable</span></td>
+                                    </tr>
+                                    
+                                    <!-- Liver Function Section -->
+                                    <tr class="table-light">
+                                        <td colspan="7" class="fw-bold text-center">
+                                            <h6 class="mb-0">🫀 LIVER FUNCTION TESTS</h6>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="fw-bold">ALT (SGPT)</td>
+                                        <td class="text-muted">U/L</td>
+                                        <td>35</td>
+                                        <td>31</td>
+                                        <td>28</td>
+                                        <td>↓ 20.0%</td>
+                                        <td><span class="badge bg-success">Improved</span></td>
+                                    </tr>
+                                    <tr class="table-light">
+                                        <td class="fw-bold">AST (SGOT)</td>
+                                        <td class="text-muted">U/L</td>
+                                        <td>42</td>
+                                        <td>38</td>
+                                        <td>34</td>
+                                        <td>↓ 19.0%</td>
+                                        <td><span class="badge bg-success">Improved</span></td>
+                                    </tr>
+                                    
+                                    <!-- Lipid Profile Section -->
+                                    <tr class="table-light">
+                                        <td colspan="7" class="fw-bold text-center">
+                                            <h6 class="mb-0">💓 LIPID PROFILE</h6>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="fw-bold">Total Cholesterol</td>
+                                        <td class="text-muted">mg/dL</td>
+                                        <td>185</td>
+                                        <td>172</td>
+                                        <td>157</td>
+                                        <td>↓ 15.1%</td>
+                                        <td><span class="badge bg-success">Improved</span></td>
+                                    </tr>
+                                    <tr class="table-light">
+                                        <td class="fw-bold">LDL Cholesterol</td>
+                                        <td class="text-muted">mg/dL</td>
+                                        <td>115</td>
+                                        <td>105</td>
+                                        <td>95</td>
+                                        <td>↓ 17.4%</td>
+                                        <td><span class="badge bg-success">Improved</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="fw-bold">HDL Cholesterol</td>
+                                        <td class="text-muted">mg/dL</td>
+                                        <td>45</td>
+                                        <td>48</td>
+                                        <td>52</td>
+                                        <td>↑ 15.6%</td>
+                                        <td><span class="badge bg-success">Improved</span></td>
+                                    </tr>
+                                    <tr class="table-light">
+                                        <td class="fw-bold">Triglycerides</td>
+                                        <td class="text-muted">mg/dL</td>
+                                        <td>125</td>
+                                        <td>95</td>
+                                        <td>75</td>
+                                        <td>↓ 40.0%</td>
+                                        <td><span class="badge bg-success">Improved</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Spacer before footer -->
+    <div style="height: 40px;"></div>
+
+    <!-- Footer -->
+    <footer class="bg-light text-center py-4 mt-5">
+    <div class="container">
+        <p class="mb-0 text-muted small">
+            Built with ❤️ for Healthcare Excellence by Shashank Chinchli, Solutions Architect, AWS </br>*HIPAA-Compliant • FHIR R4 • openEHR • MCP Connected • OpenSearch Ready • Enterprise Security • WCAG 2.1 AA Compliant
+        </p>
+    </div>
+</footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- AWS SDK for authentication -->
+    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.1048.0.min.js"></script>
+    
+    <!-- Universal Cognito Authentication -->
+    <script src="js/cognito-auth-universal.js"></script>
+<!-- 30-Minute Session Manager -->
+<script src="js/session-manager.js"></script>
+    
+    <script src="js/health-reports-complete-charts.js"></script>
+    
+    <script>
+        // Health data for advanced charts with Apple colors
+        const healthData = {
+            hemogram: {
+                hemoglobin: { years: [2023, 2024, 2025], values: [14.7, 15.2, 15.7], color: '#007AFF' },
+                rbc: { years: [2023, 2024, 2025], values: [4.8, 5.0, 5.2], color: '#FF3B30' },
+                wbc: { years: [2023, 2024, 2025], values: [7.2, 7.0, 6.8], color: '#FF9500' },
+                platelets: { years: [2023, 2024, 2025], values: [245, 250, 248], color: '#34C759' },
+                hematocrit: { years: [2023, 2024, 2025], values: [44.1, 45.6, 47.1], color: '#AF52DE' },
+                esr: { years: [2023, 2024, 2025], values: [8, 5, 2], color: '#5AC8FA' }
+            },
+            liver: {
+                alt: { years: [2023, 2024, 2025], values: [35, 31, 28], color: '#FF9500' },
+                ast: { years: [2023, 2024, 2025], values: [42, 38, 34], color: '#FF3B30' },
+                alp: { years: [2023, 2024, 2025], values: [85, 82, 80], color: '#AF52DE' },
+                bilirubin: { years: [2023, 2024, 2025], values: [0.9, 0.8, 0.8], color: '#FFCC00' },
+                albumin: { years: [2023, 2024, 2025], values: [4.0, 4.2, 4.4], color: '#34C759' }
+            },
+            lipid: {
+                totalCholesterol: { years: [2023, 2024, 2025], values: [255, 201, 157], color: '#FF3B30' },
+                ldl: { years: [2023, 2024, 2025], values: [165, 120, 89], color: '#FF9500' },
+                hdl: { years: [2023, 2024, 2025], values: [45, 48, 52], color: '#34C759' },
+                triglycerides: { years: [2023, 2024, 2025], values: [180, 145, 120], color: '#FFCC00' }
+            },
+            bp: {
+                systolic: { years: [2023, 2024, 2025], values: [128, 125, 122], color: '#007AFF' },
+                diastolic: { years: [2023, 2024, 2025], values: [82, 79, 76], color: '#AF52DE' },
+                heartRate: { years: [2023, 2024, 2025], values: [72, 70, 68], color: '#5AC8FA' },
+                map: { years: [2023, 2024, 2025], values: [97, 94, 91], color: '#34C759' }
+            }
+        };
+        
+        // Create Hemogram Chart (Plotly)
+        function createHemogramChart() {
+            const traces = [];
+            
+            Object.entries(healthData.hemogram).forEach(([key, data]) => {
+                traces.push({
+                    x: data.years,
+                    y: data.values,
+                    type: 'scatter',
+                    mode: 'lines+markers',
+                    name: key.charAt(0).toUpperCase() + key.slice(1),
+                    line: { color: data.color, width: 3 },
+                    marker: { size: 8, color: data.color }
+                });
+            });
+            
+            const layout = {
+                title: '',
+                xaxis: { 
+                    title: 'Year', 
+                    showgrid: true, 
+                    gridcolor: 'rgba(0, 122, 255, 0.1)',
+                    color: '#007AFF'
+                },
+                yaxis: { 
+                    title: 'Values', 
+                    showgrid: true, 
+                    gridcolor: 'rgba(0, 122, 255, 0.1)',
+                    color: '#007AFF'
+                },
+                legend: { orientation: 'h', y: -0.2 },
+                font: { family: 'Inter, -apple-system, BlinkMacSystemFont, sans-serif', size: 12 },
+                margin: { t: 50, b: 80, l: 60, r: 40 },
+                plot_bgcolor: 'rgba(248, 249, 250, 0.5)',
+                paper_bgcolor: '#ffffff'
+            };
+            
+            Plotly.newPlot('hemogramChart', traces, layout, { responsive: true });
+        }
+        
+        // Create Liver Function Chart (Plotly)
+        function createLiverChart() {
+            const traces = [];
+            
+            Object.entries(healthData.liver).forEach(([key, data]) => {
+                traces.push({
+                    x: data.years,
+                    y: data.values,
+                    type: 'scatter',
+                    mode: 'lines+markers',
+                    name: key.toUpperCase(),
+                    line: { color: data.color, width: 3 },
+                    marker: { size: 8, color: data.color }
+                });
+            });
+            
+            const layout = {
+                title: '',
+                xaxis: { 
+                    title: 'Year', 
+                    showgrid: true, 
+                    gridcolor: 'rgba(0, 122, 255, 0.1)',
+                    color: '#007AFF'
+                },
+                yaxis: { 
+                    title: 'Values (U/L)', 
+                    showgrid: true, 
+                    gridcolor: 'rgba(0, 122, 255, 0.1)',
+                    color: '#007AFF'
+                },
+                legend: { orientation: 'h', y: -0.2 },
+                font: { family: 'Inter, -apple-system, BlinkMacSystemFont, sans-serif', size: 12 },
+                margin: { t: 50, b: 80, l: 60, r: 40 },
+                plot_bgcolor: 'rgba(248, 249, 250, 0.5)',
+                paper_bgcolor: '#ffffff'
+            };
+            
+            Plotly.newPlot('liverChart', traces, layout, { responsive: true });
+        }
+        
+        // Create Lipid Profile Chart (Plotly)
+        function createLipidChart() {
+            const traces = [];
+            
+            Object.entries(healthData.lipid).forEach(([key, data]) => {
+                traces.push({
+                    x: data.years,
+                    y: data.values,
+                    type: 'scatter',
+                    mode: 'lines+markers',
+                    name: key.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase()),
+                    line: { color: data.color, width: 3 },
+                    marker: { size: 8, color: data.color }
+                });
+            });
+            
+            const layout = {
+                title: '',
+                xaxis: { 
+                    title: 'Year', 
+                    showgrid: true, 
+                    gridcolor: 'rgba(0, 122, 255, 0.1)',
+                    color: '#007AFF'
+                },
+                yaxis: { 
+                    title: 'Values (mg/dL)', 
+                    showgrid: true, 
+                    gridcolor: 'rgba(0, 122, 255, 0.1)',
+                    color: '#007AFF'
+                },
+                legend: { orientation: 'h', y: -0.2 },
+                font: { family: 'Inter, -apple-system, BlinkMacSystemFont, sans-serif', size: 12 },
+                margin: { t: 50, b: 80, l: 60, r: 40 },
+                plot_bgcolor: 'rgba(248, 249, 250, 0.5)',
+                paper_bgcolor: '#ffffff'
+            };
+            
+            Plotly.newPlot('lipidChart', traces, layout, { responsive: true });
+        }
+        
+        // Create Advanced Blood Pressure Chart (Plotly)
+        function createAdvancedBPChart() {
+            const traces = [];
+            
+            Object.entries(healthData.bp).forEach(([key, data]) => {
+                traces.push({
+                    x: data.years,
+                    y: data.values,
+                    type: 'scatter',
+                    mode: 'lines+markers',
+                    name: key.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase()),
+                    line: { color: data.color, width: 3 },
+                    marker: { size: 8, color: data.color }
+                });
+            });
+            
+            const layout = {
+                title: '',
+                xaxis: { 
+                    title: 'Year', 
+                    showgrid: true, 
+                    gridcolor: 'rgba(0, 122, 255, 0.1)',
+                    color: '#007AFF'
+                },
+                yaxis: { 
+                    title: 'Values (mmHg/BPM)', 
+                    showgrid: true, 
+                    gridcolor: 'rgba(0, 122, 255, 0.1)',
+                    color: '#007AFF'
+                },
+                legend: { orientation: 'h', y: -0.2 },
+                font: { family: 'Inter, -apple-system, BlinkMacSystemFont, sans-serif', size: 12 },
+                margin: { t: 50, b: 80, l: 60, r: 40 },
+                plot_bgcolor: 'rgba(248, 249, 250, 0.5)',
+                paper_bgcolor: '#ffffff'
+            };
+            
+            Plotly.newPlot('bpAdvancedChart', traces, layout, { responsive: true });
+        }
+        
+        // Initialize all charts when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            // Advanced Plotly charts
+            createHemogramChart();
+            createLiverChart();
+            createLipidChart();
+            createAdvancedBPChart();
+            
+            // Enhance table styling
+            enhanceTableStyling();
+            
+            console.log('✅ Health Reports - All charts loaded successfully!');
+        });
+        
+        // Function to enhance table styling
+        function enhanceTableStyling() {
+            // Add trend colors to arrows
+            const trendCells = document.querySelectorAll('.metric-table-vertical td:nth-child(6)');
+            trendCells.forEach(cell => {
+                const text = cell.textContent.trim();
+                if (text.includes('↑')) {
+                    cell.classList.add('trend-up');
+                } else if (text.includes('↓')) {
+                    cell.classList.add('trend-down');
+                } else if (text.includes('→') || text.includes('=')) {
+                    cell.classList.add('trend-stable');
+                }
+            });
+            
+            // Add hover effects to table rows
+            const tableRows = document.querySelectorAll('.metric-table-vertical tbody tr:not(.table-light)');
+            tableRows.forEach(row => {
+                row.addEventListener('mouseenter', function() {
+                    this.style.boxShadow = '0 2px 8px rgba(0,122,255,0.15)';
+                });
+                
+                row.addEventListener('mouseleave', function() {
+                    this.style.boxShadow = 'none';
+                });
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StayFit - Settings & AI Configuration</title>
+    
+    <!-- Bootstrap 5.3 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.css">
+    
+    <!-- Google Fonts - Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Unified CSS Files -->
+    <link rel="stylesheet" href="css/bootstrap-theme-unified.css">
+    <link rel="stylesheet" href="css/navigation-unified.css">
+    <link rel="stylesheet" href="css/layout-unified.css">
+    <link rel="stylesheet" href="css/uniform_page_header.css">
+    <link rel="stylesheet" href="css/footer-unified.css">
+    <link rel="stylesheet" href="css/unified-layout-override.css">
+    <link rel="stylesheet" href="../assets/css/footer-standard.css">
+    
+    <style>
+        :root {
+            --primary-color: #007AFF;
+            --success-color: #34C759;
+            --warning-color: #FF9500;
+            --danger-color: #FF3B30;
+            --info-color: #5AC8FA;
+            --sidebar-width: 280px;
+            --transition-speed: 0.3s;
+            
+            /* Light Theme */
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8f9fa;
+            --text-primary: #212529;
+            --text-secondary: #6c757d;
+            --border-color: #dee2e6;
+            --input-bg: #ffffff;
+            --input-border: #ced4da;
+        }
+
+        .settings-tabs {
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 2rem;
+        }
+
+        .settings-tabs .nav-link {
+            color: var(--text-secondary);
+            border: none;
+            padding: 1rem 1.5rem;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .settings-tabs .nav-link:hover {
+            color: var(--primary-color);
+            background-color: var(--bg-secondary);
+        }
+
+        .settings-tabs .nav-link.active {
+            color: var(--primary-color);
+            background-color: transparent;
+            border-bottom: 2px solid var(--primary-color);
+        }
+
+        .settings-section {
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .settings-section h5 {
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .settings-section h5 i {
+            color: var(--primary-color);
+            margin-right: 0.5rem;
+        }
+
+        .form-control, .form-select {
+            background-color: var(--input-bg);
+            border-color: var(--input-border);
+            color: var(--text-primary);
+        }
+
+        .form-control:focus, .form-select:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+        }
+
+        .guardrail-item {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .guardrail-item h6 {
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .guardrail-item p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .status-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .status-indicator.connected {
+            color: var(--success-color);
+        }
+
+        .status-indicator.disconnected {
+            color: var(--danger-color);
+        }
+
+        .status-indicator.warning {
+            color: var(--warning-color);
+        }
+
+        .connection-card {
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .connection-status {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+
+        .btn-configure {
+            background: var(--primary-color);
+            border: none;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+
+        .btn-configure:hover {
+            background: #0056b3;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <!-- Mobile Menu Toggle -->
+    <button class="mobile-menu-toggle" id="mobileMenuToggle">
+        <i class="bi bi-list"></i>
+    </button>
+
+    <!-- Sidebar Overlay -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Sidebar Navigation -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h4 class="mb-0">
+                <i class="bi bi-heart-pulse me-2 text-primary"></i>
+                StayFit
+            </h4>
+        </div>
+        <nav class="nav flex-column">
+            <a class="nav-link" href="index.html">
+                <i class="bi bi-house"></i>
+                <span>Dashboard</span>
+            </a>
+            <a class="nav-link" href="health-reports.html">
+                <i class="bi bi-file-medical"></i>
+                <span>Health Reports</span>
+            </a>
+            <a class="nav-link" href="digital-analysis.html">
+                <i class="bi bi-cpu"></i>
+                <span>Digital Analysis</span>
+            </a>
+            <a class="nav-link" href="search.html">
+                <i class="bi bi-search"></i>
+                <span>Search</span>
+            </a>
+            <a class="nav-link active" href="settings.html">
+                <i class="bi bi-gear"></i>
+                <span>Settings</span>
+            </a>
+        </nav>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="main-content">
+        <div class="container-fluid">
+            <!-- Page Header -->
+            <div class="page-header">
+                <h2><i class="bi bi-gear"></i>Settings & AI Configuration</h2>
+                <div class="header-divider"></div>
+                <p>Configure your health companion and AI assistant settings</p>
+            </div>
+
+            <!-- Settings Navigation Tabs -->
+            <ul class="nav nav-tabs settings-tabs" id="settingsTabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="general-tab" data-bs-toggle="tab" data-bs-target="#general" type="button" role="tab">
+                        <i class="bi bi-sliders me-2"></i>General
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="ai-config-tab" data-bs-toggle="tab" data-bs-target="#ai-config" type="button" role="tab">
+                        <i class="bi bi-robot me-2"></i>AI Configuration
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="guardrails-tab" data-bs-toggle="tab" data-bs-target="#guardrails" type="button" role="tab">
+                        <i class="bi bi-shield-check me-2"></i>AI Guardrails
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="privacy-tab" data-bs-toggle="tab" data-bs-target="#privacy" type="button" role="tab">
+                        <i class="bi bi-lock me-2"></i>Privacy & Security
+                    </button>
+                </li>
+            </ul>
+
+            <!-- Tab Content -->
+            <div class="tab-content" id="settingsTabContent">
+                <!-- General Settings Tab -->
+                <div class="tab-pane fade show active" id="general" role="tabpanel">
+                    <div class="settings-section">
+                        <h5><i class="bi bi-palette"></i>Theme & Appearance</h5>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="form-label">Theme Mode</label>
+                                <select class="form-select" id="themeMode">
+                                    <option value="light">Light Mode</option>
+                                    <option value="dark">Dark Mode</option>
+                                    <option value="auto">Auto (System)</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Font Size</label>
+                                <select class="form-select" id="fontSize">
+                                    <option value="small">Small</option>
+                                    <option value="medium" selected>Medium</option>
+                                    <option value="large">Large</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="settings-section">
+                        <h5><i class="bi bi-bell"></i>Notifications</h5>
+                        <div class="form-check form-switch mb-3">
+                            <input class="form-check-input" type="checkbox" id="healthAlerts" checked>
+                            <label class="form-check-label" for="healthAlerts">
+                                Health Alerts & Reminders
+                            </label>
+                        </div>
+                        <div class="form-check form-switch mb-3">
+                            <input class="form-check-input" type="checkbox" id="aiInsights" checked>
+                            <label class="form-check-label" for="aiInsights">
+                                AI Health Insights
+                            </label>
+                        </div>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="dataUpdates">
+                            <label class="form-check-label" for="dataUpdates">
+                                Data Sync Updates
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AI Configuration Tab -->
+                <div class="tab-pane fade" id="ai-config" role="tabpanel">
+                    <div class="connection-card">
+                        <div class="connection-status">
+                            <div>
+                                <h5><i class="bi bi-cloud me-2"></i>Amazon Bedrock Connection</h5>
+                                <p class="mb-0">Claude AI model for health assistance</p>
+                            </div>
+                            <div class="status-indicator connected">
+                                <i class="bi bi-check-circle-fill"></i>
+                                Connected
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="form-label">AWS Region</label>
+                                <select class="form-select" id="awsRegion">
+                                    <option value="us-east-1" selected>US East (N. Virginia)</option>
+                                    <option value="us-west-2">US West (Oregon)</option>
+                                    <option value="eu-west-1">Europe (Ireland)</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Claude Model</label>
+                                <select class="form-select" id="claudeModel">
+                                    <option value="anthropic.claude-3-5-sonnet-20240620-v1:0" selected>Claude 3.5 Sonnet</option>
+                                    <option value="anthropic.claude-3-haiku-20240307-v1:0">Claude 3 Haiku</option>
+                                    <option value="anthropic.claude-3-opus-20240229-v1:0">Claude 3 Opus</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="mt-3">
+                            <button class="btn btn-configure" onclick="configureBedrock()">
+                                <i class="bi bi-check me-2"></i>Connected & Active
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="connection-card">
+                        <div class="connection-status">
+                            <div>
+                                <h5><i class="bi bi-search me-2"></i>OpenSearch MCP Connection</h5>
+                                <p class="mb-0">Health data search and indexing</p>
+                            </div>
+                            <div class="status-indicator disconnected">
+                                <i class="bi bi-x-circle-fill"></i>
+                                Not Connected
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="form-label">OpenSearch Endpoint</label>
+                                <input type="text" class="form-control" id="opensearchEndpoint" value="search-YOUR-DOMAIN.us-region-1.es.amazonaws.com" readonly>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Index Name</label>
+                                <input type="text" class="form-control" id="indexName" value="health-data-index" readonly>
+                            </div>
+                        </div>
+                        <div class="mt-3">
+                            <button class="btn btn-configure" onclick="configureOpenSearch()">
+                                <i class="bi bi-gear me-2"></i>Configure OpenSearch
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="settings-section">
+                        <h5><i class="bi bi-cpu me-2"></i>AI Response Settings</h5>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="form-label">Response Length</label>
+                                <select class="form-select" id="responseLength">
+                                    <option value="concise">Concise</option>
+                                    <option value="detailed" selected>Detailed</option>
+                                    <option value="comprehensive">Comprehensive</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Medical Terminology</label>
+                                <select class="form-select" id="medicalTerms">
+                                    <option value="simple" selected>Simple Language</option>
+                                    <option value="mixed">Mixed</option>
+                                    <option value="technical">Technical Terms</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AI Guardrails Tab -->
+                <div class="tab-pane fade" id="guardrails" role="tabpanel">
+                    <div class="settings-section">
+                        <h5><i class="bi bi-shield-check"></i>Content Safety Guardrails</h5>
+                        <p class="text-muted mb-3">Configure AI safety measures and content filtering</p>
+                        
+                        <div class="guardrail-item">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h6>Medical Advice Filtering</h6>
+                                    <p>Prevents AI from providing direct medical diagnoses or treatment recommendations</p>
+                                </div>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="medicalAdviceFilter" checked>
+                                </div>
+                            </div>
+                            <div class="status-indicator connected">
+                                <i class="bi bi-check-circle-fill"></i>
+                                Active - High Sensitivity
+                            </div>
+                        </div>
+
+                        <div class="guardrail-item">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h6>Personal Information Protection</h6>
+                                    <p>Blocks sharing of sensitive personal health information</p>
+                                </div>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="piiProtection" checked>
+                                </div>
+                            </div>
+                            <div class="status-indicator connected">
+                                <i class="bi bi-check-circle-fill"></i>
+                                Active - Maximum Protection
+                            </div>
+                        </div>
+
+                        <div class="guardrail-item">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h6>Harmful Content Detection</h6>
+                                    <p>Detects and blocks potentially harmful or inappropriate content</p>
+                                </div>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="harmfulContentFilter" checked>
+                                </div>
+                            </div>
+                            <div class="status-indicator connected">
+                                <i class="bi bi-check-circle-fill"></i>
+                                Active - Standard Filtering
+                            </div>
+                        </div>
+
+                        <div class="guardrail-item">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h6>Emergency Response Protocol</h6>
+                                    <p>Automatically provides emergency contact information for urgent health concerns</p>
+                                </div>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="emergencyProtocol" checked>
+                                </div>
+                            </div>
+                            <div class="status-indicator connected">
+                                <i class="bi bi-check-circle-fill"></i>
+                                Active - Emergency Ready
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="settings-section">
+                        <h5><i class="bi bi-sliders"></i>Guardrail Sensitivity Levels</h5>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="form-label">Content Filtering Level</label>
+                                <select class="form-select" id="contentFilterLevel">
+                                    <option value="low">Low - Minimal filtering</option>
+                                    <option value="medium" selected>Medium - Balanced approach</option>
+                                    <option value="high">High - Strict filtering</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Medical Disclaimer Frequency</label>
+                                <select class="form-select" id="disclaimerFrequency">
+                                    <option value="always" selected>Always show disclaimers</option>
+                                    <option value="health-topics">Only for health topics</option>
+                                    <option value="minimal">Minimal disclaimers</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="settings-section">
+                        <h5><i class="bi bi-exclamation-triangle"></i>Guardrail Monitoring</h5>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="text-center">
+                                    <h4 class="text-success">127</h4>
+                                    <p class="mb-0">Blocked Requests</p>
+                                    <small class="text-muted">Last 30 days</small>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="text-center">
+                                    <h4 class="text-warning">23</h4>
+                                    <p class="mb-0">Flagged Content</p>
+                                    <small class="text-muted">Under review</small>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="text-center">
+                                    <h4 class="text-info">99.2%</h4>
+                                    <p class="mb-0">Safety Score</p>
+                                    <small class="text-muted">Excellent</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Privacy & Security Tab -->
+                <div class="tab-pane fade" id="privacy" role="tabpanel">
+                    <div class="settings-section">
+                        <h5><i class="bi bi-lock"></i>Data Privacy</h5>
+                        <div class="form-check form-switch mb-3">
+                            <input class="form-check-input" type="checkbox" id="dataEncryption" checked>
+                            <label class="form-check-label" for="dataEncryption">
+                                End-to-end encryption for health data
+                            </label>
+                        </div>
+                        <div class="form-check form-switch mb-3">
+                            <input class="form-check-input" type="checkbox" id="anonymizeData" checked>
+                            <label class="form-check-label" for="anonymizeData">
+                                Anonymize data for AI processing
+                            </label>
+                        </div>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="dataRetention">
+                            <label class="form-check-label" for="dataRetention">
+                                Automatic data deletion after 2 years
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="settings-section">
+                        <h5><i class="bi bi-shield-lock"></i>Security Settings</h5>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="form-label">Session Timeout</label>
+                                <select class="form-select" id="sessionTimeout">
+                                    <option value="15">15 minutes</option>
+                                    <option value="30" selected>30 minutes</option>
+                                    <option value="60">1 hour</option>
+                                    <option value="120">2 hours</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Two-Factor Authentication</label>
+                                <div class="form-check form-switch mt-2">
+                                    <input class="form-check-input" type="checkbox" id="twoFactorAuth">
+                                    <label class="form-check-label" for="twoFactorAuth">
+                                        Enable 2FA
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Save Settings Button -->
+            <div class="d-flex justify-content-end mt-4">
+                <button class="btn btn-primary btn-lg" onclick="saveAllSettings()">
+                    <i class="bi bi-check-lg me-2"></i>Save All Settings
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap 5.3 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- AWS SDK v3 for DynamoDB -->
+    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.1048.0.min.js"></script>
+    
+    <!-- Load Sample Questions Cache System for Testing -->
+    <script src="js/sample-questions-cache.js"></script>
+    
+    <!-- Load Cache Testing System -->
+    <script src="js/cache-testing-system.js"></script>
+    
+    <script>
+        // AWS Configuration for DynamoDB
+        AWS.config.update({
+            region: 'us-east-1',
+            credentials: new AWS.CognitoIdentityCredentials({
+                IdentityPoolId: 'us-east-1:1f8c35e3-37b8-4e59-b694-b5f0bb49a02d'
+            })
+        });
+
+        const dynamodb = new AWS.DynamoDB.DocumentClient();
+        const SETTINGS_TABLE = 'StayFitUserSettings';
+        
+        // Generate or get user ID (you can replace this with actual authentication)
+        function getUserId() {
+            let userId = localStorage.getItem('stayfit_user_id');
+            if (!userId) {
+                userId = 'user_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+                localStorage.setItem('stayfit_user_id', userId);
+            }
+            return userId;
+        }
+
+        // Save all settings to DynamoDB
+        async function saveAllSettingsToDynamoDB() {
+            const userId = getUserId();
+            const timestamp = new Date().toISOString();
+            
+            // Show loading state
+            const saveBtn = event?.target;
+            if (saveBtn) {
+                saveBtn.innerHTML = '<i class="bi bi-hourglass-split me-2"></i>Saving...';
+                saveBtn.disabled = true;
+            }
+            
+            try {
+                // Collect all settings from the form
+                const settings = {
+                    userId: userId,
+                    timestamp: timestamp,
+                    opensearch: {
+                        endpoint: getInputValue('opensearch-endpoint'),
+                        index: getInputValue('opensearch-index'),
+                        username = "your_username"('opensearch-username'),
+                        password = "your_secure_password"opensearch-password')
+                    },
+                    perplexity: {
+                        apiKey: getInputValue('perplexity-api-key'),
+                        model: getInputValue('perplexity-model'),
+                        temperature: getInputValue('perplexity-temperature'),
+                        maxTokens: getInputValue('perplexity-max-tokens')
+                    },
+                    bedrock: {
+                        region: getInputValue('bedrock-region'),
+                        model: getInputValue('bedrock-model'),
+                        temperature: getInputValue('bedrock-temperature'),
+                        maxTokens: getInputValue('bedrock-max-tokens')
+                    },
+                    bedrockHealth: {
+                        region: getInputValue('bedrock-health-region'),
+                        model: getInputValue('bedrock-health-model'),
+                        temperature: getInputValue('bedrock-health-temperature'),
+                        maxTokens: getInputValue('bedrock-health-max-tokens'),
+                        systemPrompt: getInputValue('bedrock-health-system-prompt')
+                    },
+                    mcp: {
+                        serverUrl: getInputValue('mcp-server-url'),
+                        enabled: getCheckboxValue('mcp-enabled')
+                    },
+                    features: {
+                        trendAnalysis: getCheckboxValue('enable-trend-analysis'),
+                        riskAssessment: getCheckboxValue('enable-risk-assessment'),
+                        personalizedInsights: getCheckboxValue('enable-personalized-insights')
+                    },
+                    // Additional settings that might exist
+                    apiTokens: {
+                        perplexityVisible: getCheckboxValue('perplexity-key-visible'),
+                        bedrockVisible: getCheckboxValue('bedrock-key-visible')
+                    }
+                };
+
+                const params = {
+                    TableName: SETTINGS_TABLE,
+                    Item: settings
+                };
+
+                await dynamodb.put(params).promise();
+                
+                // Show success message
+                showNotification('All settings saved successfully to DynamoDB!', 'success');
+                console.log('Settings saved to DynamoDB:', settings);
+                
+            } catch (error) {
+                console.error('Error saving settings to DynamoDB:', error);
+                showNotification('Error saving settings: ' + error.message, 'error');
+            } finally {
+                // Restore button state
+                if (saveBtn) {
+                    saveBtn.innerHTML = '<i class="bi bi-cloud-upload me-2"></i>Save All Settings to Cloud';
+                    saveBtn.disabled = false;
+                }
+            }
+        }
+
+        // Load settings from DynamoDB
+        async function loadSettingsFromDynamoDB(showNotifications = false) {
+            const userId = getUserId();
+            
+            try {
+                const params = {
+                    TableName: SETTINGS_TABLE,
+                    Key: {
+                        userId: userId
+                    }
+                };
+
+                const result = await dynamodb.get(params).promise();
+                
+                if (result.Item) {
+                    const settings = result.Item;
+                    
+                    // Populate OpenSearch settings
+                    if (settings.opensearch) {
+                        setInputValue('opensearch-endpoint', settings.opensearch.endpoint);
+                        setInputValue('opensearch-index', settings.opensearch.index);
+                        setInputValue('opensearch-username', settings.opensearch.username);
+                        setInputValue('opensearch-password', settings.opensearch.password);
+                    }
+                    
+                    // Populate Perplexity settings
+                    if (settings.perplexity) {
+                        setInputValue('perplexity-api-key', settings.perplexity.apiKey);
+                        setInputValue('perplexity-model', settings.perplexity.model);
+                        setInputValue('perplexity-temperature', settings.perplexity.temperature);
+                        setInputValue('perplexity-max-tokens', settings.perplexity.maxTokens);
+                    }
+                    
+                    // Populate Bedrock settings
+                    if (settings.bedrock) {
+                        setInputValue('bedrock-region', settings.bedrock.region);
+                        setInputValue('bedrock-model', settings.bedrock.model);
+                        setInputValue('bedrock-temperature', settings.bedrock.temperature);
+                        setInputValue('bedrock-max-tokens', settings.bedrock.maxTokens);
+                    }
+                    
+                    // Populate Bedrock Health settings
+                    if (settings.bedrockHealth) {
+                        setInputValue('bedrock-health-region', settings.bedrockHealth.region);
+                        setInputValue('bedrock-health-model', settings.bedrockHealth.model);
+                        setInputValue('bedrock-health-temperature', settings.bedrockHealth.temperature);
+                        setInputValue('bedrock-health-max-tokens', settings.bedrockHealth.maxTokens);
+                        setInputValue('bedrock-health-system-prompt', settings.bedrockHealth.systemPrompt);
+                    }
+                    
+                    // Populate MCP settings
+                    if (settings.mcp) {
+                        setInputValue('mcp-server-url', settings.mcp.serverUrl);
+                        setCheckboxValue('mcp-enabled', settings.mcp.enabled);
+                    }
+                    
+                    // Populate feature settings
+                    if (settings.features) {
+                        setCheckboxValue('enable-trend-analysis', settings.features.trendAnalysis);
+                        setCheckboxValue('enable-risk-assessment', settings.features.riskAssessment);
+                        setCheckboxValue('enable-personalized-insights', settings.features.personalizedInsights);
+                    }
+                    
+                    if (showNotifications) {
+                        showNotification('Settings loaded successfully!', 'success');
+                    }
+                    console.log('Settings loaded from DynamoDB:', settings);
+                } else {
+                    console.log('No saved settings found for user:', userId);
+                    if (showNotifications) {
+                        showNotification('No saved settings found. Using defaults.', 'info');
+                    }
+                }
+                
+            } catch (error) {
+                console.error('Error loading settings from DynamoDB:', error);
+                if (showNotifications) {
+                    showNotification('Error loading settings: ' + error.message, 'error');
+                }
+            }
+        }
+
+        // Helper functions
+        function getInputValue(elementId) {
+            const element = document.getElementById(elementId);
+            return element ? element.value : '';
+        }
+
+        function getCheckboxValue(elementId) {
+            const element = document.getElementById(elementId);
+            return element ? element.checked : false;
+        }
+
+        function setInputValue(elementId, value) {
+            const element = document.getElementById(elementId);
+            if (element && value !== undefined && value !== null) {
+                element.value = value;
+            }
+        }
+
+        function setCheckboxValue(elementId, value) {
+            const element = document.getElementById(elementId);
+            if (element && value !== undefined && value !== null) {
+                element.checked = value;
+            }
+        }
+
+        // Show notification
+        function showNotification(message, type = 'info') {
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.className = `alert alert-${type === 'error' ? 'danger' : type} alert-dismissible fade show position-fixed`;
+            notification.style.cssText = 'top: 20px; right: 20px; z-index: 9999; min-width: 300px;';
+            notification.innerHTML = `
+                ${message}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // Auto-remove after 5 seconds
+            setTimeout(() => {
+                if (notification.parentNode) {
+                    notification.remove();
+                }
+            }, 5000);
+        }
+
+        // Mobile menu functionality
+        function setupMobileMenu() {
+            const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+            const sidebar = document.getElementById('sidebar');
+            const sidebarOverlay = document.getElementById('sidebarOverlay');
+
+            if (mobileMenuToggle) {
+                mobileMenuToggle.addEventListener('click', function() {
+                    sidebar.classList.toggle('show');
+                    sidebarOverlay.classList.toggle('show');
+                });
+            }
+
+            if (sidebarOverlay) {
+                sidebarOverlay.addEventListener('click', function() {
+                    sidebar.classList.remove('show');
+                    sidebarOverlay.classList.remove('show');
+                });
+            }
+        }
+
+        // AI Configuration Functions
+        function configureBedrock() {
+            const region = document.getElementById('awsRegion').value;
+            const model = document.getElementById('claudeModel').value;
+            
+            if (!region || !model) {
+                alert('Please select both AWS Region and Claude Model');
+                return;
+            }
+            
+            // Simulate configuration
+            alert(`Configuring Bedrock connection...\nRegion: ${region}\nModel: ${model}\n\nNote: This is a demo. In production, this would establish the actual connection.`);
+        }
+
+        function configureOpenSearch() {
+            const endpoint = document.getElementById('opensearchEndpoint').value;
+            const indexName = document.getElementById('indexName').value;
+            
+            if (!endpoint || !indexName) {
+                alert('Please provide both OpenSearch endpoint and index name');
+                return;
+            }
+            
+            // Simulate configuration
+            alert(`Configuring OpenSearch MCP...\nEndpoint: ${endpoint}\nIndex: ${indexName}\n\nNote: This is a demo. In production, this would establish the actual connection.`);
+        }
+
+        function saveAllSettings() {
+            // Collect all settings
+            const settings = {
+                theme: document.getElementById('themeMode').value,
+                fontSize: document.getElementById('fontSize').value,
+                notifications: {
+                    healthAlerts: document.getElementById('healthAlerts').checked,
+                    aiInsights: document.getElementById('aiInsights').checked,
+                    dataUpdates: document.getElementById('dataUpdates').checked
+                },
+                ai: {
+                    awsRegion: document.getElementById('awsRegion').value,
+                    claudeModel: document.getElementById('claudeModel').value,
+                    responseLength: document.getElementById('responseLength').value,
+                    medicalTerms: document.getElementById('medicalTerms').value
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            setupMobileMenu();
+            
+            // Load settings from DynamoDB on page load (silently in background)
+            setTimeout(() => {
+                loadSettingsFromDynamoDB();
+                
+                // Add auto-save functionality after settings are loaded
+                setTimeout(() => {
+                    addAutoSaveListeners();
+                }, 500);
+            }, 1000); // Small delay to ensure AWS SDK is ready
+        });
+                }, 500);
+            }, 1000); // Small delay to ensure AWS SDK is ready
+        });
+
+        // Add auto-save listeners to all form elements
+        function addAutoSaveListeners() {
+            // Get all input, select, and textarea elements
+            const formElements = document.querySelectorAll('input, select, textarea');
+            
+            formElements.forEach(element => {
+                // Skip elements that shouldn't trigger auto-save
+                if (element.type === 'button' || element.type === 'submit') {
+                    return;
+                }
+                
+                // Add event listeners based on element type
+                if (element.type === 'checkbox' || element.type === 'radio') {
+                    element.addEventListener('change', debounce(autoSaveSettings, 1000));
+                } else {
+                    element.addEventListener('input', debounce(autoSaveSettings, 2000));
+                    element.addEventListener('change', debounce(autoSaveSettings, 1000));
+                }
+            });
+            
+            console.log('Auto-save listeners added to', formElements.length, 'form elements');
+        }
+
+        // Auto-save settings (silent, no notifications)
+        async function autoSaveSettings() {
+            try {
+                const userId = getUserId();
+                const timestamp = new Date().toISOString();
+                
+                const settings = {
+                    userId: userId,
+                    timestamp: timestamp,
+                    opensearch: {
+                        endpoint: getInputValue('opensearch-endpoint'),
+                        index: getInputValue('opensearch-index'),
+                        username = "your_username"('opensearch-username'),
+                        password = "your_secure_password"opensearch-password')
+                    },
+                    perplexity: {
+                        apiKey: getInputValue('perplexity-api-key'),
+                        model: getInputValue('perplexity-model'),
+                        temperature: getInputValue('perplexity-temperature'),
+                        maxTokens: getInputValue('perplexity-max-tokens')
+                    },
+                    bedrock: {
+                        region: getInputValue('bedrock-region'),
+                        model: getInputValue('bedrock-model'),
+                        temperature: getInputValue('bedrock-temperature'),
+                        maxTokens: getInputValue('bedrock-max-tokens')
+                    },
+                    bedrockHealth: {
+                        region: getInputValue('bedrock-health-region'),
+                        model: getInputValue('bedrock-health-model'),
+                        temperature: getInputValue('bedrock-health-temperature'),
+                        maxTokens: getInputValue('bedrock-health-max-tokens'),
+                        systemPrompt: getInputValue('bedrock-health-system-prompt')
+                    },
+                    mcp: {
+                        serverUrl: getInputValue('mcp-server-url'),
+                        enabled: getCheckboxValue('mcp-enabled')
+                    },
+                    features: {
+                        trendAnalysis: getCheckboxValue('enable-trend-analysis'),
+                        riskAssessment: getCheckboxValue('enable-risk-assessment'),
+                        personalizedInsights: getCheckboxValue('enable-personalized-insights')
+                    },
+                    apiTokens: {
+                        perplexityVisible: getCheckboxValue('perplexity-key-visible'),
+                        bedrockVisible: getCheckboxValue('bedrock-key-visible')
+                    }
+                };
+
+                const params = {
+                    TableName: SETTINGS_TABLE,
+                    Item: settings
+                };
+
+                await dynamodb.put(params).promise();
+                console.log('Settings auto-saved to DynamoDB');
+                
+            } catch (error) {
+                console.error('Error auto-saving settings:', error);
+            }
+        }
+
+        // Debounce function to limit how often auto-save runs
+        function debounce(func, wait) {
+            let timeout;
+            return function executedFunction(...args) {
+                const later = () => {
+                    clearTimeout(timeout);
+                    func(...args);
+                };
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+            };
+        }
+    </script>
+
+    <!-- Footer -->
+        <!-- Standardized HealthHQ Footer -->
+        <!-- Standardized HealthHQ Footer -->
+        <!-- Standardized HealthHQ Footer -->
+        <!-- Standardized HealthHQ Footer -->
+        <!-- Standardized HealthHQ Footer -->
+        <!-- Standardized HealthHQ Footer -->
+        <!-- Standardized HealthHQ Footer -->
+    <footer class="healthhq-footer">
+        <div class="healthhq-footer-content">
+            <!-- Main Footer Text -->
+            <p class="healthhq-footer-main">
+                Built with <span class="heart-emoji">❤️</span> for Healthcare Excellence by 
+                <span class="healthhq-footer-author">
+                    <a href="https://in.linkedin.com/in/shashankk" target="_blank" rel="noopener noreferrer">
+                        Shashank Chinchli, Solutions Architect, AWS
+                    </a>
+                </span>
+            </p>
+            
+            <!-- Feature Tags -->
+            <p class="healthhq-footer-features">
+                <span>HIPAA-Compliant</span>
+                <span class="feature-separator">•</span>
+                <span>FHIR R4</span>
+                <span class="feature-separator">•</span>
+                <span>openEHR</span>
+                <span class="feature-separator">•</span>
+                <span>MCP Connected</span>
+                <span class="feature-separator">•</span>
+                <span>OpenSearch Ready</span>
+                <span class="feature-separator">•</span>
+                <span>Enterprise Security</span>
+            </p>
+        </div>
+    </footer>
+
+</body>
+</html>

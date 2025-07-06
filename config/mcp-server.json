@@ -1,0 +1,97 @@
+{
+  "name": "stayfit-health-companion",
+  "version": "1.0.0",
+  "description": "StayFit Health Companion MCP Server for health data processing and insights",
+  "server": {
+    "command": "node",
+    "args": ["src/mcp-server/index.js"],
+    "env": {
+      "NODE_ENV": "production"
+    }
+  },
+  "capabilities": {
+    "tools": {
+      "search_health_data": {
+        "description": "Search through processed health records and metrics",
+        "cache_enabled": true,
+        "cache_ttl_hours": 720
+      },
+      "generate_health_insights": {
+        "description": "Generate AI-powered health insights from user data",
+        "cache_enabled": true,
+        "cache_ttl_hours": 24
+      },
+      "get_family_health_summary": {
+        "description": "Get aggregated health summary for family members with privacy controls",
+        "cache_enabled": false
+      },
+      "cache_health_data": {
+        "description": "Cache frequently accessed health data for 30 days",
+        "cache_enabled": true,
+        "default_ttl_hours": 720
+      },
+      "process_health_document": {
+        "description": "Process PDF health documents using AWS Textract",
+        "cache_enabled": true,
+        "cache_ttl_hours": 168
+      }
+    }
+  },
+  "health_data": {
+    "apple_health_path": "/Users/schinchli/Documents/HR",
+    "supported_formats": ["xml", "pdf"],
+    "processing": {
+      "batch_size": 1000,
+      "max_file_size_mb": 100,
+      "timeout_seconds": 300
+    }
+  },
+  "aws": {
+    "region": "us-east-1",
+    "services": {
+      "textract": {
+        "enabled": true,
+        "features": ["TABLES", "FORMS"]
+      },
+      "opensearch": {
+        "enabled": true,
+        "endpoint": "${OPENSEARCH_ENDPOINT}",
+        "indices": {
+          "health_records": "health-records",
+          "health_metrics": "health-metrics", 
+          "family_data": "family-health-data"
+        }
+      },
+      "s3": {
+        "enabled": true,
+        "bucket": "${HEALTH_DOCUMENTS_BUCKET}"
+      }
+    }
+  },
+  "cache": {
+    "type": "redis",
+    "redis_url": "${REDIS_URL}",
+    "fallback_to_memory": true,
+    "default_ttl_hours": 720,
+    "cleanup_interval_minutes": 5
+  },
+  "logging": {
+    "level": "info",
+    "files": {
+      "error": "logs/error.log",
+      "combined": "logs/combined.log"
+    },
+    "console": true
+  },
+  "security": {
+    "enable_cors": false,
+    "rate_limiting": {
+      "enabled": true,
+      "requests_per_minute": 60
+    },
+    "data_encryption": {
+      "enabled": true,
+      "algorithm": "aes-256-gcm"
+    }
+  }
+}

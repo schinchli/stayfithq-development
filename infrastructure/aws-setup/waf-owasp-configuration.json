@@ -1,0 +1,364 @@
+{
+  "WebACLName": "StayFit-HealthCompanion-WAF-OWASP",
+  "Description": "AWS WAF with OWASP Top 10 protection for StayFit Health Companion",
+  "Scope": "CLOUDFRONT",
+  "DefaultAction": {
+    "Allow": {}
+  },
+  "Rules": [
+    {
+      "Name": "OWASP-01-InjectionProtection",
+      "Priority": 1,
+      "Statement": {
+        "ManagedRuleGroupStatement": {
+          "VendorName": "AWS",
+          "Name": "AWSManagedRulesCommonRuleSet",
+          "ExcludedRules": []
+        }
+      },
+      "Action": {
+        "Block": {}
+      },
+      "VisibilityConfig": {
+        "SampledRequestsEnabled": true,
+        "CloudWatchMetricsEnabled": true,
+        "MetricName": "OWASP01InjectionProtection"
+      }
+    },
+    {
+      "Name": "OWASP-02-BrokenAuthentication",
+      "Priority": 2,
+      "Statement": {
+        "RateBasedStatement": {
+          "Limit": 2000,
+          "AggregateKeyType": "IP",
+          "ScopeDownStatement": {
+            "ByteMatchStatement": {
+              "SearchString": "/login",
+              "FieldToMatch": {
+                "UriPath": {}
+              },
+              "TextTransformations": [
+                {
+                  "Priority": 0,
+                  "Type": "LOWERCASE"
+                }
+              ],
+              "PositionalConstraint": "CONTAINS"
+            }
+          }
+        }
+      },
+      "Action": {
+        "Block": {}
+      },
+      "VisibilityConfig": {
+        "SampledRequestsEnabled": true,
+        "CloudWatchMetricsEnabled": true,
+        "MetricName": "OWASP02BrokenAuthentication"
+      }
+    },
+    {
+      "Name": "OWASP-03-SensitiveDataExposure",
+      "Priority": 3,
+      "Statement": {
+        "OrStatement": {
+          "Statements": [
+            {
+              "ByteMatchStatement": {
+                "SearchString": "password",
+                "FieldToMatch": {
+                  "Body": {}
+                },
+                "TextTransformations": [
+                  {
+                    "Priority": 0,
+                    "Type": "LOWERCASE"
+                  }
+                ],
+                "PositionalConstraint": "CONTAINS"
+              }
+            },
+            {
+              "ByteMatchStatement": {
+                "SearchString": "ssn",
+                "FieldToMatch": {
+                  "Body": {}
+                },
+                "TextTransformations": [
+                  {
+                    "Priority": 0,
+                    "Type": "LOWERCASE"
+                  }
+                ],
+                "PositionalConstraint": "CONTAINS"
+              }
+            }
+          ]
+        }
+      },
+      "Action": {
+        "Block": {}
+      },
+      "VisibilityConfig": {
+        "SampledRequestsEnabled": true,
+        "CloudWatchMetricsEnabled": true,
+        "MetricName": "OWASP03SensitiveDataExposure"
+      }
+    },
+    {
+      "Name": "OWASP-04-XMLExternalEntities",
+      "Priority": 4,
+      "Statement": {
+        "ManagedRuleGroupStatement": {
+          "VendorName": "AWS",
+          "Name": "AWSManagedRulesKnownBadInputsRuleSet",
+          "ExcludedRules": []
+        }
+      },
+      "Action": {
+        "Block": {}
+      },
+      "VisibilityConfig": {
+        "SampledRequestsEnabled": true,
+        "CloudWatchMetricsEnabled": true,
+        "MetricName": "OWASP04XMLExternalEntities"
+      }
+    },
+    {
+      "Name": "OWASP-05-BrokenAccessControl",
+      "Priority": 5,
+      "Statement": {
+        "OrStatement": {
+          "Statements": [
+            {
+              "ByteMatchStatement": {
+                "SearchString": "../",
+                "FieldToMatch": {
+                  "UriPath": {}
+                },
+                "TextTransformations": [
+                  {
+                    "Priority": 0,
+                    "Type": "URL_DECODE"
+                  }
+                ],
+                "PositionalConstraint": "CONTAINS"
+              }
+            },
+            {
+              "ByteMatchStatement": {
+                "SearchString": "admin",
+                "FieldToMatch": {
+                  "UriPath": {}
+                },
+                "TextTransformations": [
+                  {
+                    "Priority": 0,
+                    "Type": "LOWERCASE"
+                  }
+                ],
+                "PositionalConstraint": "CONTAINS"
+              }
+            }
+          ]
+        }
+      },
+      "Action": {
+        "Block": {}
+      },
+      "VisibilityConfig": {
+        "SampledRequestsEnabled": true,
+        "CloudWatchMetricsEnabled": true,
+        "MetricName": "OWASP05BrokenAccessControl"
+      }
+    },
+    {
+      "Name": "OWASP-06-SecurityMisconfiguration",
+      "Priority": 6,
+      "Statement": {
+        "OrStatement": {
+          "Statements": [
+            {
+              "ByteMatchStatement": {
+                "SearchString": ".env",
+                "FieldToMatch": {
+                  "UriPath": {}
+                },
+                "TextTransformations": [
+                  {
+                    "Priority": 0,
+                    "Type": "LOWERCASE"
+                  }
+                ],
+                "PositionalConstraint": "CONTAINS"
+              }
+            },
+            {
+              "ByteMatchStatement": {
+                "SearchString": ".git",
+                "FieldToMatch": {
+                  "UriPath": {}
+                },
+                "TextTransformations": [
+                  {
+                    "Priority": 0,
+                    "Type": "LOWERCASE"
+                  }
+                ],
+                "PositionalConstraint": "CONTAINS"
+              }
+            }
+          ]
+        }
+      },
+      "Action": {
+        "Block": {}
+      },
+      "VisibilityConfig": {
+        "SampledRequestsEnabled": true,
+        "CloudWatchMetricsEnabled": true,
+        "MetricName": "OWASP06SecurityMisconfiguration"
+      }
+    },
+    {
+      "Name": "OWASP-07-CrossSiteScripting",
+      "Priority": 7,
+      "Statement": {
+        "ManagedRuleGroupStatement": {
+          "VendorName": "AWS",
+          "Name": "AWSManagedRulesCommonRuleSet",
+          "ExcludedRules": []
+        }
+      },
+      "Action": {
+        "Block": {}
+      },
+      "VisibilityConfig": {
+        "SampledRequestsEnabled": true,
+        "CloudWatchMetricsEnabled": true,
+        "MetricName": "OWASP07CrossSiteScripting"
+      }
+    },
+    {
+      "Name": "OWASP-08-InsecureDeserialization",
+      "Priority": 8,
+      "Statement": {
+        "ByteMatchStatement": {
+          "SearchString": "java.lang",
+          "FieldToMatch": {
+            "Body": {}
+          },
+          "TextTransformations": [
+            {
+              "Priority": 0,
+              "Type": "LOWERCASE"
+            }
+          ],
+          "PositionalConstraint": "CONTAINS"
+        }
+      },
+      "Action": {
+        "Block": {}
+      },
+      "VisibilityConfig": {
+        "SampledRequestsEnabled": true,
+        "CloudWatchMetricsEnabled": true,
+        "MetricName": "OWASP08InsecureDeserialization"
+      }
+    },
+    {
+      "Name": "OWASP-09-VulnerableComponents",
+      "Priority": 9,
+      "Statement": {
+        "ManagedRuleGroupStatement": {
+          "VendorName": "AWS",
+          "Name": "AWSManagedRulesKnownBadInputsRuleSet",
+          "ExcludedRules": []
+        }
+      },
+      "Action": {
+        "Block": {}
+      },
+      "VisibilityConfig": {
+        "SampledRequestsEnabled": true,
+        "CloudWatchMetricsEnabled": true,
+        "MetricName": "OWASP09VulnerableComponents"
+      }
+    },
+    {
+      "Name": "OWASP-10-InsufficientLogging",
+      "Priority": 10,
+      "Statement": {
+        "RateBasedStatement": {
+          "Limit": 10000,
+          "AggregateKeyType": "IP"
+        }
+      },
+      "Action": {
+        "Count": {}
+      },
+      "VisibilityConfig": {
+        "SampledRequestsEnabled": true,
+        "CloudWatchMetricsEnabled": true,
+        "MetricName": "OWASP10InsufficientLogging"
+      }
+    },
+    {
+      "Name": "HealthCompanion-IPWhitelist",
+      "Priority": 11,
+      "Statement": {
+        "NotStatement": {
+          "Statement": {
+            "IPSetReferenceStatement": {
+              "ARN": "arn:aws:wafv2:us-east-1:ACCOUNT_ID:global/ipset/HealthCompanion-AllowedIPs/IP_SET_ID"
+            }
+          }
+        }
+      },
+      "Action": {
+        "Count": {}
+      },
+      "VisibilityConfig": {
+        "SampledRequestsEnabled": true,
+        "CloudWatchMetricsEnabled": true,
+        "MetricName": "HealthCompanionIPWhitelist"
+      }
+    },
+    {
+      "Name": "HealthCompanion-GeoBlocking",
+      "Priority": 12,
+      "Statement": {
+        "GeoMatchStatement": {
+          "CountryCodes": ["CN", "RU", "KP", "IR"]
+        }
+      },
+      "Action": {
+        "Block": {}
+      },
+      "VisibilityConfig": {
+        "SampledRequestsEnabled": true,
+        "CloudWatchMetricsEnabled": true,
+        "MetricName": "HealthCompanionGeoBlocking"
+      }
+    }
+  ],
+  "Tags": [
+    {
+      "Key": "Project",
+      "Value": "StayFit-HealthCompanion"
+    },
+    {
+      "Key": "Environment",
+      "Value": "Production"
+    },
+    {
+      "Key": "Security",
+      "Value": "OWASP-Top10"
+    },
+    {
+      "Key": "Compliance",
+      "Value": "HIPAA"
+    }
+  ]
+}

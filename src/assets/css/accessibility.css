@@ -1,0 +1,511 @@
+/**
+ * Healthcare Platform - Accessibility Styles
+ * WCAG 2.1 AA Compliant Styling for Inclusive Healthcare
+ */
+
+/* <REDACTED_CREDENTIAL>==================================
+   WCAG 2.1 - PERCEIVABLE
+   <REDACTED_CREDENTIAL>================================== */
+
+/* High Contrast Colors for Healthcare Data */
+:root {
+  --color-text-primary: #000000;
+  --color-text-secondary: #333333;
+  --color-background-primary: #ffffff;
+  --color-background-secondary: #f8f9fa;
+  --color-accent-primary: #0066cc;
+  --color-accent-secondary: #004499;
+  --color-success: #006600;
+  --color-warning: #cc6600;
+  --color-error: #cc0000;
+  --color-focus: #0066cc;
+  --color-focus-bg: rgba(0, 102, 204, 0.1);
+}
+
+/* High Contrast Mode Support */
+@media (prefers-contrast: high) {
+  :root {
+    --color-text-primary: #000000;
+    --color-background-primary: #ffffff;
+    --color-accent-primary: #0000ff;
+    --color-focus: #ff0000;
+  }
+  
+  .health-chart,
+  .vital-signs-card,
+  .medication-card {
+    border: 2px solid #000000;
+    background: #ffffff;
+  }
+}
+
+/* Screen Reader Only Content */
+.sr-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+.sr-only-focusable:focus {
+  position: static !important;
+  width: auto !important;
+  height: auto !important;
+  padding: inherit !important;
+  margin: inherit !important;
+  overflow: visible !important;
+  clip: auto !important;
+  white-space: normal !important;
+}
+
+/* Skip Links for Screen Readers */
+.skip-links {
+  position: absolute;
+  top: -100px;
+  left: 0;
+  z-index: 9999;
+}
+
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 6px;
+  background: var(--color-text-primary);
+  color: var(--color-background-primary);
+  padding: 12px 16px;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 4px;
+  z-index: 10000;
+  font-size: 16px;
+}
+
+.skip-link:focus {
+  top: 6px;
+  outline: 3px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+/* <REDACTED_CREDENTIAL>==================================
+   WCAG 2.1 - OPERABLE
+   <REDACTED_CREDENTIAL>================================== */
+
+/* Focus Management for Healthcare Interface */
+*:focus {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 3px var(--color-focus-bg);
+}
+
+/* Enhanced Focus for Interactive Health Elements */
+.health-form input:focus,
+.health-form select:focus,
+.health-form textarea:focus,
+.health-form button:focus {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 5px var(--color-focus-bg);
+  background-color: var(--color-focus-bg);
+}
+
+/* Keyboard Navigation for Health Widgets */
+.health-widget[tabindex="0"]:focus {
+  outline: 3px solid var(--color-focus);
+  background-color: var(--color-focus-bg);
+}
+
+.health-widget .widget-item {
+  cursor: pointer;
+  padding: 12px;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+
+.health-widget .widget-item:hover,
+.health-widget .widget-item:focus {
+  background-color: var(--color-focus-bg);
+  outline: 2px solid var(--color-focus);
+}
+
+/* Touch Target Sizing (44px minimum) */
+.health-button,
+.medication-reminder,
+.vital-sign-input,
+.appointment-slot {
+  min-height: 44px;
+  min-width: 44px;
+  padding: 12px 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Voice Command Interface */
+.voice-controls {
+  background: var(--color-background-secondary);
+  border: 2px solid var(--color-accent-primary);
+  border-radius: 8px;
+  padding: 16px;
+  margin: 16px 0;
+}
+
+.voice-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: bold;
+}
+
+.voice-status.listening {
+  color: var(--color-error);
+}
+
+.voice-status.processing {
+  color: var(--color-warning);
+}
+
+.voice-status.ready {
+  color: var(--color-success);
+}
+
+/* <REDACTED_CREDENTIAL>==================================
+   WCAG 2.1 - UNDERSTANDABLE
+   <REDACTED_CREDENTIAL>================================== */
+
+/* Clear Form Labels and Instructions */
+.form-group {
+  margin-bottom: 24px;
+}
+
+.form-label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: var(--color-text-primary);
+  font-size: 16px;
+}
+
+.form-label .required {
+  color: var(--color-error);
+  font-weight: bold;
+  margin-left: 4px;
+}
+
+.help-text {
+  font-size: 14px;
+  color: var(--color-text-secondary);
+  margin-top: 4px;
+  line-height: 1.4;
+}
+
+/* Error Messages */
+.error-message {
+  color: var(--color-error);
+  font-weight: 600;
+  font-size: 14px;
+  margin-top: 8px;
+  padding: 8px 12px;
+  background-color: rgba(204, 0, 0, 0.1);
+  border: 1px solid var(--color-error);
+  border-radius: 4px;
+  display: none;
+}
+
+.error-message.show {
+  display: block;
+}
+
+.form-field.error input,
+.form-field.error select,
+.form-field.error textarea {
+  border-color: var(--color-error);
+  background-color: rgba(204, 0, 0, 0.05);
+}
+
+/* Success Messages */
+.success-message {
+  color: var(--color-success);
+  font-weight: 600;
+  font-size: 14px;
+  margin-top: 8px;
+  padding: 8px 12px;
+  background-color: rgba(0, 102, 0, 0.1);
+  border: 1px solid var(--color-success);
+  border-radius: 4px;
+}
+
+/* Medical Term Tooltips */
+.medical-term {
+  position: relative;
+  border-bottom: 1px dotted var(--color-accent-primary);
+  cursor: help;
+}
+
+.medical-term:hover .tooltip,
+.medical-term:focus .tooltip {
+  visibility: visible;
+  opacity: 1;
+}
+
+.tooltip {
+  visibility: hidden;
+  opacity: 0;
+  position: absolute;
+  bottom: 125%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--color-text-primary);
+  color: var(--color-background-primary);
+  padding: 8px 12px;
+  border-radius: 4px;
+  font-size: 14px;
+  white-space: nowrap;
+  z-index: 1000;
+  transition: opacity 0.3s;
+}
+
+.tooltip::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: var(--color-text-primary) transparent transparent transparent;
+}
+
+/* <REDACTED_CREDENTIAL>==================================
+   WCAG 2.1 - ROBUST
+   <REDACTED_CREDENTIAL>================================== */
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  .health-chart-animation,
+  .loading-spinner,
+  .pulse-animation,
+  .slide-animation {
+    animation: none !important;
+  }
+  
+  .parallax-effect {
+    transform: none !important;
+  }
+}
+
+/* Motion Controls */
+.motion-controls {
+  position: fixed;
+  top: 80px;
+  right: 20px;
+  z-index: 1000;
+  background: var(--color-background-primary);
+  border: 2px solid var(--color-accent-primary);
+  border-radius: 8px;
+  padding: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.reduce-motion-toggle {
+  margin-right: 8px;
+}
+
+/* Audio Controls for Charts */
+.audio-controls {
+  background: var(--color-background-secondary);
+  border: 2px solid var(--color-accent-primary);
+  border-radius: 8px;
+  padding: 16px;
+  margin: 16px 0;
+}
+
+.audio-controls h3 {
+  margin: 0 0 12px 0;
+  font-size: 18px;
+  color: var(--color-text-primary);
+}
+
+.audio-control-button {
+  background: var(--color-accent-primary);
+  color: var(--color-background-primary);
+  border: none;
+  padding: 12px 16px;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-right: 8px;
+  margin-bottom: 8px;
+}
+
+.audio-control-button:hover,
+.audio-control-button:focus {
+  background: var(--color-accent-secondary);
+  outline: 3px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+.audio-control-button:disabled {
+  background: #cccccc;
+  cursor: not-allowed;
+}
+
+/* Playback Speed Control */
+.speed-control {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.speed-control label {
+  font-weight: 600;
+  min-width: 120px;
+}
+
+.speed-control input[type="range"] {
+  flex: 1;
+  min-width: 100px;
+}
+
+/* Live Region for Announcements */
+.live-region {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+/* Health Data Table (Fallback for Charts) */
+.health-data-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 16px 0;
+  font-size: 16px;
+}
+
+.health-data-table th,
+.health-data-table td {
+  border: 1px solid var(--color-text-secondary);
+  padding: 12px;
+  text-align: left;
+}
+
+.health-data-table th {
+  background-color: var(--color-background-secondary);
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.health-data-table caption {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  text-align: left;
+  color: var(--color-text-primary);
+}
+
+/* Responsive Design for Accessibility */
+@media (max-width: 768px) {
+  .skip-link {
+    font-size: 18px;
+    padding: 16px 20px;
+  }
+  
+  .health-button,
+  .medication-reminder,
+  .vital-sign-input {
+    min-height: 48px;
+    min-width: 48px;
+    font-size: 18px;
+  }
+  
+  .form-label {
+    font-size: 18px;
+  }
+  
+  .help-text {
+    font-size: 16px;
+  }
+  
+  .motion-controls {
+    position: relative;
+    top: auto;
+    right: auto;
+    margin: 16px 0;
+  }
+}
+
+/* Print Accessibility */
+@media print {
+  .skip-links,
+  .voice-controls,
+  .audio-controls,
+  .motion-controls {
+    display: none !important;
+  }
+  
+  .health-data-table {
+    border: 2px solid #000000;
+  }
+  
+  .health-data-table th,
+  .health-data-table td {
+    border: 1px solid #000000;
+  }
+  
+  .medical-term .tooltip {
+    position: static;
+    visibility: visible;
+    opacity: 1;
+    display: inline;
+    background: none;
+    color: inherit;
+    padding: 0;
+    font-style: italic;
+  }
+  
+  .medical-term .tooltip::before {
+    content: " (";
+  }
+  
+  .medical-term .tooltip::after {
+    content: ")";
+    border: none;
+  }
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-text-primary: #ffffff;
+    --color-text-secondary: #cccccc;
+    --color-background-primary: #1a1a1a;
+    --color-background-secondary: #2d2d2d;
+    --color-accent-primary: #4da6ff;
+    --color-accent-secondary: #66b3ff;
+    --color-focus: #4da6ff;
+    --color-focus-bg: rgba(77, 166, 255, 0.2);
+  }
+  
+  .health-chart,
+  .vital-signs-card,
+  .medication-card {
+    background: var(--color-background-secondary);
+    border-color: var(--color-text-secondary);
+  }
+}

@@ -1,0 +1,1428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StayFit Health Companion - Wiki & Documentation</title>
+    
+    <!-- Bootstrap 5.3 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.css">
+    
+    <!-- Google Fonts - Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Unified Template CSS Files -->
+    <link rel="stylesheet" href="css/bootstrap-theme-unified.css">
+    <link rel="stylesheet" href="css/navigation-unified.css">
+    <link rel="stylesheet" href="css/layout-unified.css">
+    <link rel="stylesheet" href="css/uniform_page_header.css">
+    <link rel="stylesheet" href="css/footer-unified.css">
+    <link rel="stylesheet" href="css/unified-layout-override.css">
+    
+    <!-- Global Theme Management --><script src="js/global-theme.js"></script>
+    
+    <style>
+        /* Ensure body and html take full height */
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        
+        /* Main wrapper to push footer to bottom */
+        .page-wrapper {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* Main content grows to fill space */
+        .main-content {
+            flex: 1;
+        }
+        
+        /* Wiki-specific styles */
+        .wiki-section {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #2E8B57;
+        }
+        
+        .wiki-section h3 {
+            color: #2E8B57;
+            margin-bottom: 1rem;
+        }
+        
+        .wiki-section h4 {
+            color: #4682B4;
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+        
+        .wiki-toc {
+            background: #ffffff;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            position: sticky;
+            top: 20px;
+        }
+        
+        .wiki-toc ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .wiki-toc ul ul {
+            padding-left: 1rem;
+            margin-top: 0.5rem;
+        }
+        
+        .wiki-toc a {
+            color: #2E8B57;
+            text-decoration: none;
+            display: block;
+            padding: 0.25rem 0;
+        }
+        
+        .wiki-toc a:hover {
+            color: #1e5e3a;
+            text-decoration: underline;
+        }
+        
+        .code-block {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 4px;
+            padding: 1rem;
+            margin: 1rem 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            overflow-x: auto;
+        }
+        
+        .feature-badge {
+            background: #2E8B57;
+            color: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-left: 0.5rem;
+        }
+        
+        .status-badge {
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        
+        .status-active {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .status-ready {
+            background: #cce5ff;
+            color: #004085;
+        }
+        
+        .architecture-diagram {
+            background: white;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem 0;
+            text-align: center;
+        }
+        
+        .mermaid {
+            background: white;
+        }
+    </style>
+    <!-- Configuration -->
+    <script src="js/config.js"></script>
+    
+</head>
+<body>
+<div class="page-wrapper">
+<!-- Mobile Menu Toggle -->
+<button class="mobile-menu-toggle" id="mobileMenuToggle">
+    <i class="bi bi-list"></i>
+</button>
+
+<!-- Sidebar Overlay -->
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<!-- Sidebar Navigation -->
+<div class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+        <h4 class="mb-0">
+            <i class="bi bi-heart-pulse me-2 text-primary"></i>
+            StayFit
+        </h4>
+    </div>
+    <nav class="nav flex-column">
+        <a class="nav-link" href="index.html">
+            <i class="bi bi-house"></i>
+            <span>Dashboard</span>
+        </a>
+        <a class="nav-link" href="health-reports.html">
+            <i class="bi bi-file-medical"></i>
+            <span>Health Reports</span>
+        </a>
+        <a class="nav-link" href="digital-analysis.html">
+            <i class="bi bi-cpu"></i>
+            <span>Digital Analysis</span>
+        </a>
+        <a class="nav-link" href="search.html">
+            <i class="bi bi-search"></i>
+            <span>AI Search</span>
+        </a>            <a class="nav-link" href="window.STAYFIT_CONFIG.app.baseUrl/import.html">
+                <i class="bi bi-cloud-upload"></i>
+                <span>Health Data Import</span>
+            </a>
+
+        <a class="nav-link" href="settings.html">
+            <i class="bi bi-gear"></i>
+            <span>Settings</span>
+        </a>
+        <a class="nav-link active" href="wiki.html">
+            <i class="bi bi-book"></i>
+            <span>Wiki</span>
+        </a>
+    </nav>
+</div>
+
+<!-- Main Content Area -->
+<div class="main-content">
+    <div class="container-fluid">
+        <!-- Page Header -->
+        <div class="page-header">
+            <h2><i class="bi bi-book"></i>StayFit Health Companion - Wiki & Documentation</h2>
+            <div class="header-divider"></div>
+            <p>Comprehensive documentation, architecture, and technical details</p>
+        </div>
+
+        <div class="row">
+            <!-- Table of Contents -->
+            <div class="col-lg-3">
+                <div class="wiki-toc">
+                    <h5><i class="bi bi-list-ul me-2"></i>Table of Contents</h5>
+                    <ul>
+                        <li><a href="#overview">🌟 Overview</a></li>
+                        <li><a href="#live-application">🚀 Live Application</a>
+                            <ul>
+                                <li><a href="#access-credentials">🔐 Access Credentials</a></li>
+                                <li><a href="#application-flow">🔄 Application Flow</a></li>
+                                <li><a href="#pages-functionality">📱 Pages & Functionality</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#features">✨ Features</a>
+                            <ul>
+                                <li><a href="#health-dashboard">🏥 Health Dashboard</a></li>
+                                <li><a href="#ai-search">🤖 AI Search</a></li>
+                                <li><a href="#data-visualization">📊 Data Visualization</a></li>
+                                <li><a href="#settings-management">⚙️ Settings Management</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#architecture">🏗️ Architecture</a>
+                            <ul>
+                                <li><a href="#system-architecture">🏗️ System Architecture</a></li>
+                                <li><a href="#ai-integration">🧠 AI & MCP Integration</a></li>
+                                <li><a href="#technology-stack">🛠️ Technology Stack</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#security">🔒 Security & Compliance</a></li>
+                        <li><a href="#testing">🧪 Testing & QA</a></li>
+                        <li><a href="#performance">📊 Performance</a></li>
+                        <li><a href="#user-guide">📖 User Guide</a></li>
+                        <li><a href="#development">🛠️ Development</a></li>
+                        <li><a href="#monitoring">📈 Monitoring</a></li>
+                        <li><a href="#contributing">🤝 Contributing</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Main Wiki Content -->
+            <div class="col-lg-9">
+                <!-- Overview Section -->
+                <div class="wiki-section" id="overview">
+                    <h3>🌟 Overview</h3>
+                    <p><strong>StayFit Health Companion</strong> is a comprehensive digital health dashboard that provides AI-powered health insights, real-time data visualization, and comprehensive health analytics. Built with modern web technologies and deployed on AWS with enterprise-grade security and monitoring.</p>
+                    
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h6 class="card-title"><i class="bi bi-check-circle-fill text-success me-2"></i>Production Status</h6>
+                                    <p class="card-text">
+                                        <span class="status-badge status-active">Live</span>
+                                        <a href="window.STAYFIT_CONFIG.app.baseUrl/" target="_blank" class="btn btn-sm btn-outline-primary ms-2">
+                                            <i class="bi bi-box-arrow-up-right me-1"></i>Visit App
+                                        </a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h6 class="card-title"><i class="bi bi-shield-check text-success me-2"></i>Security Status</h6>
+                                    <p class="card-text">
+                                        <span class="status-badge status-active">Enterprise-Grade</span>
+                                        <small class="text-muted d-block">WAF + HTTPS + Cognito</small>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h4>🍎 Apple Health Integration</h4>
+                    <p><strong>StayFit Health Companion now unifies physical activity data from Apple Health with your clinical records.</strong> A lightweight iOS collector transforms HealthKit metrics (steps, heart-rate, sleep, workouts) into FHIR R4 Observation resources and streams them—via secure HTTPS—into a dedicated "apple-health-records" index in OpenSearch.</p>
+                    
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="text-center">
+                                <i class="bi bi-apple text-primary" style="font-size: 2rem;"></i>
+                                <p class="small mt-2"><strong>Standards-based</strong><br/>FHIR R4 conversion</p>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="text-center">
+                                <i class="bi bi-lightning-charge text-warning" style="font-size: 2rem;"></i>
+                                <p class="small mt-2"><strong>Real-time</strong><br/>&lt;5 second ingestion</p>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="text-center">
+                                <i class="bi bi-eye text-info" style="font-size: 2rem;"></i>
+                                <p class="small mt-2"><strong>Single view</strong><br/>Unified dashboard</p>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="text-center">
+                                <i class="bi bi-shield-lock text-success" style="font-size: 2rem;"></i>
+                                <p class="small mt-2"><strong>Secure</strong><br/>HIPAA compliant</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Live Application Section -->
+                <div class="wiki-section" id="live-application">
+                    <h3>🚀 Live Application</h3>
+                    
+                    <div id="access-credentials">
+                        <h4>🔐 Access Credentials & Authentication</h4>
+                        <p><strong>Authentication System:</strong> AWS Cognito User Pools with secure token management</p>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="card border-primary">
+                                    <div class="card-header bg-primary text-white">
+                                        <h6 class="mb-0"><i class="bi bi-key me-2"></i>Production Access</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <p><strong>Application URL:</strong><br/>
+                                        <a href="window.STAYFIT_CONFIG.app.baseUrl/" target="_blank" class="text-break">
+                                            window.STAYFIT_CONFIG.app.baseUrl/
+                                        </a></p>
+                                        
+                                        <p><strong>Test User Credentials:</strong></p>
+                                        <div class="code-block">
+Email: window.STAYFIT_CONFIG.demo.testCredentials.email
+password = "your_secure_password"</div>
+                                        
+                                        <p><strong>Session Duration:</strong> 30 minutes with automatic token refresh</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card border-success">
+                                    <div class="card-header bg-success text-white">
+                                        <h6 class="mb-0"><i class="bi bi-shield-check me-2"></i>Security Features</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <ul class="list-unstyled">
+                                            <li><i class="bi bi-check-circle text-success me-2"></i>AWS Cognito User Pool integration</li>
+                                            <li><i class="bi bi-check-circle text-success me-2"></i>JWT Token Management</li>
+                                            <li><i class="bi bi-check-circle text-success me-2"></i>30-minute timeout with secure logout</li>
+                                            <li><i class="bi bi-check-circle text-success me-2"></i>Strong password requirements</li>
+                                            <li><i class="bi bi-check-circle text-success me-2"></i>HTTPS Only authentication</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="application-flow" class="mt-4">
+                        <h4>🔄 Application User Flow</h4>
+                        <div class="architecture-diagram">
+                            <h6>Authentication Journey</h6>
+                            <div class="code-block text-start">
+User → CloudFront → Login Page → Cognito Authentication
+  ↓
+Cognito Validates Credentials → Returns JWT Tokens
+  ↓
+User Accesses Dashboard → Session Active (30 min)
+  ↓
+Automatic Token Refresh → Secure Session Management
+                            </div>
+                        </div>
+                        
+                        <div class="architecture-diagram">
+                            <h6>Application Navigation Flow</h6>
+                            <div class="code-block text-start">
+Login → Dashboard → [Health Reports | Digital Analysis | AI Search | Settings | Wiki]
+  ↓
+Interactive Charts → Data Export → Health Predictions
+  ↓
+AI Insights → Health Recommendations → System Monitoring
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="pages-functionality" class="mt-4">
+                        <h4>📱 Application Pages & Functionality</h4>
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h6 class="mb-0"><i class="bi bi-house me-2"></i>Dashboard - Main Health Overview</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <p><strong>URL:</strong> <code>/index.html</code></p>
+                                        <ul class="small">
+                                            <li>Introduction to StayFit with Apple Health integration</li>
+                                            <li>Interactive health metrics visualization</li>
+                                            <li>Real-time health data display</li>
+                                            <li>Responsive design for all devices</li>
+                                            <li>Quick navigation hub</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-6 mb-3">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h6 class="mb-0"><i class="bi bi-file-medical me-2"></i>Health Reports - Comprehensive Reports</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <p><strong>URL:</strong> <code>/health-reports.html</code></p>
+                                        <ul class="small">
+                                            <li>Heart Rate Trends (30 Days) - Interactive Chart.js ✅</li>
+                                            <li>Blood Pressure History - Trend visualization ✅</li>
+                                            <li>Weight & BMI Tracking - Progress charts ✅</li>
+                                            <li>Sleep Quality Analysis - Weekly patterns ✅</li>
+                                            <li>Professional report formatting</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-6 mb-3">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h6 class="mb-0"><i class="bi bi-cpu me-2"></i>Digital Analysis - Advanced Analytics</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <p><strong>URL:</strong> <code>/digital-analysis.html</code></p>
+                                        <ul class="small">
+                                            <li>Advanced health trend analysis</li>
+                                            <li>Interactive charts and graphs</li>
+                                            <li>Historical data patterns</li>
+                                            <li>Comprehensive health insights</li>
+                                            <li>Data export capabilities</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-6 mb-3">
+                                <div class="card border-primary">
+                                    <div class="card-header bg-primary text-white">
+                                        <h6 class="mb-0"><i class="bi bi-search me-2"></i>AI Search - Intelligent Assistant ✅ FULLY INTEGRATED</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <p><strong>URL:</strong> <code>/search.html</code></p>
+                                        <ul class="small">
+                                            <li><strong>MCP Server Integration:</strong> Enhanced MCP with OpenSearch</li>
+                                            <li><strong>AWS Bedrock Claude 3.5 Sonnet:</strong> AI insights + guardrails</li>
+                                            <li><strong>Natural language queries:</strong> Ask in plain English</li>
+                                            <li><strong>Instant responses:</strong> &lt;0.8s for cached questions</li>
+                                            <li><strong>HIPAA compliant:</strong> Complete audit logging</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-6 mb-3">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h6 class="mb-0"><i class="bi bi-gear me-2"></i>Settings - System Configuration</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <p><strong>URL:</strong> <code>/settings.html</code></p>
+                                        <ul class="small">
+                                            <li>OpenSearch Configuration with connection testing</li>
+                                            <li>AI Configuration (Claude and Perplexity)</li>
+                                            <li>Bedrock Health Analysis configuration</li>
+                                            <li>MCP Server Management with monitoring</li>
+                                            <li>System Architecture visualization</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-6 mb-3">
+                                <div class="card border-info">
+                                    <div class="card-header bg-info text-white">
+                                        <h6 class="mb-0"><i class="bi bi-book me-2"></i>Wiki - Documentation Hub</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <p><strong>URL:</strong> <code>/wiki.html</code> (This Page)</p>
+                                        <ul class="small">
+                                            <li>Comprehensive documentation</li>
+                                            <li>Architecture diagrams and flows</li>
+                                            <li>Technical specifications</li>
+                                            <li>User guides and tutorials</li>
+                                            <li>Development and deployment info</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="alert alert-info">
+                            <h6><i class="bi bi-info-circle me-2"></i>How to Navigate the Application</h6>
+                            <ol>
+                                <li><strong>Start at Login:</strong> Visit the production URL and enter provided credentials</li>
+                                <li><strong>Dashboard First:</strong> Begin with main dashboard for Apple Health integration overview</li>
+                                <li><strong>Explore Analysis:</strong> Use Digital Analysis for detailed health trends</li>
+                                <li><strong>Generate Reports:</strong> Create comprehensive reports with working charts</li>
+                                <li><strong>Ask Questions:</strong> Use AI Search to ask natural language health questions</li>
+                                <li><strong>Configure System:</strong> Access Settings to manage system configuration</li>
+                                <li><strong>Reference Documentation:</strong> Use Wiki for comprehensive information</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+                <!-- Features Section -->
+                <div class="wiki-section" id="features">
+                    <h3>✨ Implemented Features</h3>
+                    
+                    <div id="health-dashboard">
+                        <h4>🏥 Health Dashboard</h4>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <ul>
+                                    <li><strong>Interactive Dashboard</strong> - Real-time health metrics with Chart.js</li>
+                                    <li><strong>Apple Health Integration</strong> - FHIR R4 conversion and display</li>
+                                    <li><strong>Responsive Design</strong> - Mobile-first Bootstrap 5.3 framework</li>
+                                    <li><strong>Health Metrics Display</strong> - Heart rate, steps, calories, sleep tracking</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card bg-light">
+                                    <div class="card-body">
+                                        <h6>Key Metrics Displayed:</h6>
+                                        <ul class="small mb-0">
+                                            <li>Heart Rate Trends</li>
+                                            <li>Daily Step Count</li>
+                                            <li>Calorie Burn Analysis</li>
+                                            <li>Sleep Quality Metrics</li>
+                                            <li>Workout Performance</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="ai-search" class="mt-4">
+                        <h4>🤖 AI-Powered Search <span class="feature-badge">FULLY INTEGRATED</span></h4>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <ul>
+                                    <li><strong>Natural Language Queries</strong> - Ask health questions in plain English</li>
+                                    <li><strong>Claude 3.5 Sonnet Integration</strong> - Advanced AI via AWS Bedrock + Guardrails</li>
+                                    <li><strong>Cached Responses</strong> - Fast responses with intelligent caching (&lt;0.8s)</li>
+                                    <li><strong>Sample Questions</strong> - Pre-loaded health queries for quick access</li>
+                                    <li><strong>OpenSearch Integration</strong> - Advanced search capabilities for health data</li>
+                                    <li><strong>MCP Server Integration</strong> - Enhanced MCP with OpenSearch connectivity</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="card border-primary">
+                                    <div class="card-header bg-primary text-white">
+                                        <h6 class="mb-0">Sample Questions</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <ul class="small mb-0">
+                                            <li>"Show me my steps from last week"</li>
+                                            <li>"What are my heart rate trends?"</li>
+                                            <li>"How can I improve my sleep?"</li>
+                                            <li>"Analyze my workout performance"</li>
+                                            <li>"Generate weekly health summary"</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="alert alert-success mt-3">
+                            <h6><i class="bi bi-check-circle me-2"></i>AI Search Integration Architecture</h6>
+                            <div class="code-block">
+MCP Server ↔ OpenSearch ↔ Health Data Indexes
+     ↓
+AWS Bedrock (Claude 3.5 Sonnet) + Safety Guardrails
+     ↓
+Real-time AI Health Insights + Recommendations
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="data-visualization" class="mt-4">
+                        <h4>📊 Data Visualization & Analytics</h4>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h6 class="mb-0">Interactive Charts <span class="status-badge status-active">Working</span></h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <ul class="small mb-0">
+                                            <li>Heart Rate Trends (30 Days) - Line chart ✅</li>
+                                            <li>Blood Pressure History - Trend visualization ✅</li>
+                                            <li>Weight & BMI Tracking - Progress charts ✅</li>
+                                            <li>Sleep Quality Analysis - Bar charts ✅</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h6 class="mb-0">Advanced Analytics</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <ul class="small mb-0">
+                                            <li>Digital Analysis - Advanced health trend analysis</li>
+                                            <li>Real-time Updates - Dynamic data refresh</li>
+                                            <li>Pattern Recognition - Health trend identification</li>
+                                            <li>Professional Reports - Healthcare provider-ready</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="settings-management" class="mt-4">
+                        <h4>⚙️ Advanced Settings Management</h4>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="card border-warning">
+                                    <div class="card-header bg-warning text-dark">
+                                        <h6 class="mb-0">OpenSearch Config</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <ul class="small mb-0">
+                                            <li>Search service settings</li>
+                                            <li>Real-time connection testing</li>
+                                            <li>Index management</li>
+                                            <li>Query optimization</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="card border-info">
+                                    <div class="card-header bg-info text-white">
+                                        <h6 class="mb-0">AI Configuration</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <ul class="small mb-0">
+                                            <li>Claude API settings</li>
+                                            <li>Perplexity integration</li>
+                                            <li>Bedrock health analysis</li>
+                                            <li>AI model selection</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="card border-success">
+                                    <div class="card-header bg-success text-white">
+                                        <h6 class="mb-0">MCP Server Management</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <ul class="small mb-0">
+                                            <li>Server lifecycle controls</li>
+                                            <li>Live monitoring</li>
+                                            <li>Health checks</li>
+                                            <li>Performance metrics</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-3">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h6 class="mb-0">Additional Settings Features</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <ul class="small">
+                                                <li><strong>System Architecture Visualization</strong> - Interactive Mermaid.js diagrams</li>
+                                                <li><strong>API Token Management</strong> - Secure credential storage</li>
+                                                <li><strong>Real-time Status Monitoring</strong> - Live service health checks</li>
+                                            </ul>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <ul class="small">
+                                                <li><strong>Performance Optimization</strong> - Functionality over file size</li>
+                                                <li><strong>Security Validation</strong> - Connection testing and validation</li>
+                                                <li><strong>Configuration Export</strong> - Settings backup and restore</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Architecture Section -->
+                <div class="wiki-section" id="architecture">
+                    <h3>🏗️ Architecture & Application Flow</h3>
+                    
+                    <div id="system-architecture">
+                        <h4>🏗️ System Architecture & Data Flow</h4>
+                        <div class="architecture-diagram">
+                            <div class="alert alert-info">
+                                <h6><i class="bi bi-info-circle me-2"></i>Complete System Architecture</h6>
+                                <p class="mb-0">The diagram below shows the complete system architecture including all AWS services, security layers, and data flow paths.</p>
+                            </div>
+                            
+                            <div class="code-block text-start">
+📱 Data Sources → 🔐 Security Layer → 🌐 Content Delivery → 💻 Application Layer
+     ↓                    ↓                    ↓                    ↓
+Apple Health         AWS Cognito         CloudFront CDN        Dashboard
+Health Documents     AWS WAF             S3 Static Hosting     Health Reports  
+User Input           HTTPS/TLS           Edge Caching          Digital Analysis
+                     AWS IAM                                   AI Search
+                     AWS KMS                                   Settings
+                                                              Wiki
+
+🧠 MCP & AI Processing ← 💾 Data Storage ← 🛡️ AWS Security ← 📊 Monitoring
+     ↓                        ↓                ↓               ↓
+Enhanced MCP Server      Health Database    GuardDuty       CloudWatch
+AWS Bedrock Claude       S3 Data Storage    Security Hub    X-Ray Tracing
+AWS Textract            Search Indexes      AWS Config      CloudTrail
+OpenSearch Service      KMS Encryption      Secrets Mgr     Alarms
+                            </div>
+                        </div>
+                        
+                        <div class="row mt-4">
+                            <div class="col-md-6">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h6 class="mb-0">Key AWS Services</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <ul class="small mb-0">
+                                            <li><strong>CloudFront:</strong> Global CDN (YOUR-DOMAIN.cloudfront.net)</li>
+                                            <li><strong>S3:</strong> Static web hosting and document storage</li>
+                                            <li><strong>Cognito:</strong> User authentication and JWT management</li>
+                                            <li><strong>Bedrock:</strong> Claude 3.5 Sonnet AI integration</li>
+                                            <li><strong>OpenSearch:</strong> Health data indexing and search</li>
+                                            <li><strong>WAF:</strong> Essentialspack protection (Active)</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h6 class="mb-0">Security Services</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <ul class="small mb-0">
+                                            <li><strong>IAM:</strong> Role-based access control</li>
+                                            <li><strong>KMS:</strong> Encryption key management</li>
+                                            <li><strong>GuardDuty:</strong> Threat detection</li>
+                                            <li><strong>Security Hub:</strong> Security posture management</li>
+                                            <li><strong>Config:</strong> Configuration compliance</li>
+                                            <li><strong>Secrets Manager:</strong> Credential management</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="ai-integration" class="mt-4">
+                        <h4>🧠 AI & MCP Integration Features ✅ FULLY IMPLEMENTED</h4>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="card border-primary">
+                                    <div class="card-header bg-primary text-white">
+                                        <h6 class="mb-0">Enhanced MCP Server Integration</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <ul class="small mb-0">
+                                            <li><strong>OpenSearch Connectivity:</strong> Real-time health data indexing</li>
+                                            <li><strong>HIPAA Compliance Framework:</strong> Complete audit logging</li>
+                                            <li><strong>FHIR R4 Implementation:</strong> Healthcare interoperability</li>
+                                            <li><strong>Healthcare Integration Service:</strong> Comprehensive data management</li>
+                                            <li><strong>Security Framework:</strong> Enterprise-grade access controls</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card border-success">
+                                    <div class="card-header bg-success text-white">
+                                        <h6 class="mb-0">AWS Bedrock Claude Integration</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <ul class="small mb-0">
+                                            <li><strong>Claude 3.5 Sonnet:</strong> Advanced health analysis</li>
+                                            <li><strong>Safety Guardrails:</strong> Content filtering and safety</li>
+                                            <li><strong>Health-Specialized Prompts:</strong> Medical-grade responses</li>
+                                            <li><strong>Response Validation:</strong> Safety checks and accuracy</li>
+                                            <li><strong>Performance Optimization:</strong> &lt;3 second responses</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-3">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h6 class="mb-0">OpenSearch MCP Tools ✅ ACTIVE</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="code-block">
+// Available MCP Tools for Health Data
+const mcpTools = {
+  search_healthcare_data: 'Natural language health data search',
+  create_fhir_patient: 'FHIR R4 patient resource creation',
+  search_fhir_resources: 'FHIR-compliant resource queries',
+  create_openehr_composition: 'OpenEHR clinical data composition',
+  audit_data_access: 'HIPAA-compliant access logging',
+  analyze_clinical_data: 'AI-powered clinical data analysis',
+  generate_compliance_report: 'Healthcare compliance reporting'
+};
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-3">
+                            <div class="alert alert-warning">
+                                <h6><i class="bi bi-shield-exclamation me-2"></i>AI Search Security Implementation</h6>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <ul class="small mb-0">
+                                            <li><strong>Input Validation:</strong> Comprehensive query sanitization</li>
+                                            <li><strong>Rate Limiting:</strong> 1000 requests/15 minutes protection</li>
+                                            <li><strong>Data Anonymization:</strong> Patient data protection</li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <ul class="small mb-0">
+                                            <li><strong>Audit Logging:</strong> Complete HIPAA-compliant logging</li>
+                                            <li><strong>Access Controls:</strong> Role-based permissions</li>
+                                            <li><strong>Encryption:</strong> End-to-end AI communications</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-3">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h6 class="mb-0">Health Data Integration Pipeline</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="code-block">
+Apple Health → FHIR R4 Conversion → OpenSearch Indexing
+     ↓
+Clinical Documents → Textract OCR → Health Database
+     ↓
+User Queries → MCP Server → OpenSearch + Bedrock
+     ↓
+AI Insights → Safety Validation → HIPAA Logging → User Interface
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="technology-stack" class="mt-4">
+                        <h4>🛠️ Technology Stack & Infrastructure</h4>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h6 class="mb-0">Frontend Technologies</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <ul class="small mb-0">
+                                            <li><strong>HTML5:</strong> Semantic markup and modern standards</li>
+                                            <li><strong>CSS3:</strong> Advanced styling with Bootstrap 5.3</li>
+                                            <li><strong>JavaScript:</strong> ES6+ with async/await patterns</li>
+                                            <li><strong>Chart.js:</strong> Interactive health data visualizations</li>
+                                            <li><strong>Plotly.js:</strong> Advanced statistical charts</li>
+                                            <li><strong>Bootstrap 5.3:</strong> Responsive mobile-first design</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h6 class="mb-0">Backend & Cloud Services</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <ul class="small mb-0">
+                                            <li><strong>Node.js:</strong> Server-side JavaScript runtime</li>
+                                            <li><strong>Express.js:</strong> Web application framework</li>
+                                            <li><strong>AWS SDK v3:</strong> Modern AWS service integration</li>
+                                            <li><strong>Enhanced MCP Server:</strong> OpenSearch integration</li>
+                                            <li><strong>AWS Cognito:</strong> User authentication</li>
+                                            <li><strong>AWS Bedrock:</strong> Claude 3.5 Sonnet + Guardrails</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mt-3">
+                            <div class="col-md-6">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h6 class="mb-0">Security & Monitoring</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <ul class="small mb-0">
+                                            <li><strong>AWS WAF:</strong> Essentialspack protection</li>
+                                            <li><strong>AWS IAM:</strong> Identity and access management</li>
+                                            <li><strong>AWS KMS:</strong> Key management service</li>
+                                            <li><strong>AWS GuardDuty:</strong> Threat detection</li>
+                                            <li><strong>AWS Security Hub:</strong> Security posture management</li>
+                                            <li><strong>HTTPS/TLS:</strong> End-to-end encryption</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h6 class="mb-0">Health Data Standards & Compliance</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <ul class="small mb-0">
+                                            <li><strong>FHIR R4:</strong> Healthcare data interoperability</li>
+                                            <li><strong>OpenEHR:</strong> Clinical data modeling</li>
+                                            <li><strong>HealthKit:</strong> Apple Health data integration</li>
+                                            <li><strong>HIPAA:</strong> Healthcare data privacy compliance</li>
+                                            <li><strong>JWT:</strong> Secure token-based authentication</li>
+                                            <li><strong>Medical Safety Guardrails:</strong> AI response validation</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Security & Compliance Section -->
+                <div class="wiki-section" id="security">
+                    <h3>🔒 Security & Compliance</h3>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="card border-success">
+                                <div class="card-header bg-success text-white">
+                                    <h6 class="mb-0">Security Features ✅ ACTIVE</h6>
+                                </div>
+                                <div class="card-body">
+                                    <ul class="small mb-0">
+                                        <li><strong>HTTPS Only:</strong> SSL/TLS encryption for all traffic</li>
+                                        <li><strong>Data Encryption:</strong> AES-256 at rest and in transit</li>
+                                        <li><strong>Audit Logging:</strong> Complete activity tracking</li>
+                                        <li><strong>Access Control:</strong> Secure authentication</li>
+                                        <li><strong>WAF Protection:</strong> Essentialspack WAF deployed</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card border-info">
+                                <div class="card-header bg-info text-white">
+                                    <h6 class="mb-0">WAF Security Implementation ✅ ACTIVE</h6>
+                                </div>
+                                <div class="card-body">
+                                    <ul class="small mb-0">
+                                        <li><strong>Current WAF:</strong> Essentialspack (ID: b1521861...)</li>
+                                        <li><strong>Association Status:</strong> ✅ CONNECTED to CloudFront</li>
+                                        <li><strong>Protection Level:</strong> Enterprise-grade security</li>
+                                        <li><strong>Security Rules:</strong> AWS managed rules active</li>
+                                        <li><strong>Real-time Monitoring:</strong> CloudWatch integration</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-3">
+                        <div class="alert alert-success">
+                            <h6><i class="bi bi-shield-check me-2"></i>WAF Status Verification Commands</h6>
+                            <div class="code-block">
+# Check WAF association status
+./scripts/waf-monitoring.sh status
+
+# Monitor security metrics
+./scripts/enterprise-security-monitor.sh status
+
+# Run comprehensive security scan
+./scripts/security-scan.sh
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testing & QA Section -->
+                <div class="wiki-section" id="testing">
+                    <h3>🧪 Testing & Quality Assurance</h3>
+                    
+                    <div class="alert alert-success">
+                        <h6><i class="bi bi-check-circle me-2"></i>Comprehensive Testing Suite ✅ COMPLETED</h6>
+                        <p class="mb-0"><strong>Last Updated:</strong> July 1, 2025 | <strong>Testing Status:</strong> All tests passing (100% success rate)</p>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h6 class="mb-0">Load Testing Results ✅ EXCELLENT</h6>
+                                </div>
+                                <div class="card-body">
+                                    <ul class="small mb-0">
+                                        <li><strong>Basic Connectivity:</strong> ✅ PASSED (200 OK, <1s)</li>
+                                        <li><strong>All Endpoints:</strong> ✅ PASSED (6/6 pages, 100%)</li>
+                                        <li><strong>Light Load (10):</strong> ✅ PASSED (100%, 16 req/s)</li>
+                                        <li><strong>Medium Load (25):</strong> ✅ PASSED (100%, 33 req/s)</li>
+                                        <li><strong>Heavy Load (50):</strong> ✅ PASSED (100%, 64 req/s)</li>
+                                        <li><strong>Stress Test (100):</strong> ✅ PASSED (100%, 118 req/s)</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h6 class="mb-0">Security Testing Status ✅ PROTECTED</h6>
+                                </div>
+                                <div class="card-body">
+                                    <ul class="small mb-0">
+                                        <li><strong>WAF Protection:</strong> ✅ ACTIVE (Essentialspack)</li>
+                                        <li><strong>HTTPS Enforcement:</strong> ✅ ACTIVE (SSL/TLS)</li>
+                                        <li><strong>Access Control:</strong> ✅ ACTIVE (Cognito)</li>
+                                        <li><strong>Audit Logging:</strong> ✅ ACTIVE (CloudTrail)</li>
+                                        <li><strong>Data Encryption:</strong> ✅ ACTIVE (AES-256)</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-3">
+                        <div class="card">
+                            <div class="card-header">
+                                <h6 class="mb-0">Testing Commands</h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="code-block">
+# Run comprehensive load testing
+./scripts/comprehensive-load-testing.sh
+
+# Run security vulnerability scan
+./scripts/security-scan.sh
+
+# Monitor WAF and security status
+./scripts/enterprise-security-monitor.sh status
+
+# Check all system health
+./scripts/waf-monitoring.sh health
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Performance Section -->
+                <div class="wiki-section" id="performance">
+                    <h3>📊 Performance & Scalability</h3>
+                    
+                    <div class="alert alert-success">
+                        <h6><i class="bi bi-speedometer2 me-2"></i>Current Performance Metrics ✅ EXCELLENT</h6>
+                        <p class="mb-0">All performance targets exceeded with outstanding results</p>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="card text-center border-success">
+                                <div class="card-body">
+                                    <h4 class="text-success">0.675s</h4>
+                                    <p class="small mb-0">Average Response Time<br/><span class="text-muted">(66% better than 2s target)</span></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card text-center border-primary">
+                                <div class="card-body">
+                                    <h4 class="text-primary">117.65</h4>
+                                    <p class="small mb-0">Peak Throughput (req/s)<br/><span class="text-muted">(135% above 50 req/s target)</span></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card text-center border-warning">
+                                <div class="card-body">
+                                    <h4 class="text-warning">100%</h4>
+                                    <p class="small mb-0">Availability<br/><span class="text-muted">(Exceeds 99.9% target)</span></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card text-center border-info">
+                                <div class="card-body">
+                                    <h4 class="text-info">100+</h4>
+                                    <p class="small mb-0">Concurrent Users<br/><span class="text-muted">(100% above 50+ target)</span></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-3">
+                        <div class="card">
+                            <div class="card-header">
+                                <h6 class="mb-0">Scalability Features</h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <ul class="small">
+                                            <li><strong>Global CDN:</strong> CloudFront edge locations worldwide</li>
+                                            <li><strong>Auto-scaling:</strong> AWS services scale automatically</li>
+                                            <li><strong>Caching:</strong> Multi-layer caching for optimal performance</li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <ul class="small">
+                                            <li><strong>Load Balancing:</strong> Distributed request handling</li>
+                                            <li><strong>Monitoring:</strong> Real-time performance tracking</li>
+                                            <li><strong>Alerting:</strong> Automated performance alerts</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- User Guide Section -->
+                <div class="wiki-section" id="user-guide">
+                    <h3>📖 User Guide</h3>
+                    
+                    <div class="alert alert-info">
+                        <h6><i class="bi bi-info-circle me-2"></i>Getting Started</h6>
+                        <ol class="mb-0">
+                            <li><strong>Access the Application:</strong> Visit window.STAYFIT_CONFIG.app.baseUrl/</li>
+                            <li><strong>Enter Credentials:</strong> window.STAYFIT_CONFIG.demo.testCredentials.email / window.STAYFIT_CONFIG.demo.testCredentials.password</li>
+                            <li><strong>Navigate Interface:</strong> Use top navigation bar to switch sections</li>
+                            <li><strong>Explore Features:</strong> All pages are responsive and mobile-optimized</li>
+                        </ol>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h6 class="mb-0">💡 Tips for Best Experience</h6>
+                                </div>
+                                <div class="card-body">
+                                    <ul class="small mb-0">
+                                        <li><strong>Mobile Use:</strong> All pages optimized for mobile devices</li>
+                                        <li><strong>Performance:</strong> Pages load in under 2 seconds</li>
+                                        <li><strong>AI Search:</strong> Use natural language questions</li>
+                                        <li><strong>Settings:</strong> Check Settings page for service status</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h6 class="mb-0">🎯 Key Features to Try</h6>
+                                </div>
+                                <div class="card-body">
+                                    <ul class="small mb-0">
+                                        <li><strong>Navigation:</strong> Consistent navigation across all pages</li>
+                                        <li><strong>Data Export:</strong> Export features in health reports</li>
+                                        <li><strong>Charts:</strong> All health report charts working with data</li>
+                                        <li><strong>AI Chat:</strong> Ask health questions in AI Search</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Development Section -->
+                <div class="wiki-section" id="development">
+                    <h3>🛠️ Development Setup (Optional)</h3>
+                    
+                    <div class="alert alert-warning">
+                        <h6><i class="bi bi-exclamation-triangle me-2"></i>Note</h6>
+                        <p class="mb-0">The application is already deployed and accessible at the production URL. This section is only for developers who want to run the application locally.</p>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h6 class="mb-0">Prerequisites</h6>
+                                </div>
+                                <div class="card-body">
+                                    <ul class="small mb-0">
+                                        <li>Node.js 18+ and npm 8+</li>
+                                        <li>AWS CLI configured with appropriate permissions</li>
+                                        <li>Git for version control</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h6 class="mb-0">Local Development</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="code-block">
+# Clone repository
+git clone [repository-url]
+cd stayfit-health-companion
+
+# Install dependencies
+npm install
+
+# Set up environment
+cp .env.example .env
+
+# Start development server
+npm run dev
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Monitoring Section -->
+                <div class="wiki-section" id="monitoring">
+                    <h3>📈 Monitoring & Observability</h3>
+                    
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="card border-primary">
+                                <div class="card-header bg-primary text-white">
+                                    <h6 class="mb-0">AWS X-Ray Integration</h6>
+                                </div>
+                                <div class="card-body">
+                                    <ul class="small mb-0">
+                                        <li>Distributed Tracing</li>
+                                        <li>Performance Monitoring</li>
+                                        <li>Service Map Visualization</li>
+                                        <li>Request Analysis</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card border-success">
+                                <div class="card-header bg-success text-white">
+                                    <h6 class="mb-0">CloudTrail Logging</h6>
+                                </div>
+                                <div class="card-body">
+                                    <ul class="small mb-0">
+                                        <li>API Access Events</li>
+                                        <li>Health Data Access Logs</li>
+                                        <li>Security Event Monitoring</li>
+                                        <li>HIPAA Compliance Audit</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card border-warning">
+                                <div class="card-header bg-warning text-dark">
+                                    <h6 class="mb-0">CloudWatch Monitoring</h6>
+                                </div>
+                                <div class="card-body">
+                                    <ul class="small mb-0">
+                                        <li>Real-time Metrics</li>
+                                        <li>Custom Dashboards</li>
+                                        <li>Automated Alerts</li>
+                                        <li>Performance Tracking</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contributing Section -->
+                <div class="wiki-section" id="contributing">
+                    <h3>🤝 Contributing</h3>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <h6 class="mb-0">Development Workflow</h6>
+                        </div>
+                        <div class="card-body">
+                            <ol>
+                                <li>Fork the repository</li>
+                                <li>Create a feature branch</li>
+                                <li>Make your changes</li>
+                                <li>Add tests for new functionality</li>
+                                <li>Commit changes with descriptive messages</li>
+                                <li>Push to branch and open a Pull Request</li>
+                            </ol>
+                        </div>
+                    </div>
+
+                    <div class="mt-3">
+                        <div class="alert alert-info">
+                            <h6><i class="bi bi-info-circle me-2"></i>License & Author</h6>
+                            <p class="mb-2">This project is licensed under the MIT License.</p>
+                            <p class="mb-0"><strong>Author:</strong> Shashank Chinchli - Solutions Architect, AWS<br/>
+                            <strong>LinkedIn:</strong> <a href="https://in.linkedin.com/in/shashankk" target="_blank">https://in.linkedin.com/in/shashankk</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap 5.3 JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- AWS SDK for authentication -->
+<script src="https://sdk.amazonaws.com/js/aws-sdk-2.1048.0.min.js"></script>
+
+<!-- Universal Cognito Authentication -->
+<script src="js/cognito-auth-universal.js"></script>
+<!-- 30-Minute Session Manager -->
+<script src="js/session-manager.js"></script>
+
+<script>
+// Mobile menu functionality
+document.addEventListener('DOMContentLoaded', function() {
+    setupMobileMenu();
+    setupSmoothScrolling();
+});
+
+function setupMobileMenu() {
+    const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+    const sidebar = document.getElementById('sidebar');
+    const sidebarOverlay = document.getElementById('sidebarOverlay');
+
+    if (mobileMenuToggle) {
+        mobileMenuToggle.addEventListener('click', function() {
+            sidebar.classList.toggle('show');
+            sidebarOverlay.classList.toggle('show');
+        });
+    }
+
+    if (sidebarOverlay) {
+        sidebarOverlay.addEventListener('click', function() {
+            sidebar.classList.remove('show');
+            sidebarOverlay.classList.remove('show');
+        });
+    }
+}
+
+function setupSmoothScrolling() {
+    // Smooth scrolling for TOC links
+    document.querySelectorAll('.wiki-toc a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+}
+
+// Update active TOC link based on scroll position
+window.addEventListener('scroll', function() {
+    const sections = document.querySelectorAll('.wiki-section');
+    const tocLinks = document.querySelectorAll('.wiki-toc a');
+    
+    let current = '';
+    sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.clientHeight;
+        if (pageYOffset >= sectionTop - 200) {
+            current = section.getAttribute('id');
+        }
+    });
+
+    tocLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === '#' + current) {
+            link.classList.add('active');
+        }
+    });
+});
+</script>
+
+<!-- Footer -->
+<footer class="bg-light text-center py-4 mt-5">
+    <div class="container">
+        <p class="mb-0 text-muted small">
+            Built with ❤️ for Healthcare Excellence by Shashank Chinchli, Solutions Architect, AWS </br>*HIPAA-Compliant • FHIR R4 • openEHR • MCP Connected • OpenSearch Ready • Enterprise Security • WCAG 2.1 AA Compliant
+        </p>
+    </div>
+</footer>
+
+    <!-- Simple Authentication Check -->
+    <script src="js/simple-auth-check.js"></script>
+</body>
+</html>

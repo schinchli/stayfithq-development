@@ -1,0 +1,36 @@
+{
+  "serviceName": "stayfit-health-companion",
+  "version": "1.0.0",
+  "sampling": {
+    "version": 2,
+    "default": {
+      "fixed_target": 1,
+      "rate": 0.1
+    },
+    "rules": [
+      {
+        "description": "Health API High Priority",
+        "service_name": "stayfit-health-companion",
+        "http_method": "*",
+        "url_path": "/api/health/*",
+        "fixed_target": 2,
+        "rate": 0.2
+      },
+      {
+        "description": "AI Interactions",
+        "service_name": "stayfit-health-companion",
+        "http_method": "POST",
+        "url_path": "/api/ai/*",
+        "fixed_target": 2,
+        "rate": 0.3
+      }
+    ]
+  },
+  "plugins": {
+    "ECSPlugin": true,
+    "EC2Plugin": true
+  },
+  "captureAWS": true,
+  "captureHTTPs": true,
+  "capturePromises": true
+}

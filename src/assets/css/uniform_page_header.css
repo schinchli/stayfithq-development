@@ -1,0 +1,141 @@
+/* Uniform Page Header CSS - Consistent Across All Pages */
+
+.page-header {
+    background: linear-gradient(135deg, #495057 0%, #6c757d 100%) !important;
+    color: white !important;
+    padding: 2rem !important;
+    border-radius: 0.75rem !important;
+    margin-bottom: 2rem !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    position: relative !important;
+    overflow: hidden !important;
+}
+
+.page-header::before {
+    content: '' !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.05) 50%, transparent 70%) !important;
+    pointer-events: none !important;
+}
+
+.page-header h1,
+.page-header h2,
+.page-header h3,
+.page-header h4,
+.page-header h5,
+.page-header h6 {
+    margin-bottom: 0.75rem !important;
+    font-weight: 600 !important;
+    color: white !important;
+    display: flex !important;
+    align-items: center !important;
+    position: relative !important;
+    z-index: 1 !important;
+}
+
+.page-header h2 {
+    font-size: 1.75rem !important;
+}
+
+.page-header p {
+    margin-bottom: 0 !important;
+    opacity: 0.9 !important;
+    color: rgba(255, 255, 255, 0.9) !important;
+    font-size: 1rem !important;
+    line-height: 1.5 !important;
+    position: relative !important;
+    z-index: 1 !important;
+}
+
+.page-header i {
+    color: white !important;
+    font-size: 1.5rem !important;
+    margin-right: 0.75rem !important;
+    opacity: 1 !important;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2)) !important;
+}
+
+.page-header .header-divider {
+    height: 2px !important;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent) !important;
+    margin: 1rem 0 !important;
+    border-radius: 1px !important;
+    position: relative !important;
+    z-index: 1 !important;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .page-header {
+        padding: 1.5rem !important;
+        margin-bottom: 1.5rem !important;
+        border-radius: 0.5rem !important;
+    }
+    
+    .page-header h2 {
+        font-size: 1.5rem !important;
+    }
+    
+    .page-header i {
+        font-size: 1.25rem !important;
+        margin-right: 0.5rem !important;
+    }
+    
+    .page-header p {
+        font-size: 0.9rem !important;
+    }
+}
+
+@media (max-width: 576px) {
+    .page-header {
+        padding: 1.25rem !important;
+    }
+    
+    .page-header h2 {
+        font-size: 1.25rem !important;
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 0.5rem !important;
+    }
+    
+    .page-header i {
+        margin-right: 0 !important;
+    }
+}
+
+/* Override any existing styles */
+.page-header * {
+    color: inherit !important;
+}
+
+.page-header .text-primary,
+.page-header .text-secondary,
+.page-header .text-success,
+.page-header .text-info,
+.page-header .text-warning,
+.page-header .text-danger,
+.page-header .text-muted {
+    color: white !important;
+}
+
+/* Ensure consistent appearance */
+.page-header .badge {
+    background-color: rgba(255, 255, 255, 0.2) !important;
+    color: white !important;
+}
+
+.page-header .btn {
+    background-color: rgba(255, 255, 255, 0.2) !important;
+    border-color: rgba(255, 255, 255, 0.3) !important;
+    color: white !important;
+}
+
+.page-header .btn:hover {
+    background-color: rgba(255, 255, 255, 0.3) !important;
+    border-color: rgba(255, 255, 255, 0.4) !important;
+}

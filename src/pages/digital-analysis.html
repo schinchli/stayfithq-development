@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StayFit - Digital Analysis</title>
+    
+    <!-- Bootstrap 5.3 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-<REDACTED_CREDENTIAL>R1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.css">
+    
+    <!-- Google Fonts - Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- External CSS Files -->
+    <link rel="stylesheet" href="css/footer-unified.css">
+    <link rel="stylesheet" href="../assets/css/footer-standard.css">
+    <link rel="stylesheet" href="css/navigation-unified.css">
+    <link rel="stylesheet" href="css/bootstrap-theme-unified.css">
+    <link rel="stylesheet" href="css/layout-unified.css">
+    <link rel="stylesheet" href="css/uniform_page_header.css">
+    <link rel="stylesheet" href="css/unified-layout-override.css">
+    <link rel="stylesheet" href="css/layout-unified.css">
+
+    <style>
+        :root {
+            /* Apple colors */
+            --apple-blue: #007AFF;
+            --apple-green: #34C759;
+            --apple-red: #FF3B30;
+            --apple-orange: #FF9500;
+            --apple-purple: #AF52DE;
+        }
+        
+        /* Health metrics styling */
+        .health-widget {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+        }
+        
+        .widget-header {
+            background-color: #f8f9fa;
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid #e9ecef;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .widget-header div {
+            display: flex;
+            align-items: center;
+            font-weight: 600;
+            color: #343a40;
+        }
+        
+        .widget-header i {
+            margin-right: 0.5rem;
+            color: var(--apple-blue);
+        }
+        
+        .widget-body {
+            padding: 1.5rem;
+        }
+        
+        .metric-row {
+            display: flex;
+            flex-wrap: wrap;
+            margin: -0.5rem;
+        }
+        
+        .metric-box {
+            flex: 1 0 calc(25% - 1rem);
+            margin: 0.5rem;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 1rem;
+            text-align: center;
+            min-width: 120px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 80px;
+        }
+        
+        .metric-box h3 {
+            margin: 0;
+            padding: 0;
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--apple-blue);
+            line-height: 1.2;
+        }
+        
+        .metric-box p {
+            margin: 0;
+            margin-top: 0.5rem;
+            color: #6c757d;
+            font-size: 0.875rem;
+            line-height: 1.3;
+        }
+        
+        .metric-box.positive h3 {
+            color: var(--apple-green);
+        }
+        
+        .metric-box.negative h3 {
+            color: var(--apple-red);
+        }
+        
+        .metric-box.warning h3 {
+            color: var(--apple-orange);
+        }
+        
+        /* Chart container */
+        .chart-container {
+            position: relative;
+            height: 300px;
+            width: 100%;
+        }
+        
+        /* Perfect vertical centering for metric boxes */
+        .metric-box-uniform {
+            min-height: 100px !important;
+            height: 100px !important;
+            display: flex !important;
+            flex-direction: column !important;
+            justify-content: center !important;
+            align-items: center !important;
+            text-align: center !important;
+            padding: 1rem !important;
+            box-sizing: border-box !important;
+        }
+        
+        /* Centered number styling */
+        .metric-box-uniform h3 {
+            margin: 0 !important;
+            padding: 0 !important;
+            line-height: 1.2 !important;
+            font-size: 1.75rem !important;
+            font-weight: 700 !important;
+            flex-shrink: 0 !important;
+        }
+        
+        /* Centered text styling */
+        .metric-box-uniform .metric-text {
+            margin: 0 !important;
+            margin-top: 0.5rem !important;
+            padding: 0 !important;
+            line-height: 1.3 !important;
+            font-size: 0.85rem !important;
+            color: #6c757d !important;
+            font-weight: 500 !important;
+            flex-shrink: 0 !important;
+        }
+
+        /* Footer styling - Enhanced visibility */
+        footer {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-top: 2px solid #dee2e6;
+            padding: 30px 0;
+            margin-top: 60px;
+            text-align: center;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+            position: relative;
+            z-index: 10;
+            width: 100%;
+        }
+
+        footer p {
+            margin: 0;
+            color: #495057;
+            font-size: 1rem;
+            font-weight: 500;
+            line-height: 1.5;
+        }
+
+        footer a {
+            color: #007AFF;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.2s ease;
+        }
+
+        footer a:hover {
+            color: #0056b3;
+            text-decoration: underline;
+        }
+
+        footer i {
+            color: #FF3B30;
+            margin: 0 0.25rem;
+            font-size: 1.1rem;
+            animation: heartbeat 2s ease-in-out infinite;
+        }
+        
+        /* Heart animation */
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        /* Ensure footer is always visible */
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        
+        .main-content {
+            flex: 1;
+        }
+
+        /* Equal height columns in rows */
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .row > [class*='col-'] {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .row > [class*='col-'] .health-widget {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 1.5rem;
+        }
+
+        .row > [class*='col-'] .health-widget .widget-body {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .row > [class*='col-'] .health-widget .chart-container {
+            flex: 1;
+            min-height: 200px;
+        }
+    </style>
+
+    <!-- Uniform Page Header CSS -->
+    <link rel="stylesheet" href="css/uniform_page_header.css">
+</head>
+<body>
+    <!-- Mobile Menu Toggle -->
+    <button class="mobile-menu-toggle" id="mobileMenuToggle">
+        <i class="bi bi-list"></i>
+    </button>
+
+    <!-- Sidebar Overlay -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Sidebar Navigation -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h4 class="mb-0">
+                <i class="bi bi-heart-pulse me-2 text-primary"></i>
+                StayFit
+            </h4>
+        </div>
+        <nav class="nav flex-column">
+            <a class="nav-link" href="index.html">
+                <i class="bi bi-house"></i>
+                <span>Dashboard</span>
+            </a>
+            <a class="nav-link" href="health-reports.html">
+                <i class="bi bi-file-medical"></i>
+                <span>Health Reports</span>
+            </a>
+            <a class="nav-link active" href="digital-analysis.html">
+                <i class="bi bi-cpu"></i>
+                <span>Digital Analysis</span>
+            </a>
+            <a class="nav-link" href="search.html">
+                <i class="bi bi-search"></i>
+                <span>Search</span>
+            </a>
+            <a class="nav-link" href="settings.html">
+                <i class="bi bi-gear"></i>
+                <span>Settings</span>
+            </a>
+        </nav>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="main-content">
+        <div class="container-fluid">
+            <!-- Page Header -->
+            <div class="page-header">
+                <h2><i class="bi bi-cpu me-2"></i>Digital Health Analysis</h2>
+                <div class="header-divider"></div>
+                <p>Advanced analytics and insights from your health data</p>
+            </div>
+
+            <!-- Daily Activity Summary -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="health-widget">
+                        <div class="widget-header">
+                            <div>
+                                <i class="bi bi-activity"></i>Daily Activity Summary
+                            </div>
+                            <div class="badge bg-light text-dark">Today</div>
+                        </div>
+                        <div class="widget-body">
+                            <div class="metric-row">
+                                <div class="metric-box positive">
+                                    <h3>8,742</h3>
+                                    <p>Steps</p>
+                                </div>
+                                <div class="metric-box">
+                                    <h3>3.2</h3>
+                                    <p>Miles</p>
+                                </div>
+                                <div class="metric-box">
+                                    <h3>312</h3>
+                                    <p>Active Calories</p>
+                                </div>
+                                <div class="metric-box">
+                                    <h3>42</h3>
+                                    <p>Active Minutes</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Steps Chart -->
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="health-widget">
+                        <div class="widget-header">
+                            <div>
+                                <i class="bi bi-bar-chart"></i>Steps - Last 7 Days
+                            </div>
+                        </div>
+                        <div class="widget-body">
+                            <div class="chart-container">
+                                <canvas id="stepsChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="health-widget">
+                        <div class="widget-header">
+                            <div>
+                                <i class="bi bi-heart"></i>Heart Rate
+                            </div>
+                        </div>
+                        <div class="widget-body">
+                            <div class="metric-row">
+                                <div class="metric-box">
+                                    <h3>72 BPM</h3>
+                                    <p>Current Heart Rate</p>
+                                </div>
+                                <div class="metric-box">
+                                    <h3>68</h3>
+                                    <p>Resting BPM</p>
+                                </div>
+                            </div>
+                            <div class="chart-container" style="height: 200px;">
+                                <canvas id="heartRateChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sleep Analysis & Weight Trend -->
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="health-widget">
+                        <div class="widget-header">
+                            <div>
+                                <i class="bi bi-moon-stars"></i>Sleep Analysis - Last Week
+                            </div>
+                            <div class="badge bg-light text-dark">7 Days</div>
+                        </div>
+                        <div class="widget-body">
+                            <div class="metric-row">
+                                <div class="metric-box positive">
+                                    <h3>7h 18m</h3>
+                                    <p>Avg Sleep</p>
+                                </div>
+                                <div class="metric-box">
+                                    <h3>85%</h3>
+                                    <p>Sleep Efficiency</p>
+                                </div>
+                                <div class="metric-box">
+                                    <h3>1h 42m</h3>
+                                    <p>Avg Deep Sleep</p>
+                                </div>
+                                <div class="metric-box">
+                                    <h3>1h 28m</h3>
+                                    <p>Avg REM Sleep</p>
+                                </div>
+                                <div class="metric-box">
+                                    <h3>11:31 PM</h3>
+                                    <p>Avg Bedtime</p>
+                                </div>
+                                <div class="metric-box">
+                                    <h3>6:49 AM</h3>
+                                    <p>Avg Wake Time</p>
+                                </div>
+                            </div>
+                            <div class="chart-container">
+                                <canvas id="sleepWeeklyChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="health-widget">
+                        <div class="widget-header">
+                            <div>
+                                <i class="bi bi-speedometer2"></i>Weight Trend
+                            </div>
+                            <div class="badge bg-light text-dark">6 Months</div>
+                        </div>
+                        <div class="widget-body">
+                            <div class="metric-row">
+                                <div class="metric-box">
+                                    <h3>78.3 kg</h3>
+                                    <p>Current Weight</p>
+                                </div>
+                                <div class="metric-box positive">
+                                    <h3>-3.7 kg</h3>
+                                    <p>6-Month Change</p>
+                                </div>
+                                <div class="metric-box">
+                                    <h3>79.4 kg</h3>
+                                    <p>6-Month Avg</p>
+                                </div>
+                                <div class="metric-box">
+                                    <h3>82.0 kg</h3>
+                                    <p>Starting Weight</p>
+                                </div>
+                                <div class="metric-box positive">
+                                    <h3>23.8</h3>
+                                    <p>Current BMI</p>
+                                </div>
+                                <div class="metric-box">
+                                    <h3>-0.5 kg</h3>
+                                    <p>This Month</p>
+                                </div>
+                            </div>
+                            <div class="chart-container" style="height: 200px;">
+                                <canvas id="weightChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Nutrition & AirPods Usage -->
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="health-widget">
+                        <div class="widget-header">
+                            <div>
+                                <i class="bi bi-cup-hot"></i>Nutrition
+                            </div>
+                        </div>
+                        <div class="widget-body">
+                            <div class="metric-row">
+                                <div class="metric-box">
+                                    <h3>1,840</h3>
+                                    <p>Calories</p>
+                                </div>
+                                <div class="metric-box">
+                                    <h3>82g</h3>
+                                    <p>Protein</p>
+                                </div>
+                                <div class="metric-box">
+                                    <h3>64g</h3>
+                                    <p>Fat</p>
+                                </div>
+                                <div class="metric-box">
+                                    <h3>215g</h3>
+                                    <p>Carbs</p>
+                                </div>
+                            </div>
+                            <div class="chart-container" style="height: 150px;">
+                                <canvas id="nutritionChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="health-widget">
+                        <div class="widget-header">
+                            <div>
+                                <i class="bi bi-headphones"></i>AirPods Pro Usage
+                            </div>
+                            <div class="badge bg-light text-dark">Today</div>
+                        </div>
+                        <div class="widget-body">
+                            <div class="metric-row">
+                                <div class="metric-box">
+                                    <h3>4h 32m</h3>
+                                    <p>Total Usage</p>
+                                </div>
+                                <div class="metric-box positive">
+                                    <h3>78%</h3>
+                                    <p>Battery Level</p>
+                                </div>
+                                <div class="metric-box">
+                                    <h3>2h 15m</h3>
+                                    <p>Music</p>
+                                </div>
+                                <div class="metric-box">
+                                    <h3>1h 45m</h3>
+                                    <p>Calls</p>
+                                </div>
+                                <div class="metric-box">
+                                    <h3>32m</h3>
+                                    <p>Noise Control</p>
+                                </div>
+                                <div class="metric-box warning">
+                                    <h3>72 dB</h3>
+                                    <p>Avg Volume</p>
+                                </div>
+                            </div>
+                            <div class="chart-container" style="height: 200px;">
+                                <canvas id="airpodsChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Workouts -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="health-widget">
+                        <div class="widget-header">
+                            <div>
+                                <i class="bi bi-bicycle"></i>Workout Log - Last 4 Weeks
+                            </div>
+                            <div class="badge bg-light text-dark">28 Days</div>
+                        </div>
+                        <div class="widget-body">
+                            <div class="metric-row">
+                                <div class="metric-box positive">
+                                    <h3>24</h3>
+                                    <p>Total Workouts</p>
+                                </div>
+                                <div class="metric-box">
+                                    <h3>18h 45m</h3>
+                                    <p>Total Duration</p>
+                                </div>
+                                <div class="metric-box positive">
+                                    <h3>47 min</h3>
+                                    <p>Avg Duration</p>
+                                </div>
+                                <div class="metric-box">
+                                    <h3>6,840</h3>
+                                    <p>Calories Burned</p>
+                                </div>
+                                <div class="metric-box">
+                                    <h3>60%</h3>
+                                    <p>Cardio</p>
+                                </div>
+                                <div class="metric-box">
+                                    <h3>40%</h3>
+                                    <p>Strength</p>
+                                </div>
+                                <div class="metric-box positive">
+                                    <h3>6</h3>
+                                    <p>Weekly Avg</p>
+                                </div>
+                                <div class="metric-box">
+                                    <h3>3</h3>
+                                    <p>Rest Days/Week</p>
+                                </div>
+                            </div>
+                            <div class="chart-container">
+                                <canvas id="workoutsChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Spacer before footer -->
+    <div style="height: 40px;"></div>
+    
+    <!-- Standardized HealthHQ Footer -->
+        <!-- Standardized HealthHQ Footer -->
+        <!-- Standardized HealthHQ Footer -->
+        <!-- Standardized HealthHQ Footer -->
+        <!-- Standardized HealthHQ Footer -->
+        <!-- Standardized HealthHQ Footer -->
+        <!-- Standardized HealthHQ Footer -->
+        <!-- Standardized HealthHQ Footer -->
+    <footer class="healthhq-footer">
+        <div class="healthhq-footer-content">
+            <!-- Main Footer Text -->
+            <p class="healthhq-footer-main">
+                Built with <span class="heart-emoji">❤️</span> for Healthcare Excellence by 
+                <span class="healthhq-footer-author">
+                    <a href="https://in.linkedin.com/in/shashankk" target="_blank" rel="noopener noreferrer">
+                        Shashank Chinchli, Solutions Architect, AWS
+                    </a>
+                </span>
+            </p>
+            
+            <!-- Feature Tags -->
+            <p class="healthhq-footer-features">
+                <span>HIPAA-Compliant</span>
+                <span class="feature-separator">•</span>
+                <span>FHIR R4</span>
+                <span class="feature-separator">•</span>
+                <span>openEHR</span>
+                <span class="feature-separator">•</span>
+                <span>MCP Connected</span>
+                <span class="feature-separator">•</span>
+                <span>OpenSearch Ready</span>
+                <span class="feature-separator">•</span>
+                <span>Enterprise Security</span>
+            </p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5.3 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // Mobile menu functionality
+        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+        const sidebar = document.getElementById('sidebar');
+        const sidebarOverlay = document.getElementById('sidebarOverlay');
+        
+        if (mobileMenuToggle && sidebar && sidebarOverlay) {
+            mobileMenuToggle.addEventListener('click', function() {
+                sidebar.classList.toggle('show');
+                sidebarOverlay.classList.toggle('show');
+            });
+            
+            sidebarOverlay.addEventListener('click', function() {
+                sidebar.classList.remove('show');
+                sidebarOverlay.classList.remove('show');
+            });
+        }
+
+        // Chart initialization
+        document.addEventListener('DOMContentLoaded', function() {
+            // Steps Chart
+            const stepsCtx = document.getElementById('stepsChart').getContext('2d');
+            const stepsChart = new Chart(stepsCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                    datasets: [{
+                        label: 'Steps',
+                        data: [8234, 9876, 7543, 10234, 8765, 6543, 9123],
+                        backgroundColor: '#007AFF',
+                        borderColor: '#007AFF',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Steps'
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Heart Rate Chart
+            const heartRateCtx = document.getElementById('heartRateChart').getContext('2d');
+            const heartRateChart = new Chart(heartRateCtx, {
+                type: 'line',
+                data: {
+                    labels: ['6 AM', '9 AM', '12 PM', '3 PM', '6 PM', '9 PM'],
+                    datasets: [{
+                        label: 'Heart Rate',
+                        data: [68, 72, 85, 78, 92, 75],
+                        borderColor: '#007AFF',
+                        backgroundColor: 'rgba(0, 122, 255, 0.1)',
+                        borderWidth: 2,
+                        fill: true,
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: false,
+                            min: 60,
+                            max: 100,
+                            title: {
+                                display: true,
+                                text: 'BPM'
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Sleep Chart - removed (replaced by Sleep Weekly Chart)
+
+            // Nutrition Chart
+            const nutritionCtx = document.getElementById('nutritionChart').getContext('2d');
+            const nutritionChart = new Chart(nutritionCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Protein', 'Fat', 'Carbs'],
+                    datasets: [{
+                        data: [82, 64, 215],
+                        backgroundColor: [
+                            '#34C759',
+                            '#FF9500',
+                            '#007AFF'
+                        ],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                boxWidth: 12,
+                                font: {
+                                    size: 10
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Sleep Weekly Chart
+            const sleepWeeklyCtx = document.getElementById('sleepWeeklyChart').getContext('2d');
+            const sleepWeeklyChart = new Chart(sleepWeeklyCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                    datasets: [{
+                        label: 'Deep Sleep',
+                        data: [1.8, 1.5, 1.9, 1.6, 1.4, 2.1, 1.7],
+                        backgroundColor: '#1e3a8a',
+                        borderWidth: 0
+                    }, {
+                        label: 'Light Sleep',
+                        data: [4.2, 4.8, 4.1, 4.5, 4.9, 3.8, 4.3],
+                        backgroundColor: '#3b82f6',
+                        borderWidth: 0
+                    }, {
+                        label: 'REM Sleep',
+                        data: [1.3, 1.6, 1.2, 1.4, 1.5, 1.8, 1.4],
+                        backgroundColor: '#8b5cf6',
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                            labels: {
+                                boxWidth: 12,
+                                font: {
+                                    size: 11
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            stacked: true
+                        },
+                        y: {
+                            stacked: true,
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Hours'
+                            }
+                        }
+                    }
+                }
+            });
+
+            // AirPods Usage Chart
+            const airpodsCtx = document.getElementById('airpodsChart').getContext('2d');
+            const airpodsChart = new Chart(airpodsCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Music', 'Calls', 'Noise Control', 'Other'],
+                    datasets: [{
+                        data: [135, 105, 32, 20], // minutes
+                        backgroundColor: [
+                            '#007AFF',
+                            '#34C759',
+                            '#FF9500',
+                            '#8E8E93'
+                        ],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                boxWidth: 10,
+                                font: {
+                                    size: 9
+                                }
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const minutes = context.parsed;
+                                    const hours = Math.floor(minutes / 60);
+                                    const mins = minutes % 60;
+                                    return context.label + ': ' + (hours > 0 ? hours + 'h ' : '') + mins + 'm';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Weight Trend Chart
+            const weightCtx = document.getElementById('weightChart').getContext('2d');
+            const weightChart = new Chart(weightCtx, {
+                type: 'line',
+                data: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                    datasets: [{
+                        label: 'Weight (kg)',
+                        data: [82.0, 81.3, 80.6, 79.9, 79.1, 78.3],
+                        borderColor: '#007AFF',
+                        backgroundColor: 'rgba(0, 122, 255, 0.1)',
+                        borderWidth: 3,
+                        fill: true,
+                        tension: 0.4,
+                        pointBackgroundColor: '#007AFF',
+                        pointBorderColor: '#ffffff',
+                        pointBorderWidth: 2,
+                        pointRadius: 5
+                    }, {
+                        label: 'Goal Weight',
+                        data: [77.1, 77.1, 77.1, 77.1, 77.1, 77.1],
+                        borderColor: '#34C759',
+                        backgroundColor: 'transparent',
+                        borderWidth: 2,
+                        borderDash: [5, 5],
+                        fill: false,
+                        pointRadius: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                            labels: {
+                                boxWidth: 12,
+                                font: {
+                                    size: 10
+                                }
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return context.dataset.label + ': ' + context.parsed.y + ' kg';
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: false,
+                            min: 75,
+                            max: 84,
+                            title: {
+                                display: true,
+                                text: 'Weight (kg)',
+                                color: '#007AFF'
+                            },
+                            grid: {
+                                color: 'rgba(0, 122, 255, 0.1)'
+                            }
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Month',
+                                color: '#007AFF'
+                            },
+                            grid: {
+                                color: 'rgba(0, 122, 255, 0.1)'
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Workouts Chart
+            const workoutsCtx = document.getElementById('workoutsChart').getContext('2d');
+            const workoutsChart = new Chart(workoutsCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
+                    datasets: [{
+                        label: 'Cardio Sessions',
+                        data: [4, 3, 4, 3],
+                        backgroundColor: '#007AFF',
+                        borderColor: '#007AFF',
+                        borderWidth: 1
+                    }, {
+                        label: 'Strength Sessions',
+                        data: [2, 3, 2, 3],
+                        backgroundColor: '#34C759',
+                        borderColor: '#34C759',
+                        borderWidth: 1
+                    }, {
+                        label: 'Flexibility/Yoga',
+                        data: [1, 1, 0, 2],
+                        backgroundColor: '#FF9500',
+                        borderColor: '#FF9500',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                            labels: {
+                                boxWidth: 12,
+                                font: {
+                                    size: 11
+                                }
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return context.dataset.label + ': ' + context.parsed.y + ' sessions';
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            stacked: false,
+                            title: {
+                                display: true,
+                                text: 'Week',
+                                color: '#007AFF'
+                            },
+                            grid: {
+                                color: 'rgba(0, 122, 255, 0.1)'
+                            }
+                        },
+                        y: {
+                            stacked: false,
+                            beginAtZero: true,
+                            max: 5,
+                            title: {
+                                display: true,
+                                text: 'Sessions',
+                                color: '#007AFF'
+                            },
+                            grid: {
+                                color: 'rgba(0, 122, 255, 0.1)'
+                            }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

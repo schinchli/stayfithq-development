@@ -1,0 +1,28 @@
+{
+  "trailName": "stayfit-health-companion-trail",
+  "description": "Comprehensive audit trail for StayFit Health Companion application",
+  "features": {
+    "dataEvents": true,
+    "managementEvents": true,
+    "insightEvents": true,
+    "logFileValidation": true,
+    "multiRegion": true,
+    "globalServiceEvents": true
+  },
+  "storage": {
+    "s3Bucket": "stayfit-cloudtrail-logs",
+    "s3KeyPrefix": "health-companion-logs",
+    "cloudwatchLogs": "/aws/cloudtrail/stayfit-health-companion"
+  },
+  "monitoring": {
+    "alarms": [
+      "unauthorized-api-calls",
+      "root-usage",
+      "iam-changes",
+      "console-failures",
+      "high-error-rate"
+    ],
+    "insights": true,
+    "notifications": true
+  }
+}

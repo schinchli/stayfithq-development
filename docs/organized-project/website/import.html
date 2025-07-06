@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StayFit Health Companion - Health Data Import</title>
+    
+    <!-- Bootstrap 5.3 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.css">
+    
+    <!-- Google Fonts - Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Unified Template CSS Files -->
+    <link rel="stylesheet" href="css/bootstrap-theme-unified.css">
+    <link rel="stylesheet" href="css/navigation-unified.css">
+    <link rel="stylesheet" href="css/layout-unified.css">
+    <link rel="stylesheet" href="css/uniform_page_header.css">
+    <link rel="stylesheet" href="css/footer-unified.css">
+    <link rel="stylesheet" href="css/unified-layout-override.css">
+    
+    <!-- Global Theme Management -->
+    <script src="js/global-theme.js"></script>
+    
+    <style>
+        /* Ensure body and html take full height */
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        
+        /* Main wrapper to push footer to bottom */
+        .page-wrapper {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* Main content grows to fill space */
+        .main-content {
+            flex: 1;
+        }
+        
+        /* Health widgets styling - matching other pages */
+        .health-widget {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+        }
+        
+        .widget-header {
+            background-color: #f8f9fa;
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid #e9ecef;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .widget-header div {
+            display: flex;
+            align-items: center;
+            font-weight: 600;
+            color: #343a40;
+            font-size: 1rem;
+        }
+        
+        .widget-header i {
+            margin-right: 0.5rem;
+            color: #007AFF;
+        }
+        
+        .widget-body {
+            padding: 1.5rem;
+        }
+        
+        /* Import step styling */
+        .import-step {
+            background: white;
+            border-radius: 8px;
+            padding: 1.25rem;
+            margin-bottom: 1rem;
+            border-left: 4px solid #dee2e6;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .import-step.active {
+            border-left-color: #007AFF;
+            background: #f8f9ff;
+        }
+        
+        .import-step.completed {
+            border-left-color: #34C759;
+            background: #f8fff9;
+        }
+        
+        .step-number {
+            width: 32px;
+            height: 32px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        
+        .import-step h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .import-step p {
+            font-size: 0.9rem;
+            color: #6c757d;
+            margin-bottom: 1rem;
+        }
+        
+        /* File drop zone */
+        .file-drop-zone {
+            border: 2px dashed #007AFF;
+            border-radius: 8px;
+            padding: 2rem;
+            text-align: center;
+            background: #f8f9ff;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .file-drop-zone:hover {
+            border-color: #0056b3;
+            background: #f0f4ff;
+        }
+        
+        .file-drop-zone h5 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .file-drop-zone p {
+            font-size: 0.9rem;
+            color: #6c757d;
+            margin-bottom: 1rem;
+        }
+        
+        /* Progress styling */
+        .progress-container {
+            background: white;
+            border-radius: 8px;
+            padding: 1.25rem;
+            margin: 1rem 0;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        /* Data preview */
+        .data-preview {
+            background: white;
+            border-radius: 8px;
+            padding: 1.25rem;
+            margin: 1rem 0;
+            border: 1px solid #dee2e6;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        
+        /* Health metric cards */
+        .health-metric-card {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 0.75rem;
+            transition: transform 0.2s ease;
+        }
+        
+        .health-metric-card:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .health-metric-card h6 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+        
+        .health-metric-card small {
+            font-size: 0.8rem;
+            color: #6c757d;
+        }
+        
+        /* Tab styling */
+        .nav-tabs .nav-link {
+            border-radius: 8px 8px 0 0;
+            font-weight: 500;
+            font-size: 0.9rem;
+            padding: 0.75rem 1rem;
+        }
+        
+        .nav-tabs .nav-link.active {
+            background: #007AFF;
+            color: white;
+            border-color: #007AFF;
+        }
+        
+        .tab-content {
+            border: 1px solid #dee2e6;
+            border-top: none;
+            border-radius: 0 0 8px 8px;
+            padding: 1.5rem;
+            background: white;
+        }
+        
+        /* Button styling */
+        .btn {
+            font-size: 0.9rem;
+            padding: 0.5rem 1rem;
+            font-weight: 500;
+        }
+        
+        /* Success/Error messages */
+        .success-message {
+            background: #d4edda;
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-left: 4px solid #28a745;
+            color: #155724;
+        }
+        
+        .error-message {
+            background: #f8d7da;
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-left: 4px solid #dc3545;
+            color: #721c24;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .widget-body {
+                padding: 1rem;
+            }
+            
+            .import-step {
+                padding: 1rem;
+            }
+            
+            .file-drop-zone {
+                padding: 1.5rem;
+            }
+            
+            .step-number {
+                width: 28px;
+                height: 28px;
+                font-size: 0.8rem;
+            }
+            
+            .import-step h4 {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="page-wrapper">
+<!-- Mobile Menu Toggle -->
+<button class="mobile-menu-toggle" id="mobileMenuToggle">
+    <i class="bi bi-list"></i>
+</button>
+
+<!-- Sidebar Overlay -->
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<!-- Sidebar Navigation -->
+<div class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+        <h4 class="mb-0">
+            <i class="bi bi-heart-pulse me-2 text-primary"></i>
+            StayFit
+        </h4>
+    </div>
+    <nav class="nav flex-column">
+        <a class="nav-link" href="index.html">
+            <i class="bi bi-house"></i>
+            <span>Dashboard</span>
+        </a>
+        <a class="nav-link" href="health-reports.html">
+            <i class="bi bi-file-medical"></i>
+            <span>Health Reports</span>
+        </a>
+        <a class="nav-link" href="digital-analysis.html">
+            <i class="bi bi-cpu"></i>
+            <span>Digital Analysis</span>
+        </a>
+        <a class="nav-link" href="search.html">
+            <i class="bi bi-search"></i>
+            <span>AI Search</span>
+        </a>
+        <a class="nav-link" href="settings.html">
+            <i class="bi bi-gear"></i>
+            <span>Settings</span>
+        </a>
+        <a class="nav-link active" href="import.html">
+            <i class="bi bi-cloud-upload"></i>
+            <span>Import</span>
+        </a>
+        <a class="nav-link" href="wiki.html">
+            <i class="bi bi-book"></i>
+            <span>Wiki</span>
+        </a>
+    </nav>
+</div>
+
+<!-- Main Content Area -->
+<div class="main-content">
+    <div class="container-fluid">
+        <!-- Page Header -->
+        <div class="page-header">
+            <h2><i class="bi bi-cloud-upload"></i>Health Data Import</h2>
+            <div class="header-divider"></div>
+            <p>Import and analyze your health data with secure processing and AI-powered insights</p>
+        </div>
+        <!-- Import Process -->
+        <div class="row">
+            <div class="col-12">
+                <div class="health-widget">
+                    <div class="widget-header">
+                        <div>
+                            <i class="bi bi-cloud-upload"></i>
+                            Import Your Health Data
+                        </div>
+                    </div>
+                    <div class="widget-body">
+                        <!-- Tab Navigation -->
+                        <ul class="nav nav-tabs mb-3" id="importTabs" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link active" id="apple-health-tab" data-bs-toggle="tab" data-bs-target="#apple-health-pane" type="button" role="tab">
+                                    <i class="bi bi-phone me-2"></i>Apple Health Data
+                                </button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="health-documents-tab" data-bs-toggle="tab" data-bs-target="#health-documents-pane" type="button" role="tab">
+                                    <i class="bi bi-file-medical me-2"></i>Health Documents
+                                </button>
+                            </li>
+                        </ul>
+                    
+                        <!-- Tab Content -->
+                        <div class="tab-content" id="importTabContent">
+                            <!-- Apple Health Tab -->
+                            <div class="tab-pane fade show active" id="apple-health-pane" role="tabpanel">
+                                <!-- Step 1: File Upload -->
+                                <div class="import-step active" id="step-upload">
+                                    <div class="d-flex align-items-center mb-3">
+                                        <div class="step-number bg-primary text-white rounded-circle d-flex align-items-center justify-content-center me-3">
+                                            1
+                                        </div>
+                                        <h4 class="mb-0">Upload Apple Health Export</h4>
+                                    </div>
+                                    
+                                    <p>Export your health data from the Apple Health app and upload the ZIP file here. All data is processed securely and remains HIPAA-compliant.</p>
+                                    
+                                    <div class="file-drop-zone" id="fileDropZone">
+                                        <i class="bi bi-cloud-upload display-4 text-primary mb-3"></i>
+                                        <h5>Drop your Apple Health export here</h5>
+                                        <p>or click to browse files</p>
+                                        <input type="file" id="appleHealthFile" accept=".zip,.xml" class="d-none" />
+                                        <button type="button" class="btn btn-primary" onclick="document.getElementById('appleHealthFile').click()">
+                                            <i class="bi bi-folder2-open me-2"></i>Choose File
+                                        </button>
+                                    </div>
+                                    
+                                    <div class="mt-3">
+                                        <small class="text-muted">
+                                            <i class="bi bi-info-circle me-1"></i>
+                                            Supported formats: ZIP files from Apple Health export, individual XML files
+                                        </small>
+                                    </div>
+                                </div>
+
+                                <!-- Step 2: Data Processing -->
+                                <div class="import-step" id="step-processing">
+                                    <div class="d-flex align-items-center mb-3">
+                                        <div class="step-number bg-secondary text-white rounded-circle d-flex align-items-center justify-content-center me-3">
+                                            2
+                                        </div>
+                                        <h4 class="mb-0">Processing Health Data</h4>
+                                    </div>
+                                    
+                                    <div class="progress-container" id="processingProgress" style="display: none;">
+                                        <div class="d-flex justify-content-between align-items-center mb-2">
+                                            <span class="fw-medium">Processing Apple Health Data</span>
+                                            <span class="text-muted" id="progressText">0%</span>
+                                        </div>
+                                        <div class="progress mb-3">
+                                            <div class="progress-bar progress-bar-striped progress-bar-animated" 
+                                                 role="progressbar" 
+                                                 id="progressBar" 
+                                                 style="width: 0%">
+                                            </div>
+                                        </div>
+                                        <div class="processing-status" id="processingStatus">
+                                            <small class="text-muted">Initializing data processing...</small>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Step 3: Data Preview -->
+                                <div class="import-step" id="step-preview">
+                                    <div class="d-flex align-items-center mb-3">
+                                        <div class="step-number bg-secondary text-white rounded-circle d-flex align-items-center justify-content-center me-3">
+                                            3
+                                        </div>
+                                        <h4 class="mb-0">Review Health Data</h4>
+                                    </div>
+                                    
+                                    <div class="data-preview" id="dataPreview" style="display: none;">
+                                        <h5 class="mb-3">
+                                            <i class="bi bi-eye me-2"></i>Data Preview
+                                        </h5>
+                                        <div id="healthDataSummary">
+                                            <!-- Health data summary will be populated here -->
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Step 4: Completion -->
+                                <div class="import-step" id="step-completion">
+                                    <div class="d-flex align-items-center mb-3">
+                                        <div class="step-number bg-secondary text-white rounded-circle d-flex align-items-center justify-content-center me-3">
+                                            4
+                                        </div>
+                                        <h4 class="mb-0">Import Complete</h4>
+                                    </div>
+                                    
+                                    <div class="success-message" id="completionMessage" style="display: none;">
+                                        <div class="d-flex align-items-center mb-2">
+                                            <i class="bi bi-check-circle me-2"></i>
+                                            <strong>Import Successful!</strong>
+                                        </div>
+                                        <p class="mb-0">Your Apple Health data has been successfully imported and processed.</p>
+                                    </div>
+                                    
+                                    <div class="mt-3" id="completionActions" style="display: none;">
+                                        <a href="index.html" class="btn btn-primary me-2">
+                                            <i class="bi bi-speedometer2 me-2"></i>View Dashboard
+                                        </a>
+                                        <a href="search.html" class="btn btn-outline-primary">
+                                            <i class="bi bi-search me-2"></i>Search Health Data
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Health Documents Tab -->
+                            <div class="tab-pane fade" id="health-documents-pane" role="tabpanel">
+                                <!-- Document Upload Step -->
+                                <div class="import-step active">
+                                    <div class="d-flex align-items-center mb-3">
+                                        <div class="step-number bg-primary text-white rounded-circle d-flex align-items-center justify-content-center me-3">
+                                            1
+                                        </div>
+                                        <h4 class="mb-0">Upload Health Documents</h4>
+                                    </div>
+                                    
+                                    <p>Upload your medical documents (lab reports, prescriptions, medical records) for AI-powered text extraction and analysis. Supports PDF, PNG, JPG, and TIFF formats.</p>
+                                    
+                                    <div class="file-drop-zone" id="documentDropZone">
+                                        <i class="bi bi-file-medical display-4 text-success mb-3"></i>
+                                        <h5>Drop your health documents here</h5>
+                                        <p>or click to browse files</p>
+                                        <input type="file" id="healthDocuments" accept=".pdf,.png,.jpg,.jpeg,.tiff,.tif" multiple class="d-none" />
+                                        <button type="button" class="btn btn-success" onclick="document.getElementById('healthDocuments').click()">
+                                            <i class="bi bi-folder2-open me-2"></i>Choose Documents
+                                        </button>
+                                    </div>
+                                    
+                                    <div class="mt-3">
+                                        <small class="text-muted">
+                                            <i class="bi bi-info-circle me-1"></i>
+                                            Supported formats: PDF, PNG, JPG, TIFF. Maximum 10 files, 50MB each.
+                                        </small>
+                                    </div>
+                                </div>
+
+                                <!-- Document Processing Steps -->
+                                <div class="import-step">
+                                    <div class="d-flex align-items-center mb-3">
+                                        <div class="step-number bg-secondary text-white rounded-circle d-flex align-items-center justify-content-center me-3">
+                                            2
+                                        </div>
+                                        <h4 class="mb-0">Document Processing</h4>
+                                    </div>
+                                    
+                                    <p>Documents will be processed using AWS Textract for text extraction and analysis.</p>
+                                    
+                                    <div class="progress-container" style="display: none;">
+                                        <div class="d-flex justify-content-between align-items-center mb-2">
+                                            <span class="fw-medium">Processing Documents</span>
+                                            <span class="text-muted">0%</span>
+                                        </div>
+                                        <div class="progress mb-3">
+                                            <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" 
+                                                 role="progressbar" style="width: 0%">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Supported Health Data Categories -->
+        <div class="row">
+            <div class="col-12">
+                <div class="health-widget">
+                    <div class="widget-header">
+                        <div>
+                            <i class="bi bi-list-check"></i>
+                            Supported Health Data Categories
+                        </div>
+                    </div>
+                    <div class="widget-body">
+                        <div class="row">
+                            <div class="col-md-6 col-lg-4 mb-3">
+                                <div class="health-metric-card">
+                                    <div class="d-flex align-items-center">
+                                        <i class="bi bi-heart-pulse text-danger me-3" style="font-size: 1.25rem;"></i>
+                                        <div>
+                                            <h6 class="mb-1">Vital Signs</h6>
+                                            <small>Heart rate, blood pressure, temperature</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-6 col-lg-4 mb-3">
+                                <div class="health-metric-card">
+                                    <div class="d-flex align-items-center">
+                                        <i class="bi bi-activity text-success me-3" style="font-size: 1.25rem;"></i>
+                                        <div>
+                                            <h6 class="mb-1">Activity Data</h6>
+                                            <small>Steps, distance, calories, workouts</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-6 col-lg-4 mb-3">
+                                <div class="health-metric-card">
+                                    <div class="d-flex align-items-center">
+                                        <i class="bi bi-moon text-primary me-3" style="font-size: 1.25rem;"></i>
+                                        <div>
+                                            <h6 class="mb-1">Sleep Data</h6>
+                                            <small>Sleep duration, quality, patterns</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-6 col-lg-4 mb-3">
+                                <div class="health-metric-card">
+                                    <div class="d-flex align-items-center">
+                                        <i class="bi bi-droplet text-info me-3" style="font-size: 1.25rem;"></i>
+                                        <div>
+                                            <h6 class="mb-1">Body Measurements</h6>
+                                            <small>Weight, BMI, body fat percentage</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-6 col-lg-4 mb-3">
+                                <div class="health-metric-card">
+                                    <div class="d-flex align-items-center">
+                                        <i class="bi bi-clipboard-data text-warning me-3" style="font-size: 1.25rem;"></i>
+                                        <div>
+                                            <h6 class="mb-1">Lab Results</h6>
+                                            <small>Blood glucose, cholesterol, HbA1c</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-6 col-lg-4 mb-3">
+                                <div class="health-metric-card">
+                                    <div class="d-flex align-items-center">
+                                        <i class="bi bi-lungs text-secondary me-3" style="font-size: 1.25rem;"></i>
+                                        <div>
+                                            <h6 class="mb-1">Respiratory</h6>
+                                            <small>Respiratory rate, oxygen saturation</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Privacy & Security Information -->
+        <div class="row">
+            <div class="col-12">
+                <div class="health-widget">
+                    <div class="widget-header">
+                        <div>
+                            <i class="bi bi-shield-check"></i>
+                            Privacy & Security
+                        </div>
+                    </div>
+                    <div class="widget-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h6><i class="bi bi-lock me-2"></i>HIPAA Compliance</h6>
+                                <ul class="list-unstyled">
+                                    <li><i class="bi bi-check-circle text-success me-2"></i>End-to-end encryption</li>
+                                    <li><i class="bi bi-check-circle text-success me-2"></i>Secure data transmission</li>
+                                    <li><i class="bi bi-check-circle text-success me-2"></i>Access logging and audit trails</li>
+                                    <li><i class="bi bi-check-circle text-success me-2"></i>Data anonymization options</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <h6><i class="bi bi-database me-2"></i>Data Processing</h6>
+                                <ul class="list-unstyled">
+                                    <li><i class="bi bi-check-circle text-success me-2"></i>Local processing when possible</li>
+                                    <li><i class="bi bi-check-circle text-success me-2"></i>Secure cloud infrastructure</li>
+                                    <li><i class="bi bi-check-circle text-success me-2"></i>Data validation and cleansing</li>
+                                    <li><i class="bi bi-check-circle text-success me-2"></i>Automatic data retention policies</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap 5.3 JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- AWS SDK for authentication -->
+<script src="https://sdk.amazonaws.com/js/aws-sdk-2.1048.0.min.js"></script>
+
+<!-- Universal Cognito Authentication -->
+<script src="js/cognito-auth-universal.js"></script>
+
+<!-- 30-Minute Session Manager -->
+<script src="js/session-manager.js"></script>
+
+<script>
+// Mobile menu functionality
+document.addEventListener('DOMContentLoaded', function() {
+    setupMobileMenu();
+    setupFileUpload();
+});
+
+function setupMobileMenu() {
+    const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+    const sidebar = document.getElementById('sidebar');
+    const sidebarOverlay = document.getElementById('sidebarOverlay');
+
+    if (mobileMenuToggle) {
+        mobileMenuToggle.addEventListener('click', function() {
+            sidebar.classList.toggle('show');
+            sidebarOverlay.classList.toggle('show');
+        });
+    }
+
+    if (sidebarOverlay) {
+        sidebarOverlay.addEventListener('click', function() {
+            sidebar.classList.remove('show');
+            sidebarOverlay.classList.remove('show');
+        });
+    }
+}
+
+function setupFileUpload() {
+    // Apple Health file upload
+    const appleHealthFile = document.getElementById('appleHealthFile');
+    const fileDropZone = document.getElementById('fileDropZone');
+    
+    if (appleHealthFile && fileDropZone) {
+        appleHealthFile.addEventListener('change', handleAppleHealthFile);
+        
+        // Drag and drop functionality
+        fileDropZone.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            fileDropZone.classList.add('dragover');
+        });
+        
+        fileDropZone.addEventListener('dragleave', function(e) {
+            e.preventDefault();
+            fileDropZone.classList.remove('dragover');
+        });
+        
+        fileDropZone.addEventListener('drop', function(e) {
+            e.preventDefault();
+            fileDropZone.classList.remove('dragover');
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                appleHealthFile.files = files;
+                handleAppleHealthFile();
+            }
+        });
+    }
+    
+    // Health documents upload
+    const healthDocuments = document.getElementById('healthDocuments');
+    const documentDropZone = document.getElementById('documentDropZone');
+    
+    if (healthDocuments && documentDropZone) {
+        healthDocuments.addEventListener('change', handleHealthDocuments);
+        
+        // Drag and drop functionality for documents
+        documentDropZone.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            documentDropZone.classList.add('dragover');
+        });
+        
+        documentDropZone.addEventListener('dragleave', function(e) {
+            e.preventDefault();
+            documentDropZone.classList.remove('dragover');
+        });
+        
+        documentDropZone.addEventListener('drop', function(e) {
+            e.preventDefault();
+            documentDropZone.classList.remove('dragover');
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                healthDocuments.files = files;
+                handleHealthDocuments();
+            }
+        });
+    }
+}
+
+function handleAppleHealthFile() {
+    const file = document.getElementById('appleHealthFile').files[0];
+    if (file) {
+        console.log('Apple Health file selected:', file.name);
+        // Activate next step
+        document.getElementById('step-upload').classList.remove('active');
+        document.getElementById('step-upload').classList.add('completed');
+        document.getElementById('step-processing').classList.add('active');
+        
+        // Show processing progress
+        document.getElementById('processingProgress').style.display = 'block';
+        simulateProcessing();
+    }
+}
+
+function handleHealthDocuments() {
+    const files = document.getElementById('healthDocuments').files;
+    if (files.length > 0) {
+        console.log('Health documents selected:', files.length, 'files');
+        // Process documents here
+    }
+}
+
+function simulateProcessing() {
+    const progressBar = document.getElementById('progressBar');
+    const progressText = document.getElementById('progressText');
+    const processingStatus = document.getElementById('processingStatus');
+    
+    let progress = 0;
+    const interval = setInterval(() => {
+        progress += Math.random() * 15;
+        if (progress > 100) progress = 100;
+        
+        progressBar.style.width = progress + '%';
+        progressText.textContent = Math.round(progress) + '%';
+        
+        if (progress < 30) {
+            processingStatus.innerHTML = '<small class="text-muted">Reading Apple Health data...</small>';
+        } else if (progress < 60) {
+            processingStatus.innerHTML = '<small class="text-muted">Converting to FHIR format...</small>';
+        } else if (progress < 90) {
+            processingStatus.innerHTML = '<small class="text-muted">Indexing health records...</small>';
+        } else {
+            processingStatus.innerHTML = '<small class="text-success">Processing complete!</small>';
+        }
+        
+        if (progress >= 100) {
+            clearInterval(interval);
+            setTimeout(() => {
+                // Move to next step
+                document.getElementById('step-processing').classList.remove('active');
+                document.getElementById('step-processing').classList.add('completed');
+                document.getElementById('step-preview').classList.add('active');
+                document.getElementById('dataPreview').style.display = 'block';
+                
+                // Show sample data
+                document.getElementById('healthDataSummary').innerHTML = `
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="health-metric-card">
+                                <h6>Health Records Found</h6>
+                                <div class="text-primary fw-bold">1,247 records</div>
+                                <small>Last 12 months</small>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="health-metric-card">
+                                <h6>Data Categories</h6>
+                                <div class="text-success fw-bold">6 categories</div>
+                                <small>Activity, Sleep, Heart Rate, etc.</small>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                setTimeout(() => {
+                    // Complete the process
+                    document.getElementById('step-preview').classList.remove('active');
+                    document.getElementById('step-preview').classList.add('completed');
+                    document.getElementById('step-completion').classList.add('active');
+                    document.getElementById('completionMessage').style.display = 'block';
+                    document.getElementById('completionActions').style.display = 'block';
+                }, 2000);
+            }, 1000);
+        }
+    }, 200);
+}
+</script>
+
+<!-- Footer -->
+<footer>
+    <div class="container-fluid">
+        <p>Built with <i class="bi bi-heart-fill"></i> by&nbsp;<a href="https://in.linkedin.com/in/shashankk" target="_blank" rel="noopener noreferrer">Shashank Chinchli</a>, Solutions Architect, AWS</p>
+    </div>
+</footer>
+
+</div>
+</body>
+</html>

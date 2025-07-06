@@ -1,0 +1,110 @@
+{
+  "timestamp": "2025-07-01T02:31:21.192Z",
+  "summary": {
+    "totalPages": 9,
+    "workingPages": 9,
+    "pagesWithSession": 8,
+    "pagesWithCognito": 8,
+    "successRate": 100
+  },
+  "results": [
+    {
+      "page": "index.html",
+      "status": 200,
+      "hasSessionManager": true,
+      "hasCognitoAuth": true,
+      "hasSessionTimer": false,
+      "hasTokenRefresh": false,
+      "hasAWSSDK": true,
+      "size": 15
+    },
+    {
+      "page": "dashboard.html",
+      "status": 200,
+      "hasSessionManager": true,
+      "hasCognitoAuth": true,
+      "hasSessionTimer": false,
+      "hasTokenRefresh": false,
+      "hasAWSSDK": true,
+      "size": 16
+    },
+    {
+      "page": "settings.html",
+      "status": 200,
+      "hasSessionManager": true,
+      "hasCognitoAuth": true,
+      "hasSessionTimer": false,
+      "hasTokenRefresh": true,
+      "hasAWSSDK": true,
+      "size": 115
+    },
+    {
+      "page": "health-reports.html",
+      "status": 200,
+      "hasSessionManager": true,
+      "hasCognitoAuth": true,
+      "hasSessionTimer": false,
+      "hasTokenRefresh": false,
+      "hasAWSSDK": true,
+      "size": 40
+    },
+    {
+      "page": "search.html",
+      "status": 200,
+      "hasSessionManager": true,
+      "hasCognitoAuth": true,
+      "hasSessionTimer": false,
+      "hasTokenRefresh": false,
+      "hasAWSSDK": true,
+      "size": 29
+    },
+    {
+      "page": "digital-analysis.html",
+      "status": 200,
+      "hasSessionManager": true,
+      "hasCognitoAuth": true,
+      "hasSessionTimer": false,
+      "hasTokenRefresh": false,
+      "hasAWSSDK": true,
+      "size": 38
+    },
+    {
+      "page": "abha-integration.html",
+      "status": 200,
+      "hasSessionManager": true,
+      "hasCognitoAuth": true,
+      "hasSessionTimer": false,
+      "hasTokenRefresh": false,
+      "hasAWSSDK": true,
+      "size": 34
+    },
+    {
+      "page": "wiki.html",
+      "status": 200,
+      "hasSessionManager": true,
+      "hasCognitoAuth": true,
+      "hasSessionTimer": false,
+      "hasTokenRefresh": true,
+      "hasAWSSDK": true,
+      "size": 75
+    },
+    {
+      "page": "login.html",
+      "status": 200,
+      "hasSessionManager": false,
+      "hasCognitoAuth": false,
+      "hasSessionTimer": false,
+      "hasTokenRefresh": false,
+      "hasAWSSDK": true,
+      "size": 22
+    }
+  ],
+  "features": [
+    "30-minute session duration",
+    "Automatic token refresh",
+    "Session timer display",
+    "Cross-page persistence",
+    "Session expiry warnings",
+    "Session extension capability"
+  ]
+}

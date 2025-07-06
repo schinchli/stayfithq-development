@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Aadhaar Validation Test</title>
+</head>
+<body>
+    <h2>Aadhaar Validation Test</h2>
+    <p>Testing Aadhaar number: YOUR_AWS_ACCOUNT_ID</p>
+    <div id="result"></div>
+
+    <script>
+        // Verhoeff algorithm for Aadhaar validation
+        function isValidAadhaar(aadhaarNumber) {
+            // Basic format check
+            if (!/^\d{12}$/.test(aadhaarNumber)) {
+                return false;
+            }
+            
+            // Verhoeff algorithm for Aadhaar validation
+            const d = [
+                [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+                [1, 2, 3, 4, 0, 6, 7, 8, 9, 5],
+                [2, 3, 4, 0, 1, 7, 8, 9, 5, 6],
+                [3, 4, 0, 1, 2, 8, 9, 5, 6, 7],
+                [4, 0, 1, 2, 3, 9, 5, 6, 7, 8],
+                [5, 9, 8, 7, 6, 0, 4, 3, 2, 1],
+                [6, 5, 9, 8, 7, 1, 0, 4, 3, 2],
+                [7, 6, 5, 9, 8, 2, 1, 0, 4, 3],
+                [8, 7, 6, 5, 9, 3, 2, 1, 0, 4],
+                [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
+            ];
+            
+            const p = [
+                [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+                [1, 5, 7, 6, 2, 8, 3, 0, 9, 4],
+                [5, 8, 0, 3, 7, 9, 6, 1, 4, 2],
+                [8, 9, 1, 6, 0, 4, 3, 5, 2, 7],
+                [9, 4, 5, 3, 1, 2, 6, 8, 7, 0],
+                [4, 2, 8, 6, 5, 7, 3, 9, 0, 1],
+                [2, 7, 9, 3, 8, 0, 6, 4, 1, 5],
+                [7, 0, 4, 6, 9, 1, 3, 2, 5, 8]
+            ];
+            
+            let c = 0;
+            const myArray = aadhaarNumber.split('').reverse();
+            
+            for (let i = 0; i < myArray.length; i++) {
+                c = d[c][p[((i + 1) % 8)][parseInt(myArray[i])]];
+            }
+            
+            return c === 0;
+        }
+
+        // Test the provided Aadhaar number
+        const testAadhaar = 'YOUR_AWS_ACCOUNT_ID';
+        const isValid = isValidAadhaar(testAadhaar);
+        
+        document.getElementById('result').innerHTML = `
+            <p><strong>Aadhaar Number:</strong> ${testAadhaar}</p>
+            <p><strong>Length:</strong> ${testAadhaar.length} digits</p>
+            <p><strong>Format Valid:</strong> ${/^\d{12}$/.test(testAadhaar) ? 'Yes' : 'No'}</p>
+            <p><strong>Verhoeff Check:</strong> ${isValid ? 'Valid' : 'Invalid'}</p>
+            <p><strong>Overall Result:</strong> <span style="color: ${isValid ? 'green' : 'red'}; font-weight: bold;">${isValid ? 'VALID AADHAAR' : 'INVALID AADHAAR'}</span></p>
+        `;
+    </script>
+</body>
+</html>

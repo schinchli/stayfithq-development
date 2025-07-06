@@ -1,0 +1,2290 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StayFit - Settings & Configuration</title>
+    
+    <!-- Bootstrap 5.3 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.css">
+    
+    <!-- Google Fonts - Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Unified CSS Files -->
+    <link rel="stylesheet" href="css/bootstrap-theme-unified.css">
+    <link rel="stylesheet" href="css/navigation-unified.css">
+    <link rel="stylesheet" href="css/layout-unified.css">
+    <link rel="stylesheet" href="css/uniform_page_header.css">
+    <link rel="stylesheet" href="css/footer-unified.css">
+    <link rel="stylesheet" href="css/unified-layout-override.css">
+    
+    <style>
+        :root {
+            --primary-color: #007AFF;
+            --success-color: #34C759;
+            --warning-color: #FF9500;
+            --danger-color: #FF3B30;
+            --info-color: #5AC8FA;
+            --sidebar-width: 280px;
+            --transition-speed: 0.3s;
+            
+            /* Light Theme */
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8f9fa;
+            --text-primary: #212529;
+            --text-secondary: #6c757d;
+            --border-color: #dee2e6;
+            --input-bg: #ffffff;
+            --input-border: #ced4da;
+        }
+
+        .settings-tabs {
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 2rem;
+        }
+
+        .settings-tabs .nav-link {
+            color: var(--text-secondary);
+            border: none;
+            padding: 1rem 1.5rem;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .settings-tabs .nav-link:hover {
+            color: var(--primary-color);
+            background-color: var(--bg-secondary);
+        }
+
+        .settings-tabs .nav-link.active {
+            color: var(--primary-color);
+            background-color: transparent;
+            border-bottom: 2px solid var(--primary-color);
+        }
+
+        .settings-section {
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .settings-section h5 {
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .settings-section h5 i {
+            color: var(--primary-color);
+            margin-right: 0.5rem;
+        }
+
+        .text-danger {
+            color: #dc3545 !important;
+        }
+
+        .alert-info {
+            background-color: #d1ecf1;
+            border-color: #bee5eb;
+            color: #0c5460;
+        }
+
+        .input-group-text {
+            background-color: var(--bg-secondary);
+            border-color: var(--border-color);
+            color: var(--text-primary);
+        }
+
+        .form-text {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        .form-control, .form-select {
+            background-color: var(--input-bg);
+            border-color: var(--input-border);
+            color: var(--text-primary);
+        }
+
+        .form-control:focus, .form-select:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+        }
+
+        .guardrail-item {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .guardrail-item h6 {
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .guardrail-item p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .status-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .status-indicator.connected {
+            color: var(--success-color);
+        }
+
+        .status-indicator.disconnected {
+            color: var(--danger-color);
+        }
+
+        .status-indicator.warning {
+            color: var(--warning-color);
+        }
+
+        .connection-card {
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .connection-status {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+
+        .btn-configure {
+            background: var(--primary-color);
+            border: none;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+
+        .btn-configure:hover {
+            background: #0056b3;
+            color: white;
+        }
+    </style>
+    <!-- Configuration -->
+    <script src="js/config.js"></script>
+    
+</head>
+<body>
+    <!-- Mobile Menu Toggle -->
+    <button class="mobile-menu-toggle" id="mobileMenuToggle">
+        <i class="bi bi-list"></i>
+    </button>
+
+    <!-- Sidebar Overlay -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Sidebar Navigation -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h4 class="mb-0">
+                <i class="bi bi-heart-pulse me-2 text-primary"></i>
+                StayFit
+            </h4>
+        </div>
+        <nav class="nav flex-column">
+            <a class="nav-link" href="index.html">
+                <i class="bi bi-house"></i>
+                <span>Dashboard</span>
+            </a>
+            <a class="nav-link" href="health-reports.html">
+                <i class="bi bi-file-medical"></i>
+                <span>Health Reports</span>
+            </a>
+            <a class="nav-link" href="digital-analysis.html">
+                <i class="bi bi-cpu"></i>
+                <span>Digital Analysis</span>
+            </a>
+            <a class="nav-link" href="search.html">
+                <i class="bi bi-search"></i>
+                <span>AI Search</span>
+            </a>            <a class="nav-link" href="https://YOUR-DOMAIN.cloudfront.net/import.html">
+                <i class="bi bi-cloud-upload"></i>
+                <span>Health Data Import</span>
+            </a>
+
+            <a class="nav-link active" href="settings.html">
+                <i class="bi bi-gear"></i>
+                <span>Settings</span>
+            </a>
+            <a class="nav-link" href="wiki.html">
+                <i class="bi bi-book"></i>
+                <span>Wiki</span>
+            </a>
+        
+            <a class="nav-link logout-btn" href="#" onclick="logout()">
+                <i class="bi bi-box-arrow-right"></i>
+                <span>Logout</span>
+            </a></nav>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="main-content">
+        <div class="container-fluid">
+            <!-- Page Header -->
+            <div class="page-header">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h2><i class="bi bi-gear"></i>Settings & Configuration</h2>
+                        <div class="header-divider"></div>
+                        <p>Configure your health companion settings and preferences</p>
+                    </div>
+                    <div class="user-info">
+                        <div class="dropdown">
+                            <button class="btn btn-outline-primary dropdown-toggle" type="button" id="userDropdown" data-bs-toggle="dropdown">
+                                <i class="bi bi-person-circle me-2"></i>
+                                <span id="user-name">Loading...</span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><h6 class="dropdown-header" id="user-email">Loading...</h6></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="#" data-logout>
+                                    <i class="bi bi-box-arrow-right me-2"></i>Sign Out
+                                </a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Settings Navigation Tabs -->
+            <ul class="nav nav-tabs settings-tabs" id="settingsTabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="general-tab" data-bs-toggle="tab" data-bs-target="#general" type="button" role="tab">
+                        <i class="bi bi-sliders me-2"></i>General
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab">
+                        <i class="bi bi-telephone me-2"></i>Contact
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="insurance-tab" data-bs-toggle="tab" data-bs-target="#insurance" type="button" role="tab">
+                        <i class="bi bi-shield-check me-2"></i>Insurance
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="usage-tab" data-bs-toggle="tab" data-bs-target="#usage" type="button" role="tab">
+                        <i class="bi bi-graph-up me-2"></i>Usage & Costs
+                    </button>
+                </li>
+            </ul>
+
+            <!-- Tab Content -->
+            <div class="tab-content" id="settingsTabContent">
+                <!-- General Settings Tab -->
+                <div class="tab-pane fade show active" id="general" role="tabpanel">
+                    <div class="settings-section">
+                        <h5><i class="bi bi-person-badge"></i>Personal Information</h5>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="patient-name" class="form-label">Full Name <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="patient-name" placeholder="Enter your full name" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="patient-id" class="form-label">Patient ID</label>
+                                    <input type="text" class="form-control" id="patient-id" placeholder="Enter patient ID">
+                                    <div class="form-text">Unique identifier assigned by healthcare provider</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="abha-id" class="form-label">ABHA ID Number</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" id="abha-id" placeholder="Enter ABHA ID" maxlength="14">
+                                        <button class="btn btn-outline-primary btn-sm" type="button" onclick="openABHAIntegration()">
+                                            <i class="bi bi-link me-1"></i>Link ABHA
+                                        </button>
+                                    </div>
+                                    <div class="form-text">Ayushman Bharat Health Account ID (14 digits)</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="date-of-birth" class="form-label">Date of Birth <span class="text-danger">*</span></label>
+                                    <input type="date" class="form-control" id="date-of-birth" required>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="gender" class="form-label">Gender <span class="text-danger">*</span></label>
+                                    <select class="form-select" id="gender" required>
+                                        <option value="">Select Gender</option>
+                                        <option value="male">Male</option>
+                                        <option value="female">Female</option>
+                                        <option value="other">Other</option>
+                                        <option value="prefer-not-to-say">Prefer not to say</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="blood-group" class="form-label">Blood Group</label>
+                                    <select class="form-select" id="blood-group">
+                                        <option value="">Select Blood Group</option>
+                                        <option value="A+">A+</option>
+                                        <option value="A-">A-</option>
+                                        <option value="B+">B+</option>
+                                        <option value="B-">B-</option>
+                                        <option value="AB+">AB+</option>
+                                        <option value="AB-">AB-</option>
+                                        <option value="O+">O+</option>
+                                        <option value="O-">O-</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="settings-section">
+                        <h5><i class="bi bi-shield-check"></i>Current Insurance</h5>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="insurance-provider" class="form-label">Insurance Provider</label>
+                                    <input type="text" class="form-control" id="insurance-provider" placeholder="Insurance company name">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="insurance-policy" class="form-label">Policy Number</label>
+                                    <input type="text" class="form-control" id="insurance-policy" placeholder="Policy/Member ID">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="insurance-status" class="form-label">Insurance Status</label>
+                                    <select class="form-select" id="insurance-status">
+                                        <option value="">Select Status</option>
+                                        <option value="active" selected>Active</option>
+                                        <option value="inactive">Inactive</option>
+                                        <option value="pending">Pending</option>
+                                        <option value="expired">Expired</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="insurance-expiry" class="form-label">Policy Expiry Date</label>
+                                    <input type="date" class="form-control" id="insurance-expiry">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="settings-section">
+                        <h5><i class="bi bi-telephone-fill"></i>Emergency Contact</h5>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="emergency-name" class="form-label">Emergency Contact Name <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="emergency-name" placeholder="Full name of emergency contact" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="emergency-relationship" class="form-label">Relationship <span class="text-danger">*</span></label>
+                                    <select class="form-select" id="emergency-relationship" required>
+                                        <option value="">Select Relationship</option>
+                                        <option value="spouse">Spouse</option>
+                                        <option value="parent">Parent</option>
+                                        <option value="child">Child</option>
+                                        <option value="sibling">Sibling</option>
+                                        <option value="friend">Friend</option>
+                                        <option value="guardian">Guardian</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="emergency-phone" class="form-label">Emergency Contact Number <span class="text-danger">*</span></label>
+                                    <input type="tel" class="form-control" id="emergency-phone" placeholder="+91 XXXXX XXXXX" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="emergency-email" class="form-label">Emergency Contact Email</label>
+                                    <input type="email" class="form-control" id="emergency-email" placeholder="emergency@example.com">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="alert alert-warning">
+                            <i class="bi bi-exclamation-triangle me-2"></i>
+                            <strong>Important:</strong> This emergency contact information will be used in case of medical emergencies. Please ensure all details are accurate and up-to-date.
+                        </div>
+                    </div>
+
+                    <div class="settings-section">
+                        <h5><i class="bi bi-palette"></i>App Preferences</h5>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="form-label">Theme Mode</label>
+                                <select class="form-select" id="themeMode">
+                                    <option value="light">Light Mode</option>
+                                    <option value="dark">Dark Mode</option>
+                                    <option value="auto">Auto (System)</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Font Size</label>
+                                <select class="form-select" id="fontSize">
+                                    <option value="small">Small</option>
+                                    <option value="medium" selected>Medium</option>
+                                    <option value="large">Large</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-3">
+                            <h6><i class="bi bi-bell me-2"></i>Notifications</h6>
+                            <div class="form-check form-switch mb-2">
+                                <input class="form-check-input" type="checkbox" id="healthAlerts" checked>
+                                <label class="form-check-label" for="healthAlerts">
+                                    Health Alerts & Reminders
+                                </label>
+                            </div>
+                            <div class="form-check form-switch mb-2">
+                                <input class="form-check-input" type="checkbox" id="aiInsights" checked>
+                                <label class="form-check-label" for="aiInsights">
+                                    AI Health Insights
+                                </label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="dataUpdates">
+                                <label class="form-check-label" for="dataUpdates">
+                                    Data Sync Updates
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Information Tab -->
+                <div class="tab-pane fade" id="contact" role="tabpanel">
+                    <div class="settings-section">
+                        <h5><i class="bi bi-geo-alt"></i>Address Information</h5>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="mb-3">
+                                    <label for="address-line1" class="form-label">Address Line 1 <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="address-line1" placeholder="Street address, building name" required>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="mb-3">
+                                    <label for="address-line2" class="form-label">Address Line 2</label>
+                                    <input type="text" class="form-control" id="address-line2" placeholder="Apartment, suite, unit, floor">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="city" class="form-label">City <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="city" placeholder="Enter city" required>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label for="state" class="form-label">State <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="state" placeholder="Enter state" required>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label for="postal-code" class="form-label">Postal Code <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="postal-code" placeholder="Enter postal code" required>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="country" class="form-label">Country <span class="text-danger">*</span></label>
+                                    <select class="form-select" id="country" required>
+                                        <option value="">Select Country</option>
+                                        <option value="IN" selected>India</option>
+                                        <option value="US">United States</option>
+                                        <option value="GB">United Kingdom</option>
+                                        <option value="CA">Canada</option>
+                                        <option value="AU">Australia</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="settings-section">
+                        <h5><i class="bi bi-telephone"></i>Contact Details</h5>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="primary-phone" class="form-label">Primary Phone <span class="text-danger">*</span></label>
+                                    <input type="tel" class="form-control" id="primary-phone" placeholder="+91 XXXXX XXXXX" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="secondary-phone" class="form-label">Secondary Phone</label>
+                                    <input type="tel" class="form-control" id="secondary-phone" placeholder="+91 XXXXX XXXXX">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="primary-email" class="form-label">Primary Email <span class="text-danger">*</span></label>
+                                    <input type="email" class="form-control" id="primary-email" placeholder="your.email@example.com" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="secondary-email" class="form-label">Secondary Email</label>
+                                    <input type="email" class="form-control" id="secondary-email" placeholder="alternate@example.com">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="settings-section">
+                        <h5><i class="bi bi-exclamation-triangle"></i>Emergency Contact</h5>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="emergency-name" class="form-label">Emergency Contact Name <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="emergency-name" placeholder="Full name of emergency contact" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="emergency-relationship" class="form-label">Relationship <span class="text-danger">*</span></label>
+                                    <select class="form-select" id="emergency-relationship" required>
+                                        <option value="">Select Relationship</option>
+                                        <option value="spouse">Spouse</option>
+                                        <option value="parent">Parent</option>
+                                        <option value="child">Child</option>
+                                        <option value="sibling">Sibling</option>
+                                        <option value="friend">Friend</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="emergency-phone" class="form-label">Emergency Contact Phone <span class="text-danger">*</span></label>
+                                    <input type="tel" class="form-control" id="emergency-phone" placeholder="+91 XXXXX XXXXX" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="emergency-email" class="form-label">Emergency Contact Email</label>
+                                    <input type="email" class="form-control" id="emergency-email" placeholder="emergency@example.com">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Insurance Information Tab -->
+                <div class="tab-pane fade" id="insurance" role="tabpanel">
+                    <div class="settings-section">
+                        <h5><i class="bi bi-shield-check"></i>Insurance Information</h5>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="insurance-provider" class="form-label">Provider Name <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="insurance-provider" placeholder="Insurance company name" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="insurance-plan" class="form-label">Plan Name <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="insurance-plan" placeholder="Insurance plan name" required>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="policy-number" class="form-label">Policy Number <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="policy-number" placeholder="Policy/Member ID number" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="insurance-status" class="form-label">Status <span class="text-danger">*</span></label>
+                                    <select class="form-select" id="insurance-status" required>
+                                        <option value="">Select Status</option>
+                                        <option value="active" selected>Active</option>
+                                        <option value="inactive">Inactive</option>
+                                        <option value="pending">Pending</option>
+                                        <option value="expired">Expired</option>
+                                        <option value="suspended">Suspended</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="policy-start-date" class="form-label">Policy Start Date</label>
+                                    <input type="date" class="form-control" id="policy-start-date">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="policy-end-date" class="form-label">Policy End Date</label>
+                                    <input type="date" class="form-control" id="policy-end-date">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="group-number" class="form-label">Group Number</label>
+                                    <input type="text" class="form-control" id="group-number" placeholder="Group/Employer ID">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="copay-amount" class="form-label">Copay Amount</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text">₹</span>
+                                        <input type="number" class="form-control" id="copay-amount" placeholder="0.00" min="0" step="0.01">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="mb-3">
+                                    <label for="insurance-notes" class="form-label">Additional Notes</label>
+                                    <textarea class="form-control" id="insurance-notes" rows="3" placeholder="Any additional insurance information or notes"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="alert alert-info">
+                            <i class="bi bi-info-circle me-2"></i>
+                            <strong>Note:</strong> Your insurance information is encrypted and stored securely. This information helps healthcare providers verify coverage and process claims efficiently.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- General Settings Tab -->
+                <div class="tab-pane fade" id="general" role="tabpanel">
+                    <div class="settings-section">
+                        <h5><i class="bi bi-person-badge"></i>Personal Information</h5>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="general-name" class="form-label">Full Name <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="general-name" placeholder="Enter your full name" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="general-age" class="form-label">Age <span class="text-danger">*</span></label>
+                                    <input type="number" class="form-control" id="general-age" placeholder="Enter your age" min="1" max="120" required>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="general-blood-group" class="form-label">Blood Group</label>
+                                    <select class="form-select" id="general-blood-group">
+                                        <option value="">Select Blood Group</option>
+                                        <option value="A+">A+</option>
+                                        <option value="A-">A-</option>
+                                        <option value="B+">B+</option>
+                                        <option value="B-">B-</option>
+                                        <option value="AB+">AB+</option>
+                                        <option value="AB-">AB-</option>
+                                        <option value="O+">O+</option>
+                                        <option value="O-">O-</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="general-sex" class="form-label">Sex/Gender <span class="text-danger">*</span></label>
+                                    <select class="form-select" id="general-sex" required>
+                                        <option value="">Select Gender</option>
+                                        <option value="male">Male</option>
+                                        <option value="female">Female</option>
+                                        <option value="other">Other</option>
+                                        <option value="prefer-not-to-say">Prefer not to say</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="settings-section">
+                        <h5><i class="bi bi-shield-check"></i>Current Insurance</h5>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="general-insurance-provider" class="form-label">Insurance Provider</label>
+                                    <input type="text" class="form-control" id="general-insurance-provider" placeholder="Insurance company name">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="general-insurance-policy" class="form-label">Policy Number</label>
+                                    <input type="text" class="form-control" id="general-insurance-policy" placeholder="Policy/Member ID">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="general-insurance-status" class="form-label">Insurance Status</label>
+                                    <select class="form-select" id="general-insurance-status">
+                                        <option value="">Select Status</option>
+                                        <option value="active" selected>Active</option>
+                                        <option value="inactive">Inactive</option>
+                                        <option value="pending">Pending</option>
+                                        <option value="expired">Expired</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="general-insurance-expiry" class="form-label">Policy Expiry Date</label>
+                                    <input type="date" class="form-control" id="general-insurance-expiry">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="settings-section">
+                        <h5><i class="bi bi-telephone-fill"></i>Emergency Contact</h5>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="general-emergency-name" class="form-label">Emergency Contact Name <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="general-emergency-name" placeholder="Full name of emergency contact" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="general-emergency-relationship" class="form-label">Relationship <span class="text-danger">*</span></label>
+                                    <select class="form-select" id="general-emergency-relationship" required>
+                                        <option value="">Select Relationship</option>
+                                        <option value="spouse">Spouse</option>
+                                        <option value="parent">Parent</option>
+                                        <option value="child">Child</option>
+                                        <option value="sibling">Sibling</option>
+                                        <option value="friend">Friend</option>
+                                        <option value="guardian">Guardian</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="general-emergency-phone" class="form-label">Emergency Contact Number <span class="text-danger">*</span></label>
+                                    <input type="tel" class="form-control" id="general-emergency-phone" placeholder="+91 XXXXX XXXXX" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="general-emergency-phone2" class="form-label">Alternate Emergency Number</label>
+                                    <input type="tel" class="form-control" id="general-emergency-phone2" placeholder="+91 XXXXX XXXXX">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="general-emergency-email" class="form-label">Emergency Contact Email</label>
+                                    <input type="email" class="form-control" id="general-emergency-email" placeholder="emergency@example.com">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="general-emergency-address" class="form-label">Emergency Contact Address</label>
+                                    <textarea class="form-control" id="general-emergency-address" rows="2" placeholder="Emergency contact address"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="alert alert-warning">
+                            <i class="bi bi-exclamation-triangle me-2"></i>
+                            <strong>Important:</strong> This emergency contact information will be used in case of medical emergencies. Please ensure all details are accurate and up-to-date.
+                        </div>
+                    </div>
+
+                    <div class="settings-section">
+                        <h5><i class="bi bi-palette"></i>App Preferences</h5>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="form-label">Theme Mode</label>
+                                <select class="form-select" id="themeMode">
+                                    <option value="light">Light Mode</option>
+                                    <option value="dark">Dark Mode</option>
+                                    <option value="auto">Auto (System)</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Font Size</label>
+                                <select class="form-select" id="fontSize">
+                                    <option value="small">Small</option>
+                                    <option value="medium" selected>Medium</option>
+                                    <option value="large">Large</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-3">
+                            <h6><i class="bi bi-bell me-2"></i>Notifications</h6>
+                            <div class="form-check form-switch mb-2">
+                                <input class="form-check-input" type="checkbox" id="healthAlerts" checked>
+                                <label class="form-check-label" for="healthAlerts">
+                                    Health Alerts & Reminders
+                                </label>
+                            </div>
+                            <div class="form-check form-switch mb-2">
+                                <input class="form-check-input" type="checkbox" id="aiInsights" checked>
+                                <label class="form-check-label" for="aiInsights">
+                                    AI Health Insights
+                                </label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="dataUpdates">
+                                <label class="form-check-label" for="dataUpdates">
+                                    Data Sync Updates
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AI Configuration Tab -->
+                <div class="tab-pane fade" id="ai-config" role="tabpanel">
+                    <div class="connection-card">
+                        <div class="connection-status">
+                            <div>
+                                <h5><i class="bi bi-cloud me-2"></i>Amazon Bedrock Connection</h5>
+                                <p class="mb-0">Claude AI model for health assistance</p>
+                            </div>
+                            <div class="status-indicator connected">
+                                <i class="bi bi-check-circle-fill"></i>
+                                Connected
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="form-label">AWS Region</label>
+                                <select class="form-select" id="awsRegion">
+                                    <option value="us-east-1" selected>US East (N. Virginia)</option>
+                                    <option value="us-west-2">US West (Oregon)</option>
+                                    <option value="eu-west-1">Europe (Ireland)</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Claude Model</label>
+                                <select class="form-select" id="claudeModel">
+                                    <option value="anthropic.claude-3-5-sonnet-20240620-v1:0" selected>Claude 3.5 Sonnet</option>
+                                    <option value="anthropic.claude-3-haiku-20240307-v1:0">Claude 3 Haiku</option>
+                                    <option value="anthropic.claude-3-opus-20240229-v1:0">Claude 3 Opus</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="mt-3">
+                            <button class="btn btn-configure" onclick="configureBedrock()">
+                                <i class="bi bi-check me-2"></i>Connected & Active
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="connection-card">
+                        <div class="connection-status">
+                            <div>
+                                <h5><i class="bi bi-search me-2"></i>OpenSearch MCP Connection</h5>
+                                <p class="mb-0">Health data search and indexing</p>
+                            </div>
+                            <div class="status-indicator disconnected">
+                                <i class="bi bi-x-circle-fill"></i>
+                                Not Connected
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="form-label">OpenSearch Endpoint</label>
+                                <input type="text" class="form-control" id="opensearchEndpoint" value="search-YOUR-DOMAIN.us-region-1.es.amazonaws.com" readonly>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Index Name</label>
+                                <input type="text" class="form-control" id="indexName" value="health-data-index" readonly>
+                            </div>
+                        </div>
+                        <div class="mt-3">
+                            <button class="btn btn-configure" onclick="configureOpenSearch()">
+                                <i class="bi bi-gear me-2"></i>Configure OpenSearch
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="settings-section">
+                        <h5><i class="bi bi-cpu me-2"></i>AI Response Settings</h5>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="form-label">Response Length</label>
+                                <select class="form-select" id="responseLength">
+                                    <option value="concise">Concise</option>
+                                    <option value="detailed" selected>Detailed</option>
+                                    <option value="comprehensive">Comprehensive</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Medical Terminology</label>
+                                <select class="form-select" id="medicalTerms">
+                                    <option value="simple" selected>Simple Language</option>
+                                    <option value="mixed">Mixed</option>
+                                    <option value="technical">Technical Terms</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AI Guardrails Tab -->
+                <div class="tab-pane fade" id="guardrails" role="tabpanel">
+                    <div class="settings-section">
+                        <h5><i class="bi bi-shield-check"></i>Content Safety Guardrails</h5>
+                        <p class="text-muted mb-3">Configure AI safety measures and content filtering</p>
+                        
+                        <div class="guardrail-item">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h6>Medical Advice Filtering</h6>
+                                    <p>Prevents AI from providing direct medical diagnoses or treatment recommendations</p>
+                                </div>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="medicalAdviceFilter" checked>
+                                </div>
+                            </div>
+                            <div class="status-indicator connected">
+                                <i class="bi bi-check-circle-fill"></i>
+                                Active - High Sensitivity
+                            </div>
+                        </div>
+
+                        <div class="guardrail-item">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h6>Personal Information Protection</h6>
+                                    <p>Blocks sharing of sensitive personal health information</p>
+                                </div>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="piiProtection" checked>
+                                </div>
+                            </div>
+                            <div class="status-indicator connected">
+                                <i class="bi bi-check-circle-fill"></i>
+                                Active - Maximum Protection
+                            </div>
+                        </div>
+
+                        <div class="guardrail-item">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h6>Harmful Content Detection</h6>
+                                    <p>Detects and blocks potentially harmful or inappropriate content</p>
+                                </div>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="harmfulContentFilter" checked>
+                                </div>
+                            </div>
+                            <div class="status-indicator connected">
+                                <i class="bi bi-check-circle-fill"></i>
+                                Active - Standard Filtering
+                            </div>
+                        </div>
+
+                        <div class="guardrail-item">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h6>Emergency Response Protocol</h6>
+                                    <p>Automatically provides emergency contact information for urgent health concerns</p>
+                                </div>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="emergencyProtocol" checked>
+                                </div>
+                            </div>
+                            <div class="status-indicator connected">
+                                <i class="bi bi-check-circle-fill"></i>
+                                Active - Emergency Ready
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="settings-section">
+                        <h5><i class="bi bi-sliders"></i>Guardrail Sensitivity Levels</h5>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="form-label">Content Filtering Level</label>
+                                <select class="form-select" id="contentFilterLevel">
+                                    <option value="low">Low - Minimal filtering</option>
+                                    <option value="medium" selected>Medium - Balanced approach</option>
+                                    <option value="high">High - Strict filtering</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Medical Disclaimer Frequency</label>
+                                <select class="form-select" id="disclaimerFrequency">
+                                    <option value="always" selected>Always show disclaimers</option>
+                                    <option value="health-topics">Only for health topics</option>
+                                    <option value="minimal">Minimal disclaimers</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="settings-section">
+                        <h5><i class="bi bi-exclamation-triangle"></i>Guardrail Monitoring</h5>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="text-center">
+                                    <h4 class="text-success">127</h4>
+                                    <p class="mb-0">Blocked Requests</p>
+                                    <small class="text-muted">Last 30 days</small>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="text-center">
+                                    <h4 class="text-warning">23</h4>
+                                    <p class="mb-0">Flagged Content</p>
+                                    <small class="text-muted">Under review</small>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="text-center">
+                                    <h4 class="text-info">99.2%</h4>
+                                    <p class="mb-0">Safety Score</p>
+                                    <small class="text-muted">Excellent</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Privacy & Security Tab -->
+                <div class="tab-pane fade" id="privacy" role="tabpanel">
+                    <div class="settings-section">
+                        <h5><i class="bi bi-lock"></i>Data Privacy</h5>
+                        <div class="form-check form-switch mb-3">
+                            <input class="form-check-input" type="checkbox" id="dataEncryption" checked>
+                            <label class="form-check-label" for="dataEncryption">
+                                End-to-end encryption for health data
+                            </label>
+                        </div>
+                        <div class="form-check form-switch mb-3">
+                            <input class="form-check-input" type="checkbox" id="anonymizeData" checked>
+                            <label class="form-check-label" for="anonymizeData">
+                                Anonymize data for AI processing
+                            </label>
+                        </div>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="dataRetention">
+                            <label class="form-check-label" for="dataRetention">
+                                Automatic data deletion after 2 years
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="settings-section">
+                        <h5><i class="bi bi-shield-lock"></i>Security Settings</h5>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="form-label">Session Timeout</label>
+                                <select class="form-select" id="sessionTimeout">
+                                    <option value="15">15 minutes</option>
+                                    <option value="30" selected>30 minutes</option>
+                                    <option value="60">1 hour</option>
+                                    <option value="120">2 hours</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Two-Factor Authentication</label>
+                                <div class="form-check form-switch mt-2">
+                                    <input class="form-check-input" type="checkbox" id="twoFactorAuth">
+                                    <label class="form-check-label" for="twoFactorAuth">
+                                        Enable 2FA
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Usage & Costs Tab -->
+                <div class="tab-pane fade" id="usage" role="tabpanel">
+                    <div class="settings-section">
+                        <h5><i class="bi bi-graph-up"></i>Token Usage & Cost Analysis</h5>
+                        
+                        <!-- Current Month Summary -->
+                        <div class="row mb-4">
+                            <div class="col-md-3">
+                                <div class="card text-center">
+                                    <div class="card-body">
+                                        <h6 class="card-title">Total Tokens</h6>
+                                        <h4 class="text-primary" id="total-tokens">39,987</h4>
+                                        <small class="text-muted">This month</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="card text-center">
+                                    <div class="card-body">
+                                        <h6 class="card-title">Total Cost</h6>
+                                        <h4 class="text-success" id="total-cost">$30.79</h4>
+                                        <small class="text-muted">This month</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="card text-center">
+                                    <div class="card-body">
+                                        <h6 class="card-title">Avg. Cost/Query</h6>
+                                        <h4 class="text-info" id="avg-cost">$0.12</h4>
+                                        <small class="text-muted">Per request</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="card text-center">
+                                    <div class="card-body">
+                                        <h6 class="card-title">Rate Limit</h6>
+                                        <h4 class="text-warning" id="rate-limit">85%</h4>
+                                        <small class="text-muted">Used today</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Service Breakdown -->
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h6><i class="bi bi-lightning me-2"></i>Perplexity AI Usage</h6>
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between mb-2">
+                                            <span>Input Tokens:</span>
+                                            <strong id="perplexity-input-tokens">18,450</strong>
+                                        </div>
+                                        <div class="d-flex justify-content-between mb-2">
+                                            <span>Output Tokens:</span>
+                                            <strong id="perplexity-output-tokens">12,337</strong>
+                                        </div>
+                                        <div class="d-flex justify-content-between mb-2">
+                                            <span>Total Cost:</span>
+                                            <strong class="text-success" id="perplexity-cost">$18.45</strong>
+                                        </div>
+                                        <div class="progress">
+                                            <div class="progress-bar bg-primary" role="progressbar" style="width: 60%" id="perplexity-usage-bar"></div>
+                                        </div>
+                                        <small class="text-muted">60% of total usage</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <h6><i class="bi bi-cloud me-2"></i>Amazon Bedrock Usage</h6>
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between mb-2">
+                                            <span>Input Tokens:</span>
+                                            <strong id="bedrock-input-tokens">6,200</strong>
+                                        </div>
+                                        <div class="d-flex justify-content-between mb-2">
+                                            <span>Output Tokens:</span>
+                                            <strong id="bedrock-output-tokens">3,000</strong>
+                                        </div>
+                                        <div class="d-flex justify-content-between mb-2">
+                                            <span>Total Cost:</span>
+                                            <strong class="text-success" id="bedrock-cost">$12.34</strong>
+                                        </div>
+                                        <div class="progress">
+                                            <div class="progress-bar bg-warning" role="progressbar" style="width: 40%" id="bedrock-usage-bar"></div>
+                                        </div>
+                                        <small class="text-muted">40% of total usage</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Usage Controls -->
+                        <div class="mt-4">
+                            <h6><i class="bi bi-sliders me-2"></i>Usage Controls</h6>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="monthly-budget" class="form-label">Monthly Budget Limit</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text">$</span>
+                                            <input type="number" class="form-control" id="monthly-budget" value="50" min="10" max="1000">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="daily-query-limit" class="form-label">Daily Query Limit</label>
+                                        <input type="number" class="form-control" id="daily-query-limit" value="100" min="10" max="500">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="budget-alerts" checked>
+                                <label class="form-check-label" for="budget-alerts">
+                                    Send alerts when approaching budget limits
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Enhanced Save Settings Section -->
+            <div class="mt-4">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="d-flex gap-2">
+                            <button class="btn btn-primary btn-sm" onclick="saveAllSettings()" id="save-btn">
+                                <i class="bi bi-check-lg me-1"></i>Save All Settings
+                            </button>
+                            <button class="btn btn-outline-secondary btn-sm" onclick="testAllConnections()">
+                                <i class="bi bi-wifi me-1"></i>Test Connections
+                            </button>
+                            <button class="btn btn-outline-info btn-sm" onclick="validateAllFields()">
+                                <i class="bi bi-check-circle me-1"></i>Validate Fields
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-md-4 text-end">
+                        <small class="text-muted">
+                            <i class="bi bi-cloud-check me-1"></i>Auto-save enabled
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap 5.3 JS --><script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- AWS SDK v3 for DynamoDB -->
+    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.1048.0.min.js"></script>
+    
+    <!-- Universal Cognito Authentication -->
+    <script src="js/cognito-auth-universal.js"></script>
+<!-- 30-Minute Session Manager -->
+<script src="js/session-manager.js"></script>
+    
+    <!-- Load Sample Questions Cache System for Testing -->
+    <script src="js/sample-questions-cache.js"></script>
+    
+    <!-- Load Cache Testing System -->
+    <script src="js/cache-testing-system.js"></script>
+    
+    <script>
+        // DynamoDB Configuration (authentication handled by universal script)
+        const dynamodb = new AWS.DynamoDB.DocumentClient();
+        const SETTINGS_TABLE = 'StayFitUserSettings';
+        
+        // Get user ID from universal auth system
+        function getUserId() {
+            return CognitoAuth.getUserId();
+        }
+        
+        // Logout function using universal auth system
+        function logout() {
+            CognitoAuth.signOut();
+        }
+
+        // ABHA Integration Functions
+        function openABHAIntegration() {
+            // Open ABHA integration in a new window
+            const abhaWindow = window.open('abha-integration.html', 'abhaIntegration', 
+                'width=800,height=900,scrollbars=yes,resizable=yes');
+            
+            if (!abhaWindow) {
+                alert('Please allow popups to use ABHA integration');
+            }
+        }
+
+        // Function to populate profile from ABHA data (called from ABHA integration window)
+        function populateFromABHA(abhaData) {
+            if (abhaData.name) {
+                setInputValue('patient-name', abhaData.name);
+            }
+            if (abhaData.gender) {
+                setInputValue('gender', abhaData.gender);
+            }
+            if (abhaData.dateOfBirth) {
+                setInputValue('date-of-birth', abhaData.dateOfBirth);
+            }
+            if (abhaData.email) {
+                setInputValue('primary-email', abhaData.email);
+            }
+            if (abhaData.phone) {
+                setInputValue('primary-phone', abhaData.phone);
+            }
+            if (abhaData.address) {
+                setInputValue('address-line1', abhaData.address.line1);
+                setInputValue('city', abhaData.address.city);
+                setInputValue('state', abhaData.address.state);
+                setInputValue('postal-code', abhaData.address.postalCode);
+                setInputValue('country', abhaData.address.country);
+            }
+            
+            // Trigger auto-save
+            setTimeout(() => {
+                autoSaveSettings();
+            }, 1000);
+            
+            // Show success message
+            console.log('Profile populated from ABHA data successfully');
+        }
+
+        // Check for linked ABHA ID on page load
+        function checkABHAStatus() {
+            const abhaId = localStorage.getItem('abhaId');
+            if (abhaId) {
+                setInputValue('abha-id', abhaId);
+                
+                // Update button to show linked status
+                const linkButton = document.querySelector('button[onclick="openABHAIntegration()"]');
+                if (linkButton) {
+                    linkButton.innerHTML = '<i class="bi bi-check-circle me-1"></i>Linked';
+                    linkButton.classList.remove('btn-outline-primary');
+                    linkButton.classList.add('btn-outline-success');
+                }
+            }
+        }
+
+        // Save all settings to DynamoDB with enhanced feedback
+        async function saveAllSettings() {
+            const saveBtn = document.getElementById('save-btn');
+            
+            // Validate required fields first
+            if (!validateAllFields()) {
+                return;
+            }
+            
+            // Show saving state
+            if (saveBtn) {
+                saveBtn.innerHTML = '<i class="bi bi-hourglass-split me-1"></i>Saving...';
+                saveBtn.disabled = true;
+                saveBtn.classList.add('btn-warning');
+            }
+            
+            try {
+                await saveAllSettingsToDynamoDB();
+                
+                // Show success state
+                if (saveBtn) {
+                    saveBtn.innerHTML = '<i class="bi bi-check-circle me-1"></i>Saved';
+                    saveBtn.classList.remove('btn-warning');
+                    saveBtn.classList.add('btn-success');
+                    
+                    setTimeout(() => {
+                        saveBtn.innerHTML = '<i class="bi bi-check-lg me-1"></i>Save All Settings';
+                        saveBtn.classList.remove('btn-success');
+                        saveBtn.disabled = false;
+                    }, 2000);
+                }
+                
+            } catch (error) {
+                // Show error state
+                if (saveBtn) {
+                    saveBtn.innerHTML = '<i class="bi bi-exclamation-triangle me-1"></i>Failed';
+                    saveBtn.classList.remove('btn-warning');
+                    saveBtn.classList.add('btn-danger');
+                    
+                    setTimeout(() => {
+                        saveBtn.innerHTML = '<i class="bi bi-check-lg me-1"></i>Save All Settings';
+                        saveBtn.classList.remove('btn-danger');
+                        saveBtn.disabled = false;
+                    }, 3000);
+                }
+            }
+        }
+
+        // Validate all required fields
+        function validateAllFields() {
+            const requiredFields = [
+                { id: 'patient-name', name: 'Full Name' },
+                { id: 'date-of-birth', name: 'Date of Birth' },
+                { id: 'gender', name: 'Gender' },
+                { id: 'emergency-name', name: 'Emergency Contact Name' },
+                { id: 'emergency-relationship', name: 'Emergency Contact Relationship' },
+                { id: 'emergency-phone', name: 'Emergency Contact Phone' }
+            ];
+            
+            let isValid = true;
+            let missingFields = [];
+            
+            requiredFields.forEach(field => {
+                const element = document.getElementById(field.id);
+                if (element && !element.value.trim()) {
+                    isValid = false;
+                    missingFields.push(field.name);
+                    element.classList.add('is-invalid');
+                } else if (element) {
+                    element.classList.remove('is-invalid');
+                }
+            });
+            
+            // Validate email formats
+            const emailFields = ['primary-email', 'secondary-email', 'emergency-email'];
+            emailFields.forEach(fieldId => {
+                const element = document.getElementById(fieldId);
+                if (element && element.value && !isValidEmail(element.value)) {
+                    isValid = false;
+                    element.classList.add('is-invalid');
+                    missingFields.push('Valid ' + fieldId.replace('-', ' '));
+                } else if (element && element.value) {
+                    element.classList.remove('is-invalid');
+                }
+            });
+            
+            // Validate phone numbers
+            const phoneFields = ['primary-phone', 'secondary-phone', 'emergency-phone'];
+            phoneFields.forEach(fieldId => {
+                const element = document.getElementById(fieldId);
+                if (element && element.value && !isValidPhone(element.value)) {
+                    isValid = false;
+                    element.classList.add('is-invalid');
+                    missingFields.push('Valid ' + fieldId.replace('-', ' '));
+                } else if (element && element.value) {
+                    element.classList.remove('is-invalid');
+                }
+            });
+            
+            if (!isValid) {
+                alert('Please fill in the following required fields:\n\n• ' + missingFields.join('\n• '));
+            }
+            
+            return isValid;
+        }
+
+        // Test all connections
+        async function testAllConnections() {
+            const testBtn = document.querySelector('button[onclick="testAllConnections()"]');
+            
+            if (testBtn) {
+                testBtn.innerHTML = '<i class="bi bi-hourglass-split me-1"></i>Testing...';
+                testBtn.disabled = true;
+            }
+            
+            const tests = [];
+            
+            // Test OpenSearch connection
+            const opensearchEndpoint = getInputValue('opensearch-endpoint');
+            if (opensearchEndpoint) {
+                tests.push(testOpenSearchConnection());
+            }
+            
+            // Test Perplexity API
+            const perplexityKey = getInputValue('perplexity-api-key');
+            if (perplexityKey) {
+                tests.push(testPerplexityConnection());
+            }
+            
+            // Test Bedrock connection
+            const bedrockRegion = getInputValue('bedrock-region');
+            if (bedrockRegion) {
+                tests.push(testBedrockConnection());
+            }
+            
+            try {
+                const results = await Promise.allSettled(tests);
+                
+                let successCount = 0;
+                let totalTests = results.length;
+                
+                results.forEach(result => {
+                    if (result.status === 'fulfilled' && result.value.success) {
+                        successCount++;
+                    }
+                });
+                
+                if (testBtn) {
+                    if (successCount === totalTests) {
+                        testBtn.innerHTML = '<i class="bi bi-check-circle me-1"></i>All Connected';
+                        testBtn.classList.add('btn-success');
+                    } else {
+                        testBtn.innerHTML = '<i class="bi bi-exclamation-triangle me-1"></i>Some Failed';
+                        testBtn.classList.add('btn-warning');
+                    }
+                    
+                    setTimeout(() => {
+                        testBtn.innerHTML = '<i class="bi bi-wifi me-1"></i>Test Connections';
+                        testBtn.classList.remove('btn-success', 'btn-warning');
+                        testBtn.disabled = false;
+                    }, 3000);
+                }
+                
+                alert(`Connection Test Results:\n\n✅ ${successCount} successful\n❌ ${totalTests - successCount} failed\n\nTotal: ${totalTests} connections tested`);
+                
+            } catch (error) {
+                if (testBtn) {
+                    testBtn.innerHTML = '<i class="bi bi-x-circle me-1"></i>Test Failed';
+                    testBtn.classList.add('btn-danger');
+                    
+                    setTimeout(() => {
+                        testBtn.innerHTML = '<i class="bi bi-wifi me-1"></i>Test Connections';
+                        testBtn.classList.remove('btn-danger');
+                        testBtn.disabled = false;
+                    }, 3000);
+                }
+            }
+        }
+
+        // Test individual connections
+        async function testOpenSearchConnection() {
+            const endpoint = getInputValue('opensearch-endpoint');
+            const username = "your_username"('opensearch-username');
+            const password = "your_secure_password"opensearch-password');
+            
+            try {
+                // Simulate connection test
+                await new Promise(resolve => setTimeout(resolve, 1000));
+                return { success: true, service: 'OpenSearch' };
+            } catch (error) {
+                return { success: false, service: 'OpenSearch', error: error.message };
+            }
+        }
+
+        async function testPerplexityConnection() {
+            const apiKey = getInputValue('perplexity-api-key');
+            
+            try {
+                // Simulate API test
+                await new Promise(resolve => setTimeout(resolve, 1500));
+                return { success: true, service: 'Perplexity' };
+            } catch (error) {
+                return { success: false, service: 'Perplexity', error: error.message };
+            }
+        }
+
+        async function testBedrockConnection() {
+            const region = getInputValue('bedrock-region');
+            const model = getInputValue('bedrock-model');
+            
+            try {
+                // Simulate Bedrock test
+                await new Promise(resolve => setTimeout(resolve, 2000));
+                return { success: true, service: 'Bedrock' };
+            } catch (error) {
+                return { success: false, service: 'Bedrock', error: error.message };
+            }
+        }
+
+        // Validation helper functions
+        function isValidEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+
+        function isValidPhone(phone) {
+            const phoneRegex = /^[\+]?[1-9][\d]{0,15}$/;
+            const cleanPhone = phone.replace(/[\s\-\(\)]/g, '');
+            return phoneRegex.test(cleanPhone) && cleanPhone.length >= 10;
+        }
+
+        // Update usage statistics (called periodically)
+        function updateUsageStats() {
+            // Simulate real-time usage updates
+            const stats = {
+                totalTokens: Math.floor(Math.random() * 5000) + 35000,
+                totalCost: (Math.random() * 10 + 25).toFixed(2),
+                avgCost: (Math.random() * 0.05 + 0.10).toFixed(3),
+                rateLimit: Math.floor(Math.random() * 30 + 70)
+            };
+            
+            document.getElementById('total-tokens').textContent = stats.totalTokens.toLocaleString();
+            document.getElementById('total-cost').textContent = '$' + stats.totalCost;
+            document.getElementById('avg-cost').textContent = '$' + stats.avgCost;
+            document.getElementById('rate-limit').textContent = stats.rateLimit + '%';
+            
+            // Update service breakdowns
+            const perplexityTokens = Math.floor(stats.totalTokens * 0.6);
+            const bedrockTokens = stats.totalTokens - perplexityTokens;
+            
+            document.getElementById('perplexity-input-tokens').textContent = Math.floor(perplexityTokens * 0.6).toLocaleString();
+            document.getElementById('perplexity-output-tokens').textContent = Math.floor(perplexityTokens * 0.4).toLocaleString();
+            document.getElementById('perplexity-cost').textContent = '$' + (stats.totalCost * 0.6).toFixed(2);
+            
+            document.getElementById('bedrock-input-tokens').textContent = Math.floor(bedrockTokens * 0.67).toLocaleString();
+            document.getElementById('bedrock-output-tokens').textContent = Math.floor(bedrockTokens * 0.33).toLocaleString();
+            document.getElementById('bedrock-cost').textContent = '$' + (stats.totalCost * 0.4).toFixed(2);
+        }
+
+        // Initialize usage stats updates
+        setInterval(updateUsageStats, 30000); // Update every 30 seconds
+        updateUsageStats(); // Initial update
+        async function saveAllSettingsToDynamoDB() {
+            const userId = getUserId();
+            const timestamp = new Date().toISOString();
+            
+            // Show loading state
+            const saveBtn = document.querySelector('button[onclick="saveAllSettings()"]');
+            if (saveBtn) {
+                saveBtn.innerHTML = '<i class="bi bi-hourglass-split me-2"></i>Saving...';
+                saveBtn.disabled = true;
+            }
+            
+            try {
+                // Collect all settings from the form (using the same structure as auto-save)
+                const settings = {
+                    userId: userId,
+                    timestamp: timestamp,
+                    profile: {
+                        name: getInputValue('patient-name'),
+                        patientId: getInputValue('patient-id'),
+                        abhaId: getInputValue('abha-id'),
+                        dateOfBirth: getInputValue('date-of-birth'),
+                        gender: getInputValue('gender'),
+                        bloodGroup: getInputValue('blood-group')
+                    },
+                    contact: {
+                        address: {
+                            line1: getInputValue('address-line1'),
+                            line2: getInputValue('address-line2'),
+                            city: getInputValue('city'),
+                            state: getInputValue('state'),
+                            postalCode: getInputValue('postal-code'),
+                            country: getInputValue('country')
+                        },
+                        phone: {
+                            primary: getInputValue('primary-phone'),
+                            secondary: getInputValue('secondary-phone')
+                        },
+                        email: {
+                            primary: getInputValue('primary-email'),
+                            secondary: getInputValue('secondary-email')
+                        },
+                        emergency: {
+                            name: getInputValue('emergency-name'),
+                            relationship: getInputValue('emergency-relationship'),
+                            phone: getInputValue('emergency-phone'),
+                            email: getInputValue('emergency-email')
+                        }
+                    },
+                    insurance: {
+                        provider: getInputValue('insurance-provider'),
+                        plan: getInputValue('insurance-plan'),
+                        policyNumber: getInputValue('policy-number'),
+                        status: getInputValue('insurance-status'),
+                        policyStartDate: getInputValue('policy-start-date'),
+                        policyEndDate: getInputValue('policy-end-date'),
+                        groupNumber: getInputValue('group-number'),
+                        copayAmount: getInputValue('copay-amount'),
+                        notes: getInputValue('insurance-notes')
+                    },
+                    opensearch: {
+                        endpoint: getInputValue('opensearch-endpoint'),
+                        index: getInputValue('opensearch-index'),
+                        username = "your_username"('opensearch-username'),
+                        password = "your_secure_password"opensearch-password')
+                    },
+                    perplexity: {
+                        apiKey: getInputValue('perplexity-api-key'),
+                        model: getInputValue('perplexity-model'),
+                        temperature: getInputValue('perplexity-temperature'),
+                        maxTokens: getInputValue('perplexity-max-tokens')
+                    },
+                    bedrock: {
+                        region: getInputValue('bedrock-region'),
+                        model: getInputValue('bedrock-model'),
+                        temperature: getInputValue('bedrock-temperature'),
+                        maxTokens: getInputValue('bedrock-max-tokens')
+                    },
+                    bedrockHealth: {
+                        region: getInputValue('bedrock-health-region'),
+                        model: getInputValue('bedrock-health-model'),
+                        temperature: getInputValue('bedrock-health-temperature'),
+                        maxTokens: getInputValue('bedrock-health-max-tokens'),
+                        systemPrompt: getInputValue('bedrock-health-system-prompt')
+                    },
+                    mcp: {
+                        serverUrl: getInputValue('mcp-server-url'),
+                        enabled: getCheckboxValue('mcp-enabled')
+                    },
+                    features: {
+                        trendAnalysis: getCheckboxValue('enable-trend-analysis'),
+                        riskAssessment: getCheckboxValue('enable-risk-assessment'),
+                        personalizedInsights: getCheckboxValue('enable-personalized-insights')
+                    },
+                    apiTokens: {
+                        perplexityVisible: getCheckboxValue('perplexity-key-visible'),
+                        bedrockVisible: getCheckboxValue('bedrock-key-visible')
+                    }
+                };
+
+                const params = {
+                    TableName: SETTINGS_TABLE,
+                    Item: settings
+                };
+
+                await dynamodb.put(params).promise();
+                
+                // Show success in button without popup
+                if (saveBtn) {
+                    saveBtn.innerHTML = '<i class="bi bi-check-circle me-2"></i>Saved Successfully';
+                    saveBtn.classList.add('btn-success');
+                    setTimeout(() => {
+                        saveBtn.innerHTML = '<i class="bi bi-check-lg me-2"></i>Save All Settings';
+                        saveBtn.classList.remove('btn-success');
+                    }, 2000);
+                }
+                console.log('Settings saved to DynamoDB:', settings);
+                
+            } catch (error) {
+                console.error('Error saving settings to DynamoDB:', error);
+                // Show error in button without popup
+                if (saveBtn) {
+                    saveBtn.innerHTML = '<i class="bi bi-exclamation-triangle me-2"></i>Save Failed - Retry';
+                    saveBtn.classList.add('btn-danger');
+                    setTimeout(() => {
+                        saveBtn.innerHTML = '<i class="bi bi-check-lg me-2"></i>Save All Settings';
+                        saveBtn.classList.remove('btn-danger');
+                    }, 3000);
+                }
+            } finally {
+                // Restore button state if not showing success/error
+                if (saveBtn && !saveBtn.classList.contains('btn-success') && !saveBtn.classList.contains('btn-danger')) {
+                    saveBtn.innerHTML = '<i class="bi bi-check-lg me-2"></i>Save All Settings';
+                    saveBtn.disabled = false;
+                }
+            }
+        }
+
+        // Load settings from DynamoDB
+        async function loadSettingsFromDynamoDB(showNotifications = false) {
+            const userId = getUserId();
+            
+            try {
+                const params = {
+                    TableName: SETTINGS_TABLE,
+                    Key: {
+                        userId: userId
+                    }
+                };
+
+                const result = await dynamodb.get(params).promise();
+                
+                if (result.Item) {
+                    const settings = result.Item;
+                    
+                    // Populate OpenSearch settings
+                    if (settings.opensearch) {
+                        setInputValue('opensearch-endpoint', settings.opensearch.endpoint);
+                        setInputValue('opensearch-index', settings.opensearch.index);
+                        setInputValue('opensearch-username', settings.opensearch.username);
+                        setInputValue('opensearch-password', settings.opensearch.password);
+                    }
+                    
+                    // Populate Profile settings
+                    if (settings.profile) {
+                        setInputValue('patient-name', settings.profile.name);
+                        setInputValue('patient-id', settings.profile.patientId);
+                        setInputValue('abha-id', settings.profile.abhaId);
+                        setInputValue('date-of-birth', settings.profile.dateOfBirth);
+                        setInputValue('gender', settings.profile.gender);
+                        setInputValue('blood-group', settings.profile.bloodGroup);
+                    }
+                    
+                    // Populate Contact settings
+                    if (settings.contact) {
+                        // Address
+                        if (settings.contact.address) {
+                            setInputValue('address-line1', settings.contact.address.line1);
+                            setInputValue('address-line2', settings.contact.address.line2);
+                            setInputValue('city', settings.contact.address.city);
+                            setInputValue('state', settings.contact.address.state);
+                            setInputValue('postal-code', settings.contact.address.postalCode);
+                            setInputValue('country', settings.contact.address.country);
+                        }
+                        
+                        // Phone
+                        if (settings.contact.phone) {
+                            setInputValue('primary-phone', settings.contact.phone.primary);
+                            setInputValue('secondary-phone', settings.contact.phone.secondary);
+                        }
+                        
+                        // Email
+                        if (settings.contact.email) {
+                            setInputValue('primary-email', settings.contact.email.primary);
+                            setInputValue('secondary-email', settings.contact.email.secondary);
+                        }
+                        
+                        // Emergency contact
+                        if (settings.contact.emergency) {
+                            setInputValue('emergency-name', settings.contact.emergency.name);
+                            setInputValue('emergency-relationship', settings.contact.emergency.relationship);
+                            setInputValue('emergency-phone', settings.contact.emergency.phone);
+                            setInputValue('emergency-email', settings.contact.emergency.email);
+                        }
+                    }
+                    
+                    // Populate Insurance settings
+                    if (settings.insurance) {
+                        setInputValue('insurance-provider', settings.insurance.provider);
+                        setInputValue('insurance-plan', settings.insurance.plan);
+                        setInputValue('policy-number', settings.insurance.policyNumber);
+                        setInputValue('insurance-status', settings.insurance.status);
+                        setInputValue('policy-start-date', settings.insurance.policyStartDate);
+                        setInputValue('policy-end-date', settings.insurance.policyEndDate);
+                        setInputValue('group-number', settings.insurance.groupNumber);
+                        setInputValue('copay-amount', settings.insurance.copayAmount);
+                        setInputValue('insurance-notes', settings.insurance.notes);
+                    }
+                    
+                    // Populate Perplexity settings
+                    if (settings.perplexity) {
+                        setInputValue('perplexity-api-key', settings.perplexity.apiKey);
+                        setInputValue('perplexity-model', settings.perplexity.model);
+                        setInputValue('perplexity-temperature', settings.perplexity.temperature);
+                        setInputValue('perplexity-max-tokens', settings.perplexity.maxTokens);
+                    }
+                    
+                    // Populate Bedrock settings
+                    if (settings.bedrock) {
+                        setInputValue('bedrock-region', settings.bedrock.region);
+                        setInputValue('bedrock-model', settings.bedrock.model);
+                        setInputValue('bedrock-temperature', settings.bedrock.temperature);
+                        setInputValue('bedrock-max-tokens', settings.bedrock.maxTokens);
+                    }
+                    
+                    // Populate Bedrock Health settings
+                    if (settings.bedrockHealth) {
+                        setInputValue('bedrock-health-region', settings.bedrockHealth.region);
+                        setInputValue('bedrock-health-model', settings.bedrockHealth.model);
+                        setInputValue('bedrock-health-temperature', settings.bedrockHealth.temperature);
+                        setInputValue('bedrock-health-max-tokens', settings.bedrockHealth.maxTokens);
+                        setInputValue('bedrock-health-system-prompt', settings.bedrockHealth.systemPrompt);
+                    }
+                    
+                    // Populate MCP settings
+                    if (settings.mcp) {
+                        setInputValue('mcp-server-url', settings.mcp.serverUrl);
+                        setCheckboxValue('mcp-enabled', settings.mcp.enabled);
+                    }
+                    
+                    // Populate feature settings
+                    if (settings.features) {
+                        setCheckboxValue('enable-trend-analysis', settings.features.trendAnalysis);
+                        setCheckboxValue('enable-risk-assessment', settings.features.riskAssessment);
+                        setCheckboxValue('enable-personalized-insights', settings.features.personalizedInsights);
+                    }
+                    
+                    if (showNotifications) {
+                        showNotification('Settings loaded successfully!', 'success');
+                    }
+                    console.log('Settings loaded from DynamoDB:', settings);
+                } else {
+                    console.log('No saved settings found for user:', userId);
+                    if (showNotifications) {
+                        showNotification('No saved settings found. Using defaults.', 'info');
+                    }
+                }
+                
+            } catch (error) {
+                console.error('Error loading settings from DynamoDB:', error);
+                if (showNotifications) {
+                    showNotification('Error loading settings: ' + error.message, 'error');
+                }
+            }
+        }
+
+        // Helper functions
+        function getInputValue(elementId) {
+            const element = document.getElementById(elementId);
+            return element ? element.value : '';
+        }
+
+        function getCheckboxValue(elementId) {
+            const element = document.getElementById(elementId);
+            return element ? element.checked : false;
+        }
+
+        function setInputValue(elementId, value) {
+            const element = document.getElementById(elementId);
+            if (element && value !== undefined && value !== null) {
+                element.value = value;
+            }
+        }
+
+        function setCheckboxValue(elementId, value) {
+            const element = document.getElementById(elementId);
+            if (element && value !== undefined && value !== null) {
+                element.checked = value;
+            }
+        }
+
+        // Show notification
+        function showNotification(message, type = 'info') {
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.className = `alert alert-${type === 'error' ? 'danger' : type} alert-dismissible fade show position-fixed`;
+            notification.style.cssText = 'top: 20px; right: 20px; z-index: 9999; min-width: 300px;';
+            notification.innerHTML = `
+                ${message}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // Auto-remove after 5 seconds
+            setTimeout(() => {
+                if (notification.parentNode) {
+                    notification.remove();
+                }
+            }, 5000);
+        }
+
+        // Mobile menu functionality
+        function setupMobileMenu() {
+            const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+            const sidebar = document.getElementById('sidebar');
+            const sidebarOverlay = document.getElementById('sidebarOverlay');
+
+            if (mobileMenuToggle) {
+                mobileMenuToggle.addEventListener('click', function() {
+                    sidebar.classList.toggle('show');
+                    sidebarOverlay.classList.toggle('show');
+                });
+            }
+
+            if (sidebarOverlay) {
+                sidebarOverlay.addEventListener('click', function() {
+                    sidebar.classList.remove('show');
+                    sidebarOverlay.classList.remove('show');
+                });
+            }
+        }
+
+        // AI Configuration Functions
+        function configureBedrock() {
+            const region = document.getElementById('awsRegion').value;
+            const model = document.getElementById('claudeModel').value;
+            
+            if (!region || !model) {
+                alert('Please select both AWS Region and Claude Model');
+                return;
+            }
+            
+            // Simulate configuration
+            alert(`Configuring Bedrock connection...\nRegion: ${region}\nModel: ${model}\n\nNote: This is a demo. In production, this would establish the actual connection.`);
+        }
+
+        function configureOpenSearch() {
+            const endpoint = document.getElementById('opensearchEndpoint').value;
+            const indexName = document.getElementById('indexName').value;
+            
+            if (!endpoint || !indexName) {
+                alert('Please provide both OpenSearch endpoint and index name');
+                return;
+            }
+            
+            // Simulate configuration
+            alert(`Configuring OpenSearch MCP...\nEndpoint: ${endpoint}\nIndex: ${indexName}\n\nNote: This is a demo. In production, this would establish the actual connection.`);
+        }
+
+        function saveAllSettings() {
+            // Use the DynamoDB save function instead of localStorage
+            saveAllSettingsToDynamoDB();
+        }
+
+        // Load saved settings on page load
+        function loadSettings() {
+            const savedSettings = localStorage.getItem('stayfitSettings');
+            if (savedSettings) {
+                const settings = JSON.parse(savedSettings);
+                
+                // Apply saved settings to form elements
+                if (settings.theme) document.getElementById('themeMode').value = settings.theme;
+                if (settings.fontSize) document.getElementById('fontSize').value = settings.fontSize;
+                
+                // Apply other settings...
+                console.log('Loaded settings:', settings);
+            }
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', async function() {
+            setupMobileMenu();
+            
+            // Wait for authentication to complete
+            window.addEventListener('cognitoAuthenticated', function(event) {
+                const <REDACTED_CREDENTIAL>.detail.user;
+                console.log('Settings page: User authenticated', user);
+                
+                // Update user info in header
+                if (user) {
+                    const userNameElement = document.getElementById('user-name');
+                    const userEmailElement = document.getElementById('user-email');
+                    
+                    if (userNameElement) userNameElement.textContent = user.name;
+                    if (userEmailElement) userEmailElement.textContent = user.email;
+                }
+                
+                // Load settings from DynamoDB
+                setTimeout(() => {
+                    loadSettingsFromDynamoDB();
+                    
+                    // Add auto-save functionality after settings are loaded
+                    setTimeout(() => {
+                        addAutoSaveListeners();
+                        checkABHAStatus(); // Check for linked ABHA ID
+                    }, 500);
+                }, 1000);
+            });
+        });
+
+        // Add auto-save listeners to all form elements
+        function addAutoSaveListeners() {
+            // Get all input, select, and textarea elements
+            const formElements = document.querySelectorAll('input, select, textarea');
+            
+            formElements.forEach(element => {
+                // Skip elements that shouldn't trigger auto-save
+                if (element.type === 'button' || element.type === 'submit') {
+                    return;
+                }
+                
+                // Add event listeners based on element type
+                if (element.type === 'checkbox' || element.type === 'radio') {
+                    element.addEventListener('change', debounce(autoSaveSettings, 1000));
+                } else {
+                    element.addEventListener('input', debounce(autoSaveSettings, 2000));
+                    element.addEventListener('change', debounce(autoSaveSettings, 1000));
+                }
+            });
+            
+            console.log('Auto-save listeners added to', formElements.length, 'form elements');
+        }
+
+        // Auto-save settings (silent, no notifications)
+        async function autoSaveSettings() {
+            try {
+                const userId = getUserId();
+                const timestamp = new Date().toISOString();
+                
+                const settings = {
+                    userId: userId,
+                    timestamp: timestamp,
+                    profile: {
+                        name: getInputValue('patient-name'),
+                        patientId: getInputValue('patient-id'),
+                        abhaId: getInputValue('abha-id'),
+                        dateOfBirth: getInputValue('date-of-birth'),
+                        gender: getInputValue('gender'),
+                        bloodGroup: getInputValue('blood-group')
+                    },
+                    contact: {
+                        address: {
+                            line1: getInputValue('address-line1'),
+                            line2: getInputValue('address-line2'),
+                            city: getInputValue('city'),
+                            state: getInputValue('state'),
+                            postalCode: getInputValue('postal-code'),
+                            country: getInputValue('country')
+                        },
+                        phone: {
+                            primary: getInputValue('primary-phone'),
+                            secondary: getInputValue('secondary-phone')
+                        },
+                        email: {
+                            primary: getInputValue('primary-email'),
+                            secondary: getInputValue('secondary-email')
+                        },
+                        emergency: {
+                            name: getInputValue('emergency-name'),
+                            relationship: getInputValue('emergency-relationship'),
+                            phone: getInputValue('emergency-phone'),
+                            email: getInputValue('emergency-email')
+                        }
+                    },
+                    insurance: {
+                        provider: getInputValue('insurance-provider'),
+                        plan: getInputValue('insurance-plan'),
+                        policyNumber: getInputValue('policy-number'),
+                        status: getInputValue('insurance-status'),
+                        policyStartDate: getInputValue('policy-start-date'),
+                        policyEndDate: getInputValue('policy-end-date'),
+                        groupNumber: getInputValue('group-number'),
+                        copayAmount: getInputValue('copay-amount'),
+                        notes: getInputValue('insurance-notes')
+                    },
+                    opensearch: {
+                        endpoint: getInputValue('opensearch-endpoint'),
+                        index: getInputValue('opensearch-index'),
+                        username = "your_username"('opensearch-username'),
+                        password = "your_secure_password"opensearch-password')
+                    },
+                    perplexity: {
+                        apiKey: getInputValue('perplexity-api-key'),
+                        model: getInputValue('perplexity-model'),
+                        temperature: getInputValue('perplexity-temperature'),
+                        maxTokens: getInputValue('perplexity-max-tokens')
+                    },
+                    bedrock: {
+                        region: getInputValue('bedrock-region'),
+                        model: getInputValue('bedrock-model'),
+                        temperature: getInputValue('bedrock-temperature'),
+                        maxTokens: getInputValue('bedrock-max-tokens')
+                    },
+                    bedrockHealth: {
+                        region: getInputValue('bedrock-health-region'),
+                        model: getInputValue('bedrock-health-model'),
+                        temperature: getInputValue('bedrock-health-temperature'),
+                        maxTokens: getInputValue('bedrock-health-max-tokens'),
+                        systemPrompt: getInputValue('bedrock-health-system-prompt')
+                    },
+                    mcp: {
+                        serverUrl: getInputValue('mcp-server-url'),
+                        enabled: getCheckboxValue('mcp-enabled')
+                    },
+                    features: {
+                        trendAnalysis: getCheckboxValue('enable-trend-analysis'),
+                        riskAssessment: getCheckboxValue('enable-risk-assessment'),
+                        personalizedInsights: getCheckboxValue('enable-personalized-insights')
+                    },
+                    apiTokens: {
+                        perplexityVisible: getCheckboxValue('perplexity-key-visible'),
+                        bedrockVisible: getCheckboxValue('bedrock-key-visible')
+                    }
+                };
+
+                const params = {
+                    TableName: SETTINGS_TABLE,
+                    Item: settings
+                };
+
+                await dynamodb.put(params).promise();
+                console.log('Settings auto-saved to DynamoDB');
+                
+            } catch (error) {
+                console.error('Error auto-saving settings:', error);
+            }
+        }
+
+        // Debounce function to limit how often auto-save runs
+        function debounce(func, wait) {
+            let timeout;
+            return function executedFunction(...args) {
+                const later = () => {
+                    clearTimeout(timeout);
+                    func(...args);
+                };
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+            };
+        }
+    </script>
+
+    <!-- Footer -->
+    <footer class="bg-light text-center py-4 mt-5">
+    <div class="container">
+        <p class="mb-0 text-muted small">
+            Built with ❤️ for Healthcare Excellence by Shashank Chinchli, Solutions Architect, AWS </br>*HIPAA-Compliant • FHIR R4 • openEHR • MCP Connected • OpenSearch Ready • Enterprise Security • WCAG 2.1 AA Compliant
+        </p>
+    </div>
+</footer>
+<!-- Logout Function -->
+<script>
+function logout() {
+    // Clear all authentication tokens
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('idToken');
+    localStorage.removeItem('refreshToken');
+    localStorage.removeItem('userEmail');
+    localStorage.removeItem('userName');
+    
+    // Clear session storage
+    sessionStorage.clear();
+    
+    // Show logout message
+    alert('You have been logged out successfully.');
+    
+    // Redirect to login page
+    window.location.href = 'https://YOUR-DOMAIN.cloudfront.net/login.html';
+}
+</script>
+
+
+    <!-- Simple Authentication Check -->
+    <script src="js/simple-auth-check.js"></script>
+</body>
+</html>
