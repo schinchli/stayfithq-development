@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StayFit Health Companion - Advanced Dashboard</title>
+    
+    <!-- Bootstrap 5.3 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.css">
+    
+    <!-- Google Fonts - Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Unified Template CSS Files -->
+    <link rel="stylesheet" href="css/bootstrap-theme-unified.css">
+    <link rel="stylesheet" href="css/navigation-unified.css">
+    <link rel="stylesheet" href="css/layout-unified.css">
+    <link rel="stylesheet" href="css/uniform_page_header.css">
+    <link rel="stylesheet" href="css/footer-unified.css">
+    
+    <!-- Global Theme Management -->
+    <script src="js/global-theme.js"></script>
+</head>
+<!-- Mobile Menu Toggle -->
+<button class="mobile-menu-toggle" id="mobileMenuToggle">
+    <i class="bi bi-list"></i>
+</button>
+
+<!-- Sidebar Overlay -->
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<!-- Sidebar Navigation -->
+<div class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+        <h4 class="mb-0">
+            <i class="bi bi-heart-pulse me-2 text-primary"></i>
+            StayFit
+        </h4>
+    </div>
+    <nav class="nav flex-column">
+        <a class="nav-link" href="index.html">
+            <i class="bi bi-house"></i>
+            <span>Dashboard</span>
+        </a>
+        <a class="nav-link" href="health-reports.html">
+            <i class="bi bi-file-medical"></i>
+            <span>Health Reports</span>
+        </a>
+        <a class="nav-link" href="digital-analysis.html">
+            <i class="bi bi-cpu"></i>
+            <span>Digital Analysis</span>
+        </a>
+        <a class="nav-link" href="search.html">
+            <i class="bi bi-search"></i>
+            <span>Search</span>
+        </a>
+        <a class="nav-link active" href="dashboard.html">
+            <i class="bi bi-speedometer2"></i>
+            <span>Advanced Dashboard</span>
+        </a>            <a class="nav-link" href="https://d16roezsr4ghcz.cloudfront.net/import.html">
+                <i class="bi bi-cloud-upload"></i>
+                <span>Health Data Import</span>
+            </a>
+
+        <a class="nav-link" href="settings.html">
+            <i class="bi bi-gear"></i>
+            <span>Settings</span>
+        </a>
+    </nav>
+</div>
+
+<!-- Main Content Area -->
+<div class="main-content">
+    <div class="container-fluid">
+        <!-- Page Header -->
+        <div class="page-header">
+            <h2><i class="bi bi-speedometer2"></i>Advanced Dashboard</h2>
+            <div class="header-divider"></div>
+            <p>Comprehensive health monitoring and analytics dashboard</p>
+        </div>
+
+        <!-- Key Metrics -->
+        <div class="row g-3 mb-4">
+            <div class="col-12 col-md-6 col-lg-3">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <h3 class="text-primary">98.2%</h3>
+                        <p class="mb-0">Health Score</p>
+                        <small class="text-muted">Excellent</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-3">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <h3 class="text-success">15</h3>
+                        <p class="mb-0">Active Days</p>
+                        <small class="text-muted">This Month</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-3">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <h3 class="text-info">2.1k</h3>
+                        <p class="mb-0">Avg Calories</p>
+                        <small class="text-muted">Burned Daily</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-3">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <h3 class="text-warning">94%</h3>
+                        <p class="mb-0">Goal Rate</p>
+                        <small class="text-muted">Achievement</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dashboard Widgets -->
+        <div class="row g-3 mb-4">
+            <div class="col-12 col-lg-6">
+                <div class="card">
+                    <div class="card-header">
+                        <i class="bi bi-graph-up me-2"></i>Weekly Performance
+                    </div>
+                    <div class="card-body">
+                        <div class="d-flex align-items-center p-3 bg-light rounded mb-3">
+                            <i class="bi bi-calendar-week text-primary me-3" style="font-size: 1.5rem;"></i>
+                            <div>
+                                <div class="fw-bold">This Week vs Last Week</div>
+                                <small class="text-muted">Steps: +15% • Sleep: +8% • Activity: +22%</small>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between mb-2">
+                                <span>Weekly Goals</span>
+                                <span>6/7 completed</span>
+                            </div>
+                            <div class="progress">
+                                <div class="progress-bar bg-primary" role="progressbar" style="width: 86%" aria-valuenow="86" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between mb-2">
+                                <span>Activity Minutes</span>
+                                <span>347/350 min</span>
+                            </div>
+                            <div class="progress">
+                                <div class="progress-bar bg-success" role="progressbar" style="width: 99%" aria-valuenow="99" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                        <div class="mb-0">
+                            <div class="d-flex justify-content-between mb-2">
+                                <span>Consistency Score</span>
+                                <span>94%</span>
+                            </div>
+                            <div class="progress">
+                                <div class="progress-bar bg-info" role="progressbar" style="width: 94%" aria-valuenow="94" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-lg-6">
+                <div class="card">
+                    <div class="card-header">
+                        <i class="bi bi-heart-pulse me-2"></i>Health Vitals
+                    </div>
+                    <div class="card-body">
+                        <div class="d-flex align-items-center p-3 bg-light rounded mb-3">
+                            <i class="bi bi-heart text-danger me-3" style="font-size: 1.5rem;"></i>
+                            <div>
+                                <div class="fw-bold">Resting Heart Rate</div>
+                                <small class="text-muted">68 BPM • Normal range • Stable trend</small>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center p-3 bg-light rounded mb-3">
+                            <i class="bi bi-thermometer-half text-warning me-3" style="font-size: 1.5rem;"></i>
+                            <div>
+                                <div class="fw-bold">Body Temperature</div>
+                                <small class="text-muted">98.6°F • Normal • Last recorded today</small>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center p-3 bg-light rounded mb-3">
+                            <i class="bi bi-speedometer text-primary me-3" style="font-size: 1.5rem;"></i>
+                            <div>
+                                <div class="fw-bold">Blood Pressure</div>
+                                <small class="text-muted">120/80 mmHg • Optimal • Recorded yesterday</small>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center p-3 bg-light rounded">
+                            <i class="bi bi-droplet text-info me-3" style="font-size: 1.5rem;"></i>
+                            <div>
+                                <div class="fw-bold">Hydration Level</div>
+                                <small class="text-muted">Optimal • 2.1L today • Goal achieved</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Additional Dashboard Sections -->
+        <div class="row g-3">
+            <div class="col-12 col-lg-4">
+                <div class="card">
+                    <div class="card-header">
+                        <i class="bi bi-trophy me-2"></i>Achievements
+                    </div>
+                    <div class="card-body">
+                        <div class="d-flex align-items-center p-3 bg-light rounded mb-3">
+                            <i class="bi bi-award text-warning me-3" style="font-size: 1.5rem;"></i>
+                            <div>
+                                <div class="fw-bold">Step Master</div>
+                                <small class="text-muted">10,000+ steps for 7 days straight</small>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center p-3 bg-light rounded mb-3">
+                            <i class="bi bi-moon-stars text-primary me-3" style="font-size: 1.5rem;"></i>
+                            <div>
+                                <div class="fw-bold">Sleep Champion</div>
+                                <small class="text-muted">Consistent 8+ hours for 2 weeks</small>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center p-3 bg-light rounded">
+                            <i class="bi bi-fire text-danger me-3" style="font-size: 1.5rem;"></i>
+                            <div>
+                                <div class="fw-bold">Calorie Crusher</div>
+                                <small class="text-muted">2000+ calories burned this week</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-lg-4">
+                <div class="card">
+                    <div class="card-header">
+                        <i class="bi bi-exclamation-triangle me-2"></i>Health Alerts
+                    </div>
+                    <div class="card-body">
+                        <div class="d-flex align-items-center p-3 bg-light rounded mb-3">
+                            <i class="bi bi-check-circle text-success me-3" style="font-size: 1.5rem;"></i>
+                            <div>
+                                <div class="fw-bold">All Systems Normal</div>
+                                <small class="text-muted">No health alerts at this time</small>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center p-3 bg-light rounded mb-3">
+                            <i class="bi bi-info-circle text-info me-3" style="font-size: 1.5rem;"></i>
+                            <div>
+                                <div class="fw-bold">Reminder</div>
+                                <small class="text-muted">Schedule your monthly health checkup</small>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center p-3 bg-light rounded">
+                            <i class="bi bi-calendar-event text-warning me-3" style="font-size: 1.5rem;"></i>
+                            <div>
+                                <div class="fw-bold">Upcoming</div>
+                                <small class="text-muted">Fitness assessment due next week</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-lg-4">
+                <div class="card">
+                    <div class="card-header">
+                        <i class="bi bi-gear me-2"></i>Quick Actions
+                    </div>
+                    <div class="card-body">
+                        <div class="d-grid gap-2">
+                            <button class="btn btn-primary">
+                                <i class="bi bi-plus me-1"></i>Log Activity
+                            </button>
+                            <button class="btn btn-outline-primary">
+                                <i class="bi bi-download me-1"></i>Export Data
+                            </button>
+                            <button class="btn btn-outline-primary">
+                                <i class="bi bi-share me-1"></i>Share Progress
+                            </button>
+                            <button class="btn btn-outline-primary">
+                                <i class="bi bi-gear me-1"></i>Settings
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer style="background-color: #f8f9fa; border-top: 1px solid #dee2e6; padding: 30px 0; margin-top: 50px; text-align: center; position: relative; z-index: 1;">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <p style="margin: 0; color: #6c757d; font-size: 0.9rem; font-weight: 400; line-height: 1.6;">
+                    Built with ❤️ for Healthcare Excellence by Shashank Chinchli, Solutions Architect, AWS </br>*HIPAA-Compliant • FHIR R4 • openEHR • MCP Connected • OpenSearch Ready • Enterprise Security • WCAG 2.1 AA Compliant
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Bootstrap 5.3 JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+<!-- AWS SDK for authentication -->
+<script src="https://sdk.amazonaws.com/js/aws-sdk-2.1048.0.min.js"></script>
+
+<!-- Universal Cognito Authentication -->
+<script src="js/cognito-auth-universal.js"></script>
+
+<!-- 30-Minute Session Manager -->
+<script src="js/session-manager.js"></script>
+
+<!-- Mobile Menu Toggle Script -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+    const sidebar = document.getElementById('sidebar');
+    const sidebarOverlay = document.getElementById('sidebarOverlay');
+
+    // Toggle mobile menu
+    mobileMenuToggle.addEventListener('click', function() {
+        sidebar.classList.toggle('show');
+        sidebarOverlay.classList.toggle('show');
+    });
+
+    // Close sidebar when overlay is clicked
+    sidebarOverlay.addEventListener('click', function() {
+        sidebar.classList.remove('show');
+        sidebarOverlay.classList.remove('show');
+    });
+
+    // Close sidebar on window resize if screen becomes large
+    window.addEventListener('resize', function() {
+        if (window.innerWidth > 991) {
+            sidebar.classList.remove('show');
+            sidebarOverlay.classList.remove('show');
+        }
+    });
+});
+</script>
+</html>
+    <!-- Bootstrap 5.3 JS -->

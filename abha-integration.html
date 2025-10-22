@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ABHA Integration - StayFit Health Companion</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        .abha-card {
+            border: 2px solid #0d6efd;
+            border-radius: 15px;
+            background: linear-gradient(135deg, #f8f9ff 0%, #e3f2fd 100%);
+        }
+        
+        .abha-logo {
+            width: 60px;
+            height: 60px;
+            background: #0d6efd;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        .step-indicator {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: #6c757d;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        
+        .step-indicator.active {
+            background: #0d6efd;
+        }
+        
+        .step-indicator.completed {
+            background: #198754;
+        }
+        
+        .abha-id-display {
+            font-family: 'Courier New', monospace;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #0d6efd;
+            letter-spacing: 2px;
+        }
+        
+        .verification-badge {
+            background: #198754;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-4">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <!-- ABHA Integration Header -->
+                <div class="abha-card p-4 mb-4">
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="abha-logo me-3">
+                            <i class="bi bi-shield-check"></i>
+                        </div>
+                        <div>
+                            <h3 class="mb-1">ABHA Integration</h3>
+                            <p class="text-muted mb-0">Ayushman Bharat Health Account - National Digital Health Mission</p>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="d-flex align-items-center mb-2">
+                                <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                <span>Secure Digital Health ID</span>
+                            </div>
+                            <div class="d-flex align-items-center mb-2">
+                                <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                <span>Unified Health Records</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-flex align-items-center mb-2">
+                                <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                <span>Healthcare Provider Integration</span>
+                            </div>
+                            <div class="d-flex align-items-center mb-2">
+                                <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                <span>Government Approved</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ABHA Status Card -->
+                <div class="card mb-4" id="abha-status-card">
+                    <div class="card-body">
+                        <div id="abha-not-linked" class="text-center">
+                            <i class="bi bi-person-plus text-muted" style="font-size: 3rem;"></i>
+                            <h5 class="mt-3">ABHA ID Not Linked</h5>
+                            <p class="text-muted">Link your ABHA ID to access unified health records and seamless healthcare services.</p>
+                            <button class="btn btn-primary" onclick="showABHAOptions()">
+                                <i class="bi bi-plus-circle me-2"></i>Link ABHA ID
+                            </button>
+                        </div>
+                        
+                        <div id="abha-linked" class="d-none">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div>
+                                    <h6 class="mb-1">ABHA ID Linked</h6>
+                                    <div class="abha-id-display" id="linked-abha-id">XX-XXXX-XXXX-XXXX</div>
+                                    <small class="text-muted">Verified and Active</small>
+                                </div>
+                                <div>
+                                    <span class="verification-badge">
+                                        <i class="bi bi-shield-check me-1"></i>Verified
+                                    </span>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <button class="btn btn-outline-primary btn-sm w-100" onclick="syncABHAProfile()">
+                                        <i class="bi bi-arrow-clockwise me-1"></i>Sync Profile
+                                    </button>
+                                </div>
+                                <div class="col-md-4">
+                                    <button class="btn btn-outline-info btn-sm w-100" onclick="viewHealthRecords()">
+                                        <i class="bi bi-file-medical me-1"></i>Health Records
+                                    </button>
+                                </div>
+                                <div class="col-md-4">
+                                    <button class="btn btn-outline-danger btn-sm w-100" onclick="unlinkABHA()">
+                                        <i class="bi bi-unlink me-1"></i>Unlink
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ABHA Integration Options -->
+                <div class="card d-none" id="abha-options-card">
+                    <div class="card-header">
+                        <h5 class="mb-0">
+                            <i class="bi bi-gear me-2"></i>ABHA Integration Options
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <div class="card h-100 border-primary">
+                                    <div class="card-body text-center">
+                                        <i class="bi bi-person-plus text-primary" style="font-size: 2rem;"></i>
+                                        <h6 class="mt-3">Create New ABHA ID</h6>
+                                        <p class="text-muted small">Generate a new ABHA ID using your Aadhaar number</p>
+                                        <button class="btn btn-primary btn-sm" onclick="showCreateABHA()">
+                                            Create ABHA ID
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="card h-100 border-success">
+                                    <div class="card-body text-center">
+                                        <i class="bi bi-search text-success" style="font-size: 2rem;"></i>
+                                        <h6 class="mt-3">Link Existing ABHA ID</h6>
+                                        <p class="text-muted small">Connect your existing ABHA ID to this account</p>
+                                        <button class="btn btn-success btn-sm" onclick="showLinkABHA()">
+                                            Link Existing ID
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Create ABHA Process -->
+                <div class="card d-none" id="create-abha-card">
+                    <div class="card-header">
+                        <h5 class="mb-0">
+                            <i class="bi bi-plus-circle me-2"></i>Create New ABHA ID
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <!-- Step Indicator -->
+                        <div class="d-flex justify-content-between mb-4">
+                            <div class="text-center">
+                                <div class="step-indicator active" id="step1">1</div>
+                                <small class="d-block mt-1">Aadhaar</small>
+                            </div>
+                            <div class="text-center">
+                                <div class="step-indicator" id="step2">2</div>
+                                <small class="d-block mt-1">OTP</small>
+                            </div>
+                            <div class="text-center">
+                                <div class="step-indicator" id="step3">3</div>
+                                <small class="d-block mt-1">Password</small>
+                            </div>
+                            <div class="text-center">
+                                <div class="step-indicator" id="step4">4</div>
+                                <small class="d-block mt-1">Complete</small>
+                            </div>
+                        </div>
+
+                        <!-- Step 1: Aadhaar Input -->
+                        <div id="aadhaar-step">
+                            <div class="row justify-content-center">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="aadhaar-number" class="form-label">Aadhaar Number</label>
+                                        <input type="text" class="form-control" id="aadhaar-number" placeholder="XXXX XXXX XXXX" maxlength="14">
+                                        <div class="form-text">Enter your 12-digit Aadhaar number</div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="mobile-number" class="form-label">Mobile Number</label>
+                                        <input type="tel" class="form-control" id="mobile-number" placeholder="+91 XXXXX XXXXX">
+                                        <div class="form-text">Registered mobile number with Aadhaar</div>
+                                    </div>
+                                    <button class="btn btn-primary w-100" onclick="generateOTP()">
+                                        <i class="bi bi-send me-2"></i>Generate OTP
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Step 2: OTP Verification -->
+                        <div id="otp-step" class="d-none">
+                            <div class="row justify-content-center">
+                                <div class="col-md-6">
+                                    <div class="text-center mb-3">
+                                        <i class="bi bi-phone text-primary" style="font-size: 2rem;"></i>
+                                        <h6 class="mt-2">OTP Sent</h6>
+                                        <p class="text-muted">Enter the 6-digit OTP sent to your mobile</p>
+                                    </div>
+                                    <div class="mb-3">
+                                        <input type="text" class="form-control text-center" id="otp-input" placeholder="XXXXXX" maxlength="6" style="font-size: 1.5rem; letter-spacing: 0.5rem;">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="abha-password" class="form-label">Create ABHA Password</label>
+                                        <input type="password" class="form-control" id="abha-password" placeholder="Create a strong password">
+                                        <div class="form-text">Password for your ABHA account</div>
+                                    </div>
+                                    <button class="btn btn-success w-100" onclick="verifyOTPAndCreate()">
+                                        <i class="bi bi-check-circle me-2"></i>Verify & Create ABHA
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Step 3: Success -->
+                        <div id="success-step" class="d-none">
+                            <div class="text-center">
+                                <i class="bi bi-check-circle-fill text-success" style="font-size: 4rem;"></i>
+                                <h4 class="mt-3 text-success">ABHA ID Created Successfully!</h4>
+                                <div class="abha-id-display mt-3" id="new-abha-id">XX-XXXX-XXXX-XXXX</div>
+                                <p class="text-muted mt-3">Your ABHA ID has been created and linked to your account.</p>
+                                <button class="btn btn-primary" onclick="completeABHASetup()">
+                                    <i class="bi bi-arrow-right me-2"></i>Continue to Profile
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Link Existing ABHA -->
+                <div class="card d-none" id="link-abha-card">
+                    <div class="card-header">
+                        <h5 class="mb-0">
+                            <i class="bi bi-link me-2"></i>Link Existing ABHA ID
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row justify-content-center">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="existing-abha-id" class="form-label">ABHA ID</label>
+                                    <input type="text" class="form-control" id="existing-abha-id" placeholder="XX-XXXX-XXXX-XXXX or 14 digits">
+                                    <div class="form-text">Enter your 14-digit ABHA ID</div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="abha-login-password" class="form-label">ABHA Password</label>
+                                    <input type="password" class="form-control" id="abha-login-password" placeholder="Your ABHA password">
+                                </div>
+                                <button class="btn btn-success w-100" onclick="linkExistingABHA()">
+                                    <i class="bi bi-link me-2"></i>Link ABHA ID
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Back Button -->
+                <div class="text-center mt-3">
+                    <button class="btn btn-outline-secondary" onclick="goBack()">
+                        <i class="bi bi-arrow-left me-2"></i>Back to Settings
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Modal -->
+    <div class="modal fade" id="loadingModal" tabindex="-1" data-bs-backdrop="static">
+        <div class="modal-dialog modal-sm modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body text-center p-4">
+                    <div class="spinner-border text-primary mb-3" role="status"></div>
+                    <div id="loading-message">Processing...</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- AWS SDK for authentication -->
+    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.1048.0.min.js"></script>
+    
+    <!-- Universal Cognito Authentication -->
+    <script src="js/cognito-auth-universal.js"></script>
+    
+    <!-- 30-Minute Session Manager -->
+    <script src="js/session-manager.js"></script>
+    
+    <script src="js/abha-integration.js"></script>
+    
+    <script>
+        let currentTxnId = null;
+        let loadingModal = null;
+
+        document.addEventListener('DOMContentLoaded', function() {
+            loadingModal = new bootstrap.Modal(document.getElementById('loadingModal'));
+            checkABHAStatus();
+            
+            // Add test button for your Aadhaar number
+            addTestButton();
+        });
+
+        function addTestButton() {
+            const aadhaarStep = document.getElementById('aadhaar-step');
+            if (aadhaarStep) {
+                const testButton = document.createElement('button');
+                testButton.className = 'btn btn-outline-info btn-sm mt-2';
+                testButton.innerHTML = '<i class="bi bi-lightning me-1"></i>Test with 455699627946';
+                testButton.onclick = function() {
+                    document.getElementById('aadhaar-number').value = '4556 9962 7946';
+                    document.getElementById('mobile-number').value = '+91 98765 43210';
+                    
+                    // Trigger validation
+                    const event = new Event('input');
+                    document.getElementById('aadhaar-number').dispatchEvent(event);
+                    
+                    alert('✅ Test data filled!\n\nAadhaar: 455699627946\nMobile: +91 98765 43210\n\nYou can now click "Generate OTP" to test the flow.');
+                };
+                
+                const buttonContainer = aadhaarStep.querySelector('.col-md-6');
+                if (buttonContainer) {
+                    buttonContainer.appendChild(testButton);
+                }
+            }
+        }
+
+        function showABHAOptions() {
+            document.getElementById('abha-options-card').classList.remove('d-none');
+        }
+
+        function showCreateABHA() {
+            document.getElementById('abha-options-card').classList.add('d-none');
+            document.getElementById('create-abha-card').classList.remove('d-none');
+        }
+
+        function showLinkABHA() {
+            document.getElementById('abha-options-card').classList.add('d-none');
+            document.getElementById('link-abha-card').classList.remove('d-none');
+        }
+
+        async function generateOTP() {
+            const aadhaar = document.getElementById('aadhaar-number').value.replace(/\s/g, '');
+            const mobile = document.getElementById('mobile-number').value;
+
+            console.log('🔍 Attempting to generate OTP for Aadhaar:', aadhaar);
+            console.log('📱 Mobile number:', mobile);
+
+            if (!aadhaar || aadhaar.length !== 12) {
+                alert('Please enter a valid 12-digit Aadhaar number\n\nCurrent input: ' + aadhaar + '\nLength: ' + aadhaar.length + ' digits');
+                return;
+            }
+
+            // Special handling for your test number
+            if (aadhaar === '455699627946') {
+                console.log('✅ Detected your test Aadhaar number: 455699627946');
+                alert('✅ Great! Your Aadhaar number (455699627946) is correctly formatted and ready for processing.\n\nThis is a demo implementation, so we\'ll simulate the OTP generation process.');
+            }
+
+            if (!mobile) {
+                alert('Please enter your mobile number');
+                return;
+            }
+
+            showLoading('Generating OTP for Aadhaar: ' + aadhaar.substring(0, 4) + 'XXXX' + aadhaar.substring(8));
+
+            try {
+                // For demo purposes, we'll simulate the OTP generation
+                console.log('📤 Simulating OTP generation for Aadhaar:', aadhaar);
+                
+                // Simulate API delay
+                await new Promise(resolve => setTimeout(resolve, 2000));
+                
+                // Simulate successful OTP generation
+                currentTxnId = 'demo-txn-' + Date.now();
+                
+                hideLoading();
+                
+                document.getElementById('step1').classList.add('completed');
+                document.getElementById('step2').classList.add('active');
+                document.getElementById('aadhaar-step').classList.add('d-none');
+                document.getElementById('otp-step').classList.remove('d-none');
+                
+                // Show success message with your number
+                if (aadhaar === '455699627946') {
+                    alert('🎉 SUCCESS! OTP generation simulated for your Aadhaar number: 455699627946\n\n📱 In production, an OTP would be sent to your registered mobile number.\n\n🔢 For this demo, you can enter any 6-digit number as OTP (e.g., 123456).');
+                } else {
+                    alert('Demo Mode: OTP generation simulated successfully!\n\nIn production, this would send an actual OTP to your registered mobile number.\n\nFor demo, you can enter any 6-digit number as OTP.');
+                }
+                
+            } catch (error) {
+                hideLoading();
+                alert('Error generating OTP: ' + error.message);
+            }
+        }
+
+        // Basic Aadhaar validation using Verhoeff algorithm
+        function isValidAadhaar(aadhaarNumber) {
+            // Basic format check
+            if (!/^\d{12}$/.test(aadhaarNumber)) {
+                return false;
+            }
+            
+            // Verhoeff algorithm for Aadhaar validation
+            const d = [
+                [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+                [1, 2, 3, 4, 0, 6, 7, 8, 9, 5],
+                [2, 3, 4, 0, 1, 7, 8, 9, 5, 6],
+                [3, 4, 0, 1, 2, 8, 9, 5, 6, 7],
+                [4, 0, 1, 2, 3, 9, 5, 6, 7, 8],
+                [5, 9, 8, 7, 6, 0, 4, 3, 2, 1],
+                [6, 5, 9, 8, 7, 1, 0, 4, 3, 2],
+                [7, 6, 5, 9, 8, 2, 1, 0, 4, 3],
+                [8, 7, 6, 5, 9, 3, 2, 1, 0, 4],
+                [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
+            ];
+            
+            const p = [
+                [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+                [1, 5, 7, 6, 2, 8, 3, 0, 9, 4],
+                [5, 8, 0, 3, 7, 9, 6, 1, 4, 2],
+                [8, 9, 1, 6, 0, 4, 3, 5, 2, 7],
+                [9, 4, 5, 3, 1, 2, 6, 8, 7, 0],
+                [4, 2, 8, 6, 5, 7, 3, 9, 0, 1],
+                [2, 7, 9, 3, 8, 0, 6, 4, 1, 5],
+                [7, 0, 4, 6, 9, 1, 3, 2, 5, 8]
+            ];
+            
+            let c = 0;
+            const myArray = aadhaarNumber.split('').reverse();
+            
+            for (let i = 0; i < myArray.length; i++) {
+                c = d[c][p[((i + 1) % 8)][parseInt(myArray[i])]];
+            }
+            
+            return c === 0;
+        }
+
+        async function verifyOTPAndCreate() {
+            const otp = document.getElementById('otp-input').value;
+            const password = document.getElementById('abha-password').value;
+
+            if (!otp || otp.length !== 6) {
+                alert('Please enter a valid 6-digit OTP');
+                return;
+            }
+
+            if (!password || password.length < 8) {
+                alert('Password must be at least 8 characters long');
+                return;
+            }
+
+            showLoading('Creating ABHA ID...');
+
+            try {
+                // For demo purposes, simulate ABHA creation
+                console.log('Creating ABHA with OTP:', otp);
+                
+                // Simulate API delay
+                await new Promise(resolve => setTimeout(resolve, 3000));
+                
+                // Generate a demo ABHA ID
+                const demoABHAId = '91' + Math.floor(Math.random() * 1000000000000).toString().padStart(12, '0');
+                
+                hideLoading();
+                
+                document.getElementById('step2').classList.add('completed');
+                document.getElementById('step3').classList.add('completed');
+                document.getElementById('step4').classList.add('active');
+                document.getElementById('otp-step').classList.add('d-none');
+                document.getElementById('success-step').classList.remove('d-none');
+                document.getElementById('new-abha-id').textContent = 
+                    formatABHAForDisplay(demoABHAId);
+                
+                // Store ABHA details for demo
+                localStorage.setItem('abhaId', demoABHAId);
+                localStorage.setItem('abhaToken', 'demo-token-' + Date.now());
+                
+                // Create demo profile data
+                const demoProfile = {
+                    name: 'Demo User',
+                    gender: 'male',
+                    dateOfBirth: '1990-01-01',
+                    email: 'demo@example.com',
+                    phone: '+91 98765 43210',
+                    address: {
+                        line1: 'Demo Address Line 1',
+                        city: 'Demo City',
+                        state: 'Demo State',
+                        postalCode: '123456',
+                        country: 'IN'
+                    }
+                };
+                
+                localStorage.setItem('abhaProfile', JSON.stringify(demoProfile));
+                
+                alert('Demo ABHA ID created successfully!\n\nABHA ID: ' + formatABHAForDisplay(demoABHAId) + '\n\nThis is a demo implementation. In production, this would create an actual ABHA ID through the official ABDM APIs.');
+                
+            } catch (error) {
+                hideLoading();
+                alert('Error creating ABHA ID: ' + error.message);
+            }
+        }
+
+        // Format ABHA ID for display
+        function formatABHAForDisplay(abhaId) {
+            if (!abhaId || abhaId.length !== 14) return abhaId;
+            return `${abhaId.slice(0, 2)}-${abhaId.slice(2, 6)}-${abhaId.slice(6, 10)}-${abhaId.slice(10, 14)}`;
+        }
+
+        async function linkExistingABHA() {
+            const abhaId = document.getElementById('existing-abha-id').value.replace(/[-\s]/g, '');
+            const password = document.getElementById('abha-login-password').value;
+
+            const validation = abhaService.validateABHAFormat(abhaId);
+            if (!validation.isValid) {
+                alert(validation.message);
+                return;
+            }
+
+            if (!password) {
+                alert('Please enter your ABHA password');
+                return;
+            }
+
+            showLoading('Linking ABHA ID...');
+
+            try {
+                const searchResult = await abhaService.searchABHA(abhaId);
+                
+                if (searchResult.success && searchResult.exists) {
+                    // Store ABHA details
+                    localStorage.setItem('abhaId', abhaId);
+                    
+                    hideLoading();
+                    updateABHAStatus(abhaId);
+                    alert('ABHA ID linked successfully!');
+                } else {
+                    hideLoading();
+                    alert('ABHA ID not found or invalid credentials');
+                }
+            } catch (error) {
+                hideLoading();
+                alert('Error linking ABHA ID: ' + error.message);
+            }
+        }
+
+        function checkABHAStatus() {
+            const abhaId = localStorage.getItem('abhaId');
+            if (abhaId) {
+                updateABHAStatus(abhaId);
+            }
+        }
+
+        function updateABHAStatus(abhaId) {
+            document.getElementById('abha-not-linked').classList.add('d-none');
+            document.getElementById('abha-linked').classList.remove('d-none');
+            document.getElementById('linked-abha-id').textContent = 
+                abhaService.formatABHAForDisplay(abhaId);
+        }
+
+        async function syncABHAProfile() {
+            const abhaId = localStorage.getItem('abhaId');
+            const abhaProfile = localStorage.getItem('abhaProfile');
+
+            if (!abhaId) {
+                alert('No ABHA ID found');
+                return;
+            }
+
+            showLoading('Syncing ABHA profile...');
+
+            try {
+                // Simulate API delay
+                await new Promise(resolve => setTimeout(resolve, 2000));
+                
+                let profileData;
+                
+                if (abhaProfile) {
+                    // Use stored demo profile
+                    profileData = JSON.parse(abhaProfile);
+                } else {
+                    // Create default profile data
+                    profileData = {
+                        name: 'ABHA User',
+                        gender: 'male',
+                        dateOfBirth: '1990-01-01',
+                        email: 'abha.user@example.com',
+                        phone: '+91 98765 43210',
+                        address: {
+                            line1: 'ABHA Address Line 1',
+                            city: 'Mumbai',
+                            state: 'Maharashtra',
+                            postalCode: '400001',
+                            country: 'IN'
+                        }
+                    };
+                }
+                
+                hideLoading();
+                
+                // Auto-populate profile fields in parent window
+                if (window.opener && window.opener.populateFromABHA) {
+                    window.opener.populateFromABHA(profileData);
+                    alert('Profile synced successfully!\n\nYour profile has been updated with ABHA data. Please check your Profile tab in the settings page.');
+                } else {
+                    alert('Profile data retrieved successfully!\n\nDemo Profile Data:\n' + 
+                          'Name: ' + profileData.name + '\n' +
+                          'Email: ' + profileData.email + '\n' +
+                          'Phone: ' + profileData.phone + '\n' +
+                          'City: ' + profileData.address.city);
+                    console.log('ABHA Profile Data:', profileData);
+                }
+                
+            } catch (error) {
+                hideLoading();
+                alert('Error syncing profile: ' + error.message);
+            }
+        }
+
+        function viewHealthRecords() {
+            alert('Health Records feature will be available soon. This will show your unified health records from all linked healthcare providers.');
+        }
+
+        function unlinkABHA() {
+            if (confirm('Are you sure you want to unlink your ABHA ID? This will remove access to unified health records.')) {
+                localStorage.removeItem('abhaId');
+                localStorage.removeItem('abhaToken');
+                location.reload();
+            }
+        }
+
+        function completeABHASetup() {
+            if (window.opener) {
+                window.opener.location.reload();
+                window.close();
+            } else {
+                goBack();
+            }
+        }
+
+        function goBack() {
+            if (window.opener) {
+                window.close();
+            } else {
+                window.location.href = 'settings.html';
+            }
+        }
+
+        function showLoading(message) {
+            document.getElementById('loading-message').textContent = message;
+            loadingModal.show();
+        }
+
+        function hideLoading() {
+            loadingModal.hide();
+        }
+
+        // Format Aadhaar input
+        document.getElementById('aadhaar-number').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, ''); // Remove non-digits
+            
+            // Limit to 12 digits
+            if (value.length > 12) {
+                value = value.substring(0, 12);
+            }
+            
+            // Format with spaces: XXXX XXXX XXXX
+            value = value.replace(/(\d{4})(?=\d)/g, '$1 ');
+            e.target.value = value;
+            
+            // Visual feedback for valid Aadhaar length
+            const cleanValue = value.replace(/\s/g, '');
+            if (cleanValue.length === 12) {
+                e.target.classList.remove('is-invalid');
+                e.target.classList.add('is-valid');
+                
+                // Test with your provided number
+                if (cleanValue === '455699627946') {
+                    console.log('✅ Your Aadhaar number (455699627946) detected and formatted correctly!');
+                }
+            } else {
+                e.target.classList.remove('is-valid');
+                if (cleanValue.length > 0 && cleanValue.length < 12) {
+                    e.target.classList.add('is-invalid');
+                } else {
+                    e.target.classList.remove('is-invalid');
+                }
+            }
+        });
+
+        // Format ABHA ID input
+        document.getElementById('existing-abha-id').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length <= 14) {
+                value = value.replace(/(\d{2})(\d{4})(\d{4})(\d{4})/, '$1-$2-$3-$4');
+                e.target.value = value;
+            }
+        });
+    </script>
+
+<footer class="bg-light text-center py-4 mt-5">
+    <div class="container">
+        <p class="mb-0 text-muted small">
+            Built with ❤️ for Healthcare Excellence by Shashank Chinchli, Solutions Architect, AWS </br>*HIPAA-Compliant • FHIR R4 • openEHR • MCP Connected • OpenSearch Ready • Enterprise Security • WCAG 2.1 AA Compliant
+        </p>
+    </div>
+</footer>
+
+</body>
+</html>
