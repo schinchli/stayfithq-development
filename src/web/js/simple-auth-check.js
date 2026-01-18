@@ -68,7 +68,7 @@
         
         // Redirect after a brief delay
         setTimeout(() => {
-            window.location.href = 'window.STAYFIT_CONFIG.app.baseUrl/login.html';
+            window.location.href = 'login.html';
         }, 2000);
     }
     
