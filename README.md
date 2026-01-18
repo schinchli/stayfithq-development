@@ -12,6 +12,93 @@ StayFitHQ is a comprehensive health and fitness dashboard application built with
 
 Watch the complete walkthrough and demo: [StayFitHQ Demo Video](https://youtu.be/_rz4r74LxW4)
 
+## 🏗️ Architecture Diagram
+
+```
+┌─────────────────────────────────────────────────────────────────────┐
+│                          User's Browser                              │
+└────────────────────────────┬────────────────────────────────────────┘
+                             │ HTTPS
+                             ▼
+┌─────────────────────────────────────────────────────────────────────┐
+│                    Amazon CloudFront (CDN)                           │
+│  Distribution ID: E2XS425B7TX1I3                                    │
+│  Domain: d28c6zfvylwdaa.cloudfront.net                             │
+│  • Global edge locations                                            │
+│  • HTTPS/SSL termination                                            │
+│  • Caching & compression                                            │
+└────────────────────────────┬────────────────────────────────────────┘
+                             │
+                             ▼
+┌─────────────────────────────────────────────────────────────────────┐
+│                    Amazon S3 (Static Hosting)                        │
+│  Bucket: stayfithq-web-prod-1768699805                              │
+│  • HTML, CSS, JavaScript files                                      │
+│  • Static website hosting                                           │
+│  • 31 files, 562 KB                                                 │
+└─────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────┐
+│                    AWS Services (Optional)                           │
+├─────────────────────────────────────────────────────────────────────┤
+│                                                                      │
+│  ┌──────────────────┐  ┌──────────────────┐  ┌─────────────────┐  │
+│  │ Amazon Cognito   │  │ Amazon DynamoDB  │  │ Amazon Bedrock  │  │
+│  │ User Auth        │  │ Settings Storage │  │ AI Analysis     │  │
+│  │ (Not configured) │  │ (Not configured) │  │ (Not configured)│  │
+│  └──────────────────┘  └──────────────────┘  └─────────────────┘  │
+│                                                                      │
+│  ┌──────────────────┐  ┌──────────────────┐  ┌─────────────────┐  │
+│  │ Amazon Textract  │  │ Amazon OpenSearch│  │ AWS Lambda      │  │
+│  │ Doc Processing   │  │ Health Search    │  │ Backend Logic   │  │
+│  │ (Not configured) │  │ (Not configured) │  │ (Not configured)│  │
+│  └──────────────────┘  └──────────────────┘  └─────────────────┘  │
+│                                                                      │
+└─────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────┐
+│                    Lambda@Edge (Authentication)                      │
+│  Function: stayfit-edge-auth-prod                                   │
+│  ARN: arn:aws:lambda:us-east-1:471112694458:function:...           │
+│  • Basic authentication (demo/Demo@2026)                            │
+│  • Request validation                                               │
+└─────────────────────────────────────────────────────────────────────┘
+```
+
+## 💰 Cost Estimate
+
+### Current Deployed Infrastructure
+
+| Service | Resource | Usage | Monthly Cost |
+|---------|----------|-------|--------------|
+| **S3** | stayfithq-web-prod-1768699805 | 562 KB storage | $0.01 |
+| **CloudFront** | E2XS425B7TX1I3 | 1 GB data transfer | $0.00 (Free tier) |
+| **Lambda@Edge** | stayfit-edge-auth-prod | 1,000 requests | $0.00 (Free tier) |
+| **IAM** | stayfit-lambda-edge-role-prod | Role | $0.00 |
+| **Total** | | | **~$0.01/month** |
+
+### With Optional Services (If Configured)
+
+| Service | Usage Estimate | Monthly Cost |
+|---------|----------------|--------------|
+| **Amazon Cognito** | 100 active users | $0.00 (Free tier: 50K MAUs) |
+| **DynamoDB** | 1M requests, 1 GB storage | $0.25 + $0.25 = $0.50 |
+| **Bedrock (Claude 3)** | 100 queries/day | ~$15.00 |
+| **Textract** | 100 pages/month | $1.50 |
+| **OpenSearch** | t3.small.search | $35.00 |
+| **Lambda Functions** | 10K invocations | $0.00 (Free tier) |
+| **Total with all services** | | **~$52/month** |
+
+**Note**: Costs vary based on actual usage. Free tier covers most development/testing.
+
+### Cost Optimization Tips
+
+1. **Start Minimal**: Deploy only S3 + CloudFront (~$0.01/month)
+2. **Add Cognito**: Still free under 50K users
+3. **Use On-Demand**: DynamoDB on-demand pricing for variable traffic
+4. **Bedrock**: Only enable when needed, disable after testing
+5. **OpenSearch**: Use t3.small for development, scale up for production
+
 ## ✨ Features
 
 - **📊 Health Dashboard** - Comprehensive health metrics tracking
@@ -247,6 +334,82 @@ For support and questions:
 - [ ] Integration with wearable devices
 - [ ] AI-powered health insights
 - [ ] Multi-language support
+
+## 🧹 Infrastructure Cleanup
+
+### Complete Cleanup Script
+
+To completely remove all AWS resources and avoid any charges, save this as `cleanup.sh`:
+
+```bash
+#!/bin/bash
+echo "🧹 Cleaning up StayFitHQ infrastructure..."
+
+# CloudFront Distribution
+DISTRIBUTION_ID="E2XS425B7TX1I3"
+echo "Disabling CloudFront..."
+aws cloudfront get-distribution-config --id $DISTRIBUTION_ID > /tmp/cf.json
+# Manually set Enabled: false in /tmp/cf.json, then:
+# aws cloudfront update-distribution --id $DISTRIBUTION_ID --distribution-config file:///tmp/cf.json --if-match ETAG
+# aws cloudfront wait distribution-deployed --id $DISTRIBUTION_ID
+# aws cloudfront delete-distribution --id $DISTRIBUTION_ID --if-match NEW_ETAG
+
+# S3 Bucket
+echo "Deleting S3 bucket..."
+aws s3 rm s3://stayfithq-web-prod-1768699805/ --recursive
+aws s3api delete-bucket --bucket stayfithq-web-prod-1768699805
+
+# Lambda Function
+echo "Deleting Lambda..."
+aws lambda delete-function --function-name stayfit-edge-auth-prod
+
+# IAM Role
+echo "Deleting IAM role..."
+aws iam list-attached-role-policies --role-name stayfit-lambda-edge-role-prod \
+  --query 'AttachedPolicies[].PolicyArn' --output text | \
+  xargs -I {} aws iam detach-role-policy --role-name stayfit-lambda-edge-role-prod --policy-arn {}
+aws iam delete-role --role-name stayfit-lambda-edge-role-prod
+
+# Optional: Cognito (if created)
+# aws cognito-idp delete-user-pool --user-pool-id YOUR_USER_POOL_ID
+
+# Optional: DynamoDB (if created)
+# aws dynamodb delete-table --table-name stayfithq-settings
+
+echo "✅ Cleanup complete! Cost: $0.00/month"
+```
+
+### Quick Cleanup Commands
+
+```bash
+# Delete S3 bucket
+aws s3 rm s3://stayfithq-web-prod-1768699805/ --recursive
+aws s3api delete-bucket --bucket stayfithq-web-prod-1768699805
+
+# Delete Lambda
+aws lambda delete-function --function-name stayfit-edge-auth-prod
+
+# Delete IAM role
+aws iam detach-role-policy --role-name stayfit-lambda-edge-role-prod \
+  --policy-arn arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+aws iam delete-role --role-name stayfit-lambda-edge-role-prod
+
+# CloudFront (manual - takes 15-20 min)
+# 1. Disable in console
+# 2. Wait for deployment
+# 3. Delete distribution
+```
+
+### Verify Cleanup
+
+```bash
+aws s3 ls | grep stayfithq
+aws lambda list-functions | grep stayfit
+aws iam get-role --role-name stayfit-lambda-edge-role-prod 2>&1
+aws cloudfront list-distributions --query 'DistributionList.Items[?Comment==`StayFitHQ Production`]'
+```
+
+**Result**: $0.00/month after cleanup
 
 ---
 
