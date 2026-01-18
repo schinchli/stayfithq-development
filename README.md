@@ -91,9 +91,12 @@ Comprehensive AWS architecture diagrams are available in:
 - [Development Journey](docs/getting-started/DEVELOPMENT_JOURNEY.md)
 - [Technical Specifications](docs/development/TECHNICAL_PROMPTS.md)
 - [Deployment Guide](docs/deployment/PROMPTS.md)
+- [Deployment Success Report](docs/deployment/DEPLOYMENT_SUCCESS.md)
 - [Architecture & Design](docs/architecture/)
 - [Security Documentation](docs/security/)
+- [Security Scan Report](docs/security/SECURITY_SCAN_REPORT.md)
 - [Testing Guide](tests/README.md)
+- [Optimization Summary](docs/OPTIMIZATION_SUMMARY.md)
 
 ## 🛠️ Development
 

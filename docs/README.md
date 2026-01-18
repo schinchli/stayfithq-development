@@ -24,12 +24,14 @@ Welcome to the StayFitHQ documentation. This directory contains comprehensive gu
 ### Deployment
 - [Deployment Prompts](deployment/PROMPTS.md) - Deployment guidelines
 - [Deployment Guide](deployment/DEPLOYMENT_GUIDE.md) - Step-by-step deployment
+- [Deployment Success Report](deployment/DEPLOYMENT_SUCCESS.md) - Latest deployment status
 - [CloudFront Test Results](deployment/CLOUDFRONT_TEST_RESULTS.md) - CDN testing results
 - [GitHub Setup](deployment/GITHUB_SETUP.md) - GitHub configuration
 - [Phase 1-3 Completion](deployment/PHASE_1_3_COMPLETION.md) - Project milestones
 
 ### Security
 - [Security Verification Report](security/VERIFICATION_REPORT.md) - Security audit results
+- [Security Scan Report](security/SECURITY_SCAN_REPORT.md) - Latest security scan
 - [Threat Model](security/threat-model.md) - Security threat analysis
 - [WAF Implementation](security/WAF_OWASP_IMPLEMENTATION.md) - Web Application Firewall setup
 - [Cognito Authentication](security/COGNITO_AUTHENTICATION_IMPLEMENTATION.md) - Authentication setup
