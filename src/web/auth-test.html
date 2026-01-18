@@ -29,8 +29,8 @@
                         <div id="login-section" style="display: none;">
                             <h5>Test Login Credentials</h5>
                             <div class="alert alert-info">
-                                <strong>Email:</strong> window.STAYFIT_CONFIG.demo.testCredentials.email<br>
-                                <strong>password = "your_secure_password"window.STAYFIT_CONFIG.demo.testCredentials.password
+                                <strong>Email:</strong> demo@stayfithq.com<br>
+                                <strong>password = "your_secure_password"Demo@2026
                             </div>
                             <button class="btn btn-primary" onclick="testLogin()">
                                 <i class="bi bi-box-arrow-in-right me-2"></i>Test Login
@@ -77,9 +77,9 @@
         // AWS Cognito Configuration
         AWS.config.update({ region: 'your-aws-region' });
         const cognitoIdentityServiceProvider = new AWS.CognitoIdentityServiceProvider();
-        const userPoolId = 'window.STAYFIT_CONFIG.cognito.userPoolId';
-        const clientId = window.STAYFIT_CONFIG.cognito.clientId;
-        const clientSecret = window.STAYFIT_CONFIG.cognito.clientSecret;
+        const userPoolId = '';
+        const clientId = '';
+        const clientSecret = '';
         
         let current<REDACTED_CREDENTIAL>;
         
@@ -145,7 +145,7 @@
         }
         
         async function testLogin() {
-            const email = 'window.STAYFIT_CONFIG.demo.testCredentials.email';
+            const email = 'demo@stayfithq.com';
             const password = "your_secure_password";
             
             logResult('Starting login test...', 'info');
@@ -189,7 +189,7 @@
         
         function goToMainApp() {
             logResult('Redirecting to main app...', 'info');
-            window.location.href = 'window.STAYFIT_CONFIG.app.baseUrl/index.html';
+            window.location.href = 'index.html';
         }
         
         function logout() {

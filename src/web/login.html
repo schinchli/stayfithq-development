@@ -220,11 +220,11 @@
         });
         
         const cognitoIdentityServiceProvider = new AWS.CognitoIdentityServiceProvider();
-        const userPoolId = 'window.STAYFIT_CONFIG.cognito.userPoolId';
-        const clientId = window.STAYFIT_CONFIG.cognito.clientId;
-        const cognitoDomain = 'window.STAYFIT_CONFIG.cognito.cognitoDomain';
-        const redirectUri = 'window.STAYFIT_CONFIG.app.baseUrl/index.html';
-        const clientSecret = window.STAYFIT_CONFIG.cognito.clientSecret;
+        const userPoolId = '';
+        const clientId = '';
+        const cognitoDomain = '';
+        const redirectUri = window.location.origin + '/index.html';
+        const clientSecret = '';
         
         let currentEmail = '';
         
@@ -402,7 +402,7 @@
                 
                 showSuccess('Sign in successful! Redirecting...');
                 setTimeout(() => {
-                    window.location.href = 'window.STAYFIT_CONFIG.app.baseUrl/index.html';
+                    window.location.href = 'index.html';
                 }, 1500);
                 
             } catch (error) {
