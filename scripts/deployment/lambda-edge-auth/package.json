@@ -1,0 +1,9 @@
+{
+  "name": "stayfit-lambda-edge-auth",
+  "version": "1.0.0",
+  "description": "Lambda@Edge authentication for StayFit Health Companion",
+  "main": "index.js",
+  "engines": {
+    "node": "18.x"
+  }
+}
