@@ -29,15 +29,15 @@ StayFitHQ is a comprehensive health and fitness dashboard application built with
 
 ```bash
 # Clone the repository
-git clone https://github.com/schinchli/StayFitHQ.git
-cd StayFitHQ
+git clone https://github.com/schinchli/stayfithq-development.git
+cd stayfithq-development
 
 # Install dependencies
 npm install
 
 # Set up environment variables
-cp .env.template .env
-# Edit .env with your configuration
+cp config/.env.template config/.env
+# Edit config/.env with your configuration
 
 # Start development server
 npm start
@@ -45,7 +45,7 @@ npm start
 
 ### Environment Variables
 
-Copy `.env.template` to `.env` and configure:
+Copy `config/.env.template` to `config/.env` and configure:
 
 ```env
 # Application Configuration
@@ -83,24 +83,74 @@ Comprehensive AWS architecture diagrams are available in:
 
 ## 📚 Documentation
 
-- [Installation Guide](INSTALLATION.md)
-- [Development Journey](MASTER_DEVELOPMENT_JOURNEY.md)
-- [Technical Specifications](TECHNICAL_PROMPTS.md)
-- [Deployment Guide](DEPLOYMENT_PROMPTS.md)
-- [Architecture Diagrams](docs/)
+- [Installation Guide](docs/getting-started/INSTALLATION.md)
+- [Development Journey](docs/getting-started/DEVELOPMENT_JOURNEY.md)
+- [Technical Specifications](docs/development/TECHNICAL_PROMPTS.md)
+- [Deployment Guide](docs/deployment/PROMPTS.md)
+- [Architecture & Design](docs/architecture/)
+- [Security Documentation](docs/security/)
+- [Testing Guide](tests/README.md)
 
 ## 🛠️ Development
 
 ### Project Structure
 
 ```
-StayFitHQ/
-├── src/                 # Source code
-├── docs/               # Documentation
-├── scripts/            # Build and deployment scripts
-├── tests/              # Test files
-├── infrastructure/     # AWS infrastructure code
-└── config/            # Configuration files
+stayfithq-development/
+├── README.md                    # Project overview
+├── OPTIMIZATION_PLAN.md         # Repository optimization details
+├── package.json                 # Dependencies and scripts
+│
+├── config/                      # Configuration files
+│   ├── .env.template           # Environment variables template
+│   ├── aws/                    # AWS-specific configs
+│   └── mcp/                    # MCP server configs
+│
+├── docs/                        # Documentation
+│   ├── getting-started/        # Setup and installation guides
+│   ├── development/            # Development guides and prompts
+│   ├── deployment/             # Deployment guides
+│   ├── architecture/           # Architecture and design docs
+│   ├── security/               # Security documentation
+│   ├── testing/                # Testing guides
+│   └── api/                    # API documentation
+│
+├── infrastructure/              # Infrastructure as Code
+│   ├── terraform/              # Terraform configurations
+│   ├── cloudformation/         # CloudFormation templates
+│   └── lambda/                 # Lambda function code
+│
+├── scripts/                     # Utility scripts
+│   ├── deployment/             # Deployment automation
+│   ├── setup/                  # Setup and configuration
+│   └── maintenance/            # Maintenance and optimization
+│
+├── src/                         # Application source code
+│   ├── web/                    # Frontend application
+│   │   ├── pages/              # HTML pages
+│   │   ├── css/                # Stylesheets
+│   │   ├── js/                 # JavaScript modules
+│   │   └── components/         # Reusable components
+│   │
+│   ├── server/                 # Backend server
+│   │   ├── index.js            # Main server entry
+│   │   └── middleware/         # Express middleware
+│   │
+│   ├── mcp/                    # Model Context Protocol server
+│   ├── ai/                     # AI/ML services (Bedrock, etc.)
+│   ├── aws/                    # AWS service integrations
+│   ├── shared/                 # Shared utilities
+│   │   ├── processors/         # Data processors
+│   │   └── integration/        # Integration services
+│   │
+│   ├── compliance/             # HIPAA and compliance
+│   ├── security/               # Security frameworks
+│   └── standards/              # Healthcare standards (FHIR, OpenEHR)
+│
+└── tests/                       # Test suites
+    ├── unit/                   # Unit tests
+    ├── integration/            # Integration tests
+    └── README.md               # Testing documentation
 ```
 
 ### Available Scripts
@@ -125,7 +175,7 @@ The application is designed for AWS cloud deployment with:
 - **S3 + CloudFront** for static assets
 - **API Gateway** for API management
 
-See [Deployment Guide](DEPLOYMENT_PROMPTS.md) for detailed instructions.
+See [Deployment Guide](docs/deployment/PROMPTS.md) for detailed instructions.
 
 ### Local Development
 
@@ -161,9 +211,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 For support and questions:
 
-- Create an [Issue](https://github.com/schinchli/StayFitHQ/issues)
+- Create an [Issue](https://github.com/schinchli/stayfithq-development/issues)
 - Check the [Documentation](docs/)
-- Review [Installation Guide](INSTALLATION.md)
+- Review [Installation Guide](docs/getting-started/INSTALLATION.md)
 
 ## 🎯 Roadmap
 

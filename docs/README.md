@@ -1,156 +1,111 @@
-# StayFit Health Companion - Documentation Index
+# StayFitHQ Documentation
 
-## 📋 **Core Project Files** (Root Directory)
+Welcome to the StayFitHQ documentation. This directory contains comprehensive guides for development, deployment, and architecture.
 
-| File | Description |
-|------|-------------|
-| **README.md** | Main project overview and getting started guide |
-| **requirements.md** | Complete project requirements and specifications |
-| **design.md** | System architecture and design documentation |
-| **tasks.md** | Project tasks, phases, and implementation tracking |
-| **test-plan.md** | Comprehensive testing strategy and test cases |
-| **ally.md** | Accessibility implementation and compliance guide |
+## 📖 Documentation Structure
 
----
+### Getting Started
+- [Installation Guide](getting-started/INSTALLATION.md) - Setup and installation instructions
+- [Development Journey](getting-started/DEVELOPMENT_JOURNEY.md) - Project development history and milestones
 
-## 📁 **Organized Documentation Structure**
+### Development
+- [Development Prompts](development/PROMPTS.md) - Development guidelines and prompts
+- [Technical Prompts](development/TECHNICAL_PROMPTS.md) - Technical specifications and requirements
+- [Tasks](development/TASKS.md) - Current and planned tasks
+- [Requirements](development/REQUIREMENTS.md) - Project requirements
 
-### 🏗️ **Implementation** (`docs/implementation/`)
+### Architecture
+- [Design](architecture/DESIGN.md) - System design and architecture
+- [Accessibility](architecture/ACCESSIBILITY.md) - Accessibility implementation
+- [Features](architecture/FEATURES.md) - Feature documentation
+- [API Documentation](architecture/API_DOCUMENTATION.md) - API specifications
+- [Well-Architected Analysis](architecture/AWS_WELL_ARCHITECTED_ANALYSIS.md) - AWS best practices
 
-**Session & Authentication:**
-- `30_MINUTE_SESSION_IMPLEMENTATION.md` - Complete 30-minute session system
-- `COGNITO_HOSTED_UI_IMPLEMENTATION.md` - Single sign-on implementation
-- `COGNITO_UNIVERSAL_PROTECTION_IMPLEMENTATION.md` - Universal auth protection
+### Deployment
+- [Deployment Prompts](deployment/PROMPTS.md) - Deployment guidelines
+- [Deployment Guide](deployment/DEPLOYMENT_GUIDE.md) - Step-by-step deployment
+- [CloudFront Test Results](deployment/CLOUDFRONT_TEST_RESULTS.md) - CDN testing results
+- [GitHub Setup](deployment/GITHUB_SETUP.md) - GitHub configuration
+- [Phase 1-3 Completion](deployment/PHASE_1_3_COMPLETION.md) - Project milestones
 
-**UI & UX Implementations:**
-- `HEALTHCARE_FOOTER_IMPLEMENTATION.md` - Professional healthcare footer
-- `SETTINGS_PERSISTENCE_IMPLEMENTED.md` - Settings persistence system
-- `ENHANCED_SETTINGS_RESTORED.md` - Enhanced settings functionality
-- `PROFILE_SETTINGS_IMPLEMENTATION.md` - User profile management
+### Security
+- [Security Verification Report](security/VERIFICATION_REPORT.md) - Security audit results
+- [Threat Model](security/threat-model.md) - Security threat analysis
+- [WAF Implementation](security/WAF_OWASP_IMPLEMENTATION.md) - Web Application Firewall setup
+- [Cognito Authentication](security/COGNITO_AUTHENTICATION_IMPLEMENTATION.md) - Authentication setup
+- [Enterprise Security](security/ENTERPRISE_SECURITY_IMPLEMENTATION.md) - Enterprise security features
 
-**Page & Feature Updates:**
-- `IMPORT_PAGE_STANDARDIZATION.md` - Health data import integration
-- `URL_MIGRATION_SUMMARY.md` - Cross-distribution migration
-- `ENHANCED_FEATURES.md` - Platform feature enhancements
+### Testing
+- [Testing Guide](testing/TESTING_GUIDE.md) - Testing overview
+- [Testing Results](testing/TESTING_RESULTS.md) - Test execution results
+- [Comprehensive Testing](testing/TESTING_COMPREHENSIVE.md) - Detailed testing documentation
 
-**Bug Fixes & Improvements:**
-- `SAVE_VALIDATION_FIX.md` - Form validation improvements
-- `GREEN_VALIDATION_REMOVED.md` - Validation system cleanup
-- `ALL_GREEN_VALIDATION_REMOVED.md` - Complete validation overhaul
+### Implementation
+- [Healthcare Footer](implementation/HEALTHCARE_FOOTER_IMPLEMENTATION.md) - Footer implementation
+- [30-Minute Sessions](implementation/30_MINUTE_SESSION_IMPLEMENTATION.md) - Session management
+- [Settings Persistence](implementation/SETTINGS_PERSISTENCE_IMPLEMENTED.md) - Settings storage
+- [Enhanced Features](implementation/ENHANCED_FEATURES.md) - Advanced features
 
-**Styling & Design:**
-- `FOOTER_STYLING_UPDATE.md` - Footer design improvements
-- `FOOTER_UPDATE_SUMMARY.md` - Footer update summary
-- `FINAL_FOOTER_UPDATE.md` - Final footer implementation
-- `FOOTER_DARK_THEME_UPDATE.md` - Dark theme footer support
+### Observability
+- [Observability Guide](observability/README.md) - Monitoring and logging
 
-### 🧪 **Testing** (`docs/testing/`)
+### API
+- [API Overview](api/README.md) - API documentation
 
-- `TESTING_COMPREHENSIVE.md` - Complete testing framework and results
-- `TESTING_RESULTS.md` - Detailed test execution results
-- `TESTING_GUIDE.md` - Testing procedures and guidelines
+## 🚀 Quick Links
 
-### 🔒 **Security** (`docs/security/`)
+### For New Developers
+1. Start with [Installation Guide](getting-started/INSTALLATION.md)
+2. Review [Development Journey](getting-started/DEVELOPMENT_JOURNEY.md)
+3. Check [Requirements](development/REQUIREMENTS.md)
+4. Explore [Architecture](architecture/DESIGN.md)
 
-**Enterprise Security:**
-- `ENTERPRISE_SECURITY_IMPLEMENTATION.md` - Multi-layer security system
-- `SECURITY_SCAN_ANALYSIS.md` - Security vulnerability analysis
-- `threat-model.md` - Comprehensive threat modeling
+### For DevOps Engineers
+1. Review [Deployment Guide](deployment/DEPLOYMENT_GUIDE.md)
+2. Check [Security Documentation](security/)
+3. Review [Infrastructure](../infrastructure/)
+4. Explore [Testing Guide](testing/TESTING_GUIDE.md)
 
-**Web Application Firewall:**
-- `WAF_OWASP_IMPLEMENTATION.md` - OWASP Top 10 protection
-- `WAF_DEPLOYMENT_STATUS.md` - WAF deployment tracking
-- `WAF_LOCATION_GUIDE.md` - WAF configuration guide
-- `WAF_MANUAL_ASSOCIATION_GUIDE.md` - Manual WAF setup
-- `WAF_REGION_FIX_GUIDE.md` - Regional WAF configuration
+### For Security Auditors
+1. Start with [Security Verification Report](security/VERIFICATION_REPORT.md)
+2. Review [Threat Model](security/threat-model.md)
+3. Check [WAF Implementation](security/WAF_OWASP_IMPLEMENTATION.md)
+4. Review [Compliance](../src/compliance/)
 
-**Authentication Security:**
-- `COGNITO_AUTHENTICATION_IMPLEMENTATION.md` - Secure authentication setup
-
-### 🚀 **Deployment** (`docs/deployment/`)
-
-**Production Deployment:**
-- `DEPLOYMENT_GUIDE.md` - Complete deployment procedures
-- `PRODUCTION_MCP_STATUS.md` - Production MCP server status
-- `ASSOCIATION_AND_TESTING_STATUS.md` - Deployment testing results
-
-**Status & Monitoring:**
-- `PROJECT_STATUS_FINAL.md` - Final project status report
-- `CURRENT_STATUS.md` - Current implementation status
-- `WEBSITE_STATUS_REPORT.md` - Website health and performance
-- `CLOUDFRONT_TEST_RESULTS.md` - CDN performance testing
-
-**Migration & Upgrades:**
-- `AWS_SDK_V3_MIGRATION.md` - AWS SDK modernization
-- `BEDROCK_UPGRADE_GUIDE.md` - AI service upgrades
-- `AWS_CLEANUP_REPORT.md` - Resource optimization
-- `PHASE_1_3_COMPLETION.md` - Project phase completion
-- `GITHUB_SETUP.md` - Repository setup and configuration
-
-### 🏛️ **Architecture** (`docs/architecture/`)
-
-**System Architecture:**
-- `AWS_WELL_ARCHITECTED_ANALYSIS.md` - AWS Well-Architected Framework analysis (98% score)
-- `FEATURES.md` - Complete feature architecture
-- `API_DOCUMENTATION.md` - API design and endpoints
-
-**Compliance & Standards:**
-- `ACCESSIBILITY_IMPLEMENTATION.md` - WCAG 2.1 AA compliance
-- `REFERENCE_ANALYSIS_REQUEST.md` - Architecture analysis requests
-- `TASKS_REQUIREMENTS_UPDATE.md` - Requirements evolution tracking
-
----
-
-## 🎯 **Quick Navigation**
-
-### **For Developers:**
-1. Start with `README.md` for project overview
-2. Review `requirements.md` for specifications
-3. Check `design.md` for architecture
-4. Follow `docs/implementation/` for feature details
-
-### **For DevOps/Deployment:**
-1. Review `docs/deployment/DEPLOYMENT_GUIDE.md`
-2. Check `docs/security/` for security configurations
-3. Monitor with `docs/deployment/PROJECT_STATUS_FINAL.md`
-
-### **For Testing:**
-1. Follow `test-plan.md` for testing strategy
-2. Use `docs/testing/TESTING_COMPREHENSIVE.md` for detailed tests
-3. Review results in `docs/testing/TESTING_RESULTS.md`
-
-### **For Security Review:**
-1. Start with `docs/security/ENTERPRISE_SECURITY_IMPLEMENTATION.md`
-2. Review `docs/security/threat-model.md`
-3. Check WAF implementation in `docs/security/WAF_*` files
-
-### **For Architecture Review:**
-1. Review `docs/architecture/AWS_WELL_ARCHITECTED_ANALYSIS.md`
-2. Check `design.md` for system design
-3. Review `docs/architecture/FEATURES.md` for capabilities
-
----
-
-## 📊 **Documentation Statistics**
+## 📊 Documentation Statistics
 
 - **Total Documentation Files**: 45+ files
-- **Core Project Files**: 6 files (root)
+- **Core Guides**: 6 main guides
 - **Implementation Guides**: 15 files
 - **Security Documentation**: 7 files
-- **Deployment Guides**: 11 files
+- **Deployment Guides**: 8 files
 - **Architecture Documentation**: 6 files
 - **Testing Documentation**: 3 files
 
----
+## 🏥 Healthcare Platform Status
 
-## 🏥 **Healthcare Platform Status**
-
-**✅ Production Ready**: All documentation reflects live, production-deployed features
-**✅ HIPAA Compliant**: Security and compliance documentation complete
-**✅ Enterprise Grade**: AWS Well-Architected Framework 98% compliance
+**✅ Production Ready**: All documentation reflects live, production-deployed features  
+**✅ HIPAA Compliant**: Security and compliance documentation complete  
+**✅ Enterprise Grade**: AWS Well-Architected Framework 98% compliance  
 **✅ Fully Tested**: Comprehensive testing documentation and results
 
+## 📝 Contributing to Documentation
+
+When adding new documentation:
+1. Place files in the appropriate subdirectory
+2. Update this index
+3. Use clear, descriptive filenames
+4. Follow existing markdown formatting
+5. Include code examples where relevant
+
+## 🔗 External Resources
+
+- [AWS Documentation](https://docs.aws.amazon.com/)
+- [HIPAA Compliance](https://www.hhs.gov/hipaa/)
+- [FHIR Standards](https://www.hl7.org/fhir/)
+- [OpenEHR](https://www.openehr.org/)
+
 ---
 
-*Documentation organized and maintained by Shashank Chinchli, Solutions Architect, AWS*
-*Last updated: July 1, 2025*
+**Last Updated**: January 2026  
+*Maintained by Shashank Chinchli, Solutions Architect, AWS*
