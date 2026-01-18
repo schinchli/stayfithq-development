@@ -110,8 +110,6 @@ Watch the complete walkthrough and demo: [StayFitHQ Demo Video](https://youtu.be
 
 ## 🚀 Quick Start
 
-### Live Demo
-**URL**: https://d28c6zfvylwdaa.cloudfront.net
 **Demo Video**: [Watch on YouTube](https://youtu.be/_rz4r74LxW4)
 
 ### Get Started in 15 Minutes
