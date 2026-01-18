@@ -8,6 +8,10 @@
 
 StayFitHQ is a comprehensive health and fitness dashboard application built with modern web technologies and designed for AWS cloud deployment. The application provides users with tools to track their health metrics, fitness goals, and wellness journey.
 
+## 🎥 Demo
+
+Watch the complete walkthrough and demo: [StayFitHQ Demo Video](https://youtu.be/_rz4r74LxW4)
+
 ## ✨ Features
 
 - **📊 Health Dashboard** - Comprehensive health metrics tracking
