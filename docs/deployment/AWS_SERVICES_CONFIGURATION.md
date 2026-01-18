@@ -6,68 +6,181 @@ This guide shows you where and how to configure AWS services to make StayFitHQ f
 
 ---
 
-## 1. Amazon Cognito (Authentication)
+## 1. Amazon Cognito (Authentication) - REQUIRED
 
-### Setup Location
-**File**: `src/web/js/cognito-auth-universal.js`
+### Why You Need This
+Cognito provides user authentication and authorization for the application. Without it, users cannot log in.
 
-### Configuration
-```javascript
-// Lines 8-11
-const userPoolId = '';  // Add your User Pool ID
-const clientId = '';    // Add your App Client ID
-const cognitoDomain = ''; // Add your Cognito domain
-const clientSecret = ''; // Add your App Client Secret (if using)
-```
+### Setup Steps
 
-### How to Get Values:
-1. Go to AWS Console → Amazon Cognito
-2. Create a User Pool or use existing one
-3. **User Pool ID**: Found in User Pool settings
-4. **App Client ID**: User Pool → App Integration → App clients
-5. **Cognito Domain**: User Pool → App Integration → Domain name
-6. **Client Secret**: App client settings (if enabled)
-
-### Create User Pool:
+#### Step 1: Create User Pool
 ```bash
+# Create the user pool
 aws cognito-idp create-user-pool \
   --pool-name stayfithq-users \
   --auto-verified-attributes email \
-  --policies "PasswordPolicy={MinimumLength=8,RequireUppercase=true,RequireLowercase=true,RequireNumbers=true}"
+  --policies '{
+    "PasswordPolicy": {
+      "MinimumLength": 8,
+      "RequireUppercase": true,
+      "RequireLowercase": true,
+      "RequireNumbers": true,
+      "RequireSymbols": false
+    }
+  }' \
+  --region us-east-1 \
+  --query 'UserPool.Id' \
+  --output text
 ```
+
+Save the output - this is your **User Pool ID** (e.g., `us-east-1_XXXXXXXXX`)
+
+#### Step 2: Create App Client
+```bash
+# Replace YOUR_USER_POOL_ID with the ID from Step 1
+aws cognito-idp create-user-pool-client \
+  --user-pool-id YOUR_USER_POOL_ID \
+  --client-name stayfithq-web-client \
+  --generate-secret \
+  --explicit-auth-flows ALLOW_USER_PASSWORD_AUTH ALLOW_REFRESH_TOKEN_AUTH \
+  --region us-east-1
+```
+
+Save these values:
+- **ClientId** (e.g., `1a2b3c4d5e6f7g8h9i0j`)
+- **ClientSecret** (e.g., `abcdef123456...`)
+
+#### Step 3: Create Cognito Domain
+```bash
+# Replace YOUR_USER_POOL_ID with your User Pool ID
+aws cognito-idp create-user-pool-domain \
+  --domain stayfithq-$(date +%s) \
+  --user-pool-id YOUR_USER_POOL_ID \
+  --region us-east-1
+```
+
+Your domain will be: `stayfithq-TIMESTAMP.auth.us-east-1.amazoncognito.com`
+
+#### Step 4: Configure Application
+
+**File**: `src/web/js/cognito-auth-universal.js`
+
+Update lines 8-12:
+```javascript
+const userPoolId = 'us-east-1_XXXXXXXXX';  // From Step 1
+const clientId = '1a2b3c4d5e6f7g8h9i0j';   // From Step 2
+const cognitoDomain = 'stayfithq-TIMESTAMP.auth.us-east-1.amazoncognito.com'; // From Step 3
+const clientSecret = 'abcdef123456...';     // From Step 2
+```
+
+**File**: `src/web/js/config.js`
+
+Update lines 25-30:
+```javascript
+cognito: {
+    region: 'us-east-1',
+    userPoolId: 'us-east-1_XXXXXXXXX',
+    clientId: '1a2b3c4d5e6f7g8h9i0j',
+    clientSecret: 'abcdef123456...',
+    cognitoDomain: 'stayfithq-TIMESTAMP.auth.us-east-1.amazoncognito.com'
+}
+```
+
+#### Step 5: Create Test User
+```bash
+# Create a test user
+aws cognito-idp admin-create-user \
+  --user-pool-id YOUR_USER_POOL_ID \
+  --username testuser@example.com \
+  --user-attributes Name=email,Value=testuser@example.com Name=email_verified,Value=true \
+  --temporary-password TempPass123! \
+  --region us-east-1
+
+# Set permanent password
+aws cognito-idp admin-set-user-password \
+  --user-pool-id YOUR_USER_POOL_ID \
+  --username testuser@example.com \
+  --password YourPassword123! \
+  --permanent \
+  --region us-east-1
+```
+
+#### Step 6: Deploy Updated Files
+```bash
+# Upload updated configuration files
+aws s3 cp src/web/js/cognito-auth-universal.js s3://YOUR_BUCKET/js/
+aws s3 cp src/web/js/config.js s3://YOUR_BUCKET/js/
+
+# Invalidate CloudFront cache
+aws cloudfront create-invalidation \
+  --distribution-id YOUR_DISTRIBUTION_ID \
+  --paths "/js/*"
+```
+
+### Testing
+1. Go to your CloudFront URL
+2. Click login
+3. Use the credentials you created in Step 5
+4. You should be redirected to the dashboard
 
 ---
 
-## 2. Amazon Bedrock (AI Health Analysis)
+## 2. Amazon Bedrock (AI Health Analysis) - OPTIONAL
 
-### Setup Location
-**File**: `src/ai/bedrock-health-analyzer.js`
+### Why You Need This
+Bedrock powers AI-driven health insights and analysis. The app works without it, but AI features will be disabled.
 
-### Configuration
-```javascript
-// Lines 10-12
-const BEDROCK_REGION = 'us-east-1'; // Your preferred region
-const MODEL_ID = 'anthropic.claude-3-sonnet-20240229-v1:0'; // Model to use
+### Setup Steps
+
+#### Step 1: Enable Bedrock Model Access
+```bash
+# Check available models
+aws bedrock list-foundation-models \
+  --region us-east-1 \
+  --query 'modelSummaries[?contains(modelId, `claude`)].modelId'
 ```
 
-### Enable Bedrock:
+#### Step 2: Request Model Access (Console Required)
 1. Go to AWS Console → Amazon Bedrock
-2. Navigate to "Model access"
-3. Request access to Claude models
-4. Wait for approval (usually instant)
+2. Click "Model access" in left sidebar
+3. Click "Manage model access"
+4. Select "Claude 3 Sonnet"
+5. Click "Request model access"
+6. Wait for approval (usually instant)
 
-### Test Bedrock Access:
+#### Step 3: Configure Application
+
+**File**: `src/ai/bedrock-health-analyzer.js`
+
+Update lines 10-12:
+```javascript
+const BEDROCK_REGION = 'us-east-1';
+const MODEL_ID = 'anthropic.claude-3-sonnet-20240229-v1:0';
+```
+
+**File**: `src/aws/bedrock-service-v3.js`
+
+Update lines 8-10:
+```javascript
+const BEDROCK_REGION = 'us-east-1';
+const MODEL_ID = 'anthropic.claude-3-sonnet-20240229-v1:0';
+```
+
+#### Step 4: Test Bedrock Access
 ```bash
 aws bedrock-runtime invoke-model \
   --model-id anthropic.claude-3-sonnet-20240229-v1:0 \
-  --body '{"prompt":"Hello","max_tokens":100}' \
+  --body '{"anthropic_version":"bedrock-2023-05-31","max_tokens":100,"messages":[{"role":"user","content":"Hello"}]}' \
   --region us-east-1 \
   output.json
+
+cat output.json
 ```
 
-### Alternative File Locations:
-- `src/aws/bedrock-service-v3.js` - Bedrock service wrapper
-- `infrastructure/lambda/bedrock-health-assistant.py` - Lambda function
+### Cost Estimate
+- ~$0.003 per 1K input tokens
+- ~$0.015 per 1K output tokens
+- Typical health analysis: $0.01-0.05 per query
 
 ---
 

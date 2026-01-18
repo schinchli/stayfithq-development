@@ -23,29 +23,39 @@ Watch the complete walkthrough and demo: [StayFitHQ Demo Video](https://youtu.be
 
 ## 🚀 Quick Start
 
+### Live Demo
+**URL**: https://d28c6zfvylwdaa.cloudfront.net
+**Demo Video**: [Watch on YouTube](https://youtu.be/_rz4r74LxW4)
+
+### Get Started in 15 Minutes
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/schinchli/stayfithq-development.git
+   cd stayfithq-development
+   ```
+
+2. **Setup AWS Cognito** (Required for authentication)
+   ```bash
+   # See docs/QUICK_START.md for complete setup script
+   ```
+
+3. **Configure the application**
+   - Update `src/web/js/cognito-auth-universal.js` with your Cognito details
+   - Update `src/web/js/config.js` with your AWS resources
+
+4. **Deploy to your S3 bucket**
+   ```bash
+   aws s3 sync src/web/ s3://YOUR_BUCKET/ --exclude "pages/*"
+   ```
+
+**Full Guide**: [Quick Start Guide](docs/QUICK_START.md)
+
 ### Prerequisites
 
-- Node.js 18+ 
-- npm or yarn
-- AWS CLI (for deployment)
-
-### Installation
-
-```bash
-# Clone the repository
-git clone https://github.com/schinchli/stayfithq-development.git
-cd stayfithq-development
-
-# Install dependencies
-npm install
-
-# Set up environment variables
-cp config/.env.template config/.env
-# Edit config/.env with your configuration
-
-# Start development server
-npm start
-```
+- AWS Account with CLI configured
+- Basic AWS knowledge
+- Node.js 18+ (optional, for local development)
 
 ### Environment Variables
 
@@ -87,16 +97,24 @@ Comprehensive AWS architecture diagrams are available in:
 
 ## 📚 Documentation
 
-- [Installation Guide](docs/getting-started/INSTALLATION.md)
-- [Development Journey](docs/getting-started/DEVELOPMENT_JOURNEY.md)
-- [Technical Specifications](docs/development/TECHNICAL_PROMPTS.md)
-- [Deployment Guide](docs/deployment/PROMPTS.md)
-- [Deployment Success Report](docs/deployment/DEPLOYMENT_SUCCESS.md)
-- [Architecture & Design](docs/architecture/)
-- [Security Documentation](docs/security/)
-- [Security Scan Report](docs/security/SECURITY_SCAN_REPORT.md)
-- [Testing Guide](tests/README.md)
-- [Optimization Summary](docs/OPTIMIZATION_SUMMARY.md)
+### Getting Started
+- **[Quick Start Guide](docs/QUICK_START.md)** - Get running in 15 minutes
+- [Installation Guide](docs/getting-started/INSTALLATION.md) - Detailed setup
+- [Development Journey](docs/getting-started/DEVELOPMENT_JOURNEY.md) - Project history
+
+### Configuration
+- **[AWS Services Setup](docs/deployment/AWS_SERVICES_CONFIGURATION.md)** - Configure Cognito, Bedrock, DynamoDB
+- [Deployment Guide](docs/deployment/DEPLOYMENT_GUIDE.md) - Production deployment
+- [Technical Specifications](docs/development/TECHNICAL_PROMPTS.md) - Technical details
+
+### Architecture & Security
+- [Architecture & Design](docs/architecture/) - System design
+- [Security Documentation](docs/security/) - Security implementation
+- [Security Scan Report](docs/security/SECURITY_SCAN_REPORT.md) - Latest scan
+
+### Additional Resources
+- [Testing Guide](tests/README.md) - Testing documentation
+- [Optimization Summary](docs/OPTIMIZATION_SUMMARY.md) - Repository optimization
 
 ## 🛠️ Development
 
